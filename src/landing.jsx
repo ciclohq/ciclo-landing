@@ -105,9 +105,9 @@
 
   /* Per-module photos (Unsplash, all desaturated + cobalt-tinted via CSS) */
   const MODULE_PHOTOS = [
-    { src: 'https://images.unsplash.com/photo-1604335398980-ededcadcc37d', alt: 'Multi-sucursal — fila de lavadoras' },
-    { src: 'https://images.unsplash.com/photo-1635274605638-d44babc08a4f', alt: 'Punto de venta — prendas dobladas' },
-    { src: 'https://images.unsplash.com/photo-1770927423939-bae721171237', alt: 'A domicilio — repartidores en moto, calle mojada' },
+    { src: 'https://images.unsplash.com/photo-1635274605638-d44babc08a4f', alt: 'WhatsApp — ropa doblada lista en el mostrador' },
+    { src: 'https://images.unsplash.com/photo-1604335398980-ededcadcc37d', alt: 'Tablero en tienda — fila de lavadoras' },
+    { src: 'https://images.unsplash.com/photo-1770927423939-bae721171237', alt: 'App de repartidores — repartidor en moto, calle mojada' },
     { src: 'https://images.unsplash.com/photo-1567113463300-102a7eb3cb26', alt: 'Marketing — prendas en perchero' },
   ];
   const photoUrl = (src, w) => `${src}?auto=format&fit=crop&w=${w}&q=85`;
