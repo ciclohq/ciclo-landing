@@ -140,7 +140,7 @@ window.I18N = {
         },
         {
           q: '¿Cómo pagan los clientes?',
-          a: 'Por el mismo WhatsApp: les envías el total y un link de pago, o cobran en efectivo o terminal al entregar. Todo queda registrado en la orden.',
+          a: 'Por el mismo WhatsApp: les envías el total y un link de pago, o cobran en efectivo o con tarjeta al entregar. Todo queda registrado en la orden.',
         },
         {
           q: '¿Funciona para tintorería y no solo para lavandería?',
