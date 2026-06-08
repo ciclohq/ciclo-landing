@@ -238,6 +238,38 @@
   .hero-chat { position: static; width: 100%; margin-top: 16px; }
 }
 
+/* ---------- How it works — order-journey strip ---------- */
+
+.journey {
+  list-style: none; margin: 56px 0 0; padding: 0;
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+@media (min-width: 760px) { .journey { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+.journey-step {
+  position: relative;
+  padding: 24px 20px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-tile);
+}
+.journey-num {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
+  color: var(--brand); font-weight: 500;
+}
+.journey-name {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 19px; line-height: 1.15; letter-spacing: -0.02em;
+  color: var(--ink); margin: 14px 0 8px;
+}
+.journey-text { font-size: 14.5px; line-height: 1.5; color: var(--body); margin: 0; }
+@media (min-width: 760px) {
+  .journey-step:not(:last-child)::after {
+    content: '→';
+    position: absolute; top: 50%; right: -17px; transform: translateY(-50%);
+    color: var(--brand); font-family: var(--font-mono); font-size: 16px;
+  }
+}
+
 /* ---------- Modules — clickable cards + detail panel ---------- */
 
 .module-cards {

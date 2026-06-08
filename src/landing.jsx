@@ -77,6 +77,30 @@
     </div>
   );
 
+  /* ---------- How it works — order journey ---------- */
+
+  const HowItWorks = ({ t }) => (
+    <section id="how" className="section surface-tint-bg" data-bg="tint">
+      <div className="container">
+        <Mono className="eyebrow">{t.how.eyebrow}</Mono>
+        <h2 className="h2">
+          {t.how.h_a}
+          <span className="lighter">{t.how.h_accent}</span>
+        </h2>
+        <p className="lede">{t.how.sub}</p>
+        <ol className="journey">
+          {t.how.steps.map((s, i) => (
+            <li key={i} className="journey-step">
+              <span className="journey-num">{s.num}</span>
+              <h3 className="journey-name">{s.name}</h3>
+              <p className="journey-text">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+
   /* ---------- Modules ---------- */
 
   /* Per-module photos (Unsplash, all desaturated + cobalt-tinted via CSS) */
@@ -485,6 +509,7 @@
       <>
         <Nav t={t} navBg={navBg} />
         <Hero t={t} />
+        <HowItWorks t={t} />
         <Modules t={t} />
         <Integrations t={t} />
         <Pricing t={t} />

@@ -26,6 +26,20 @@ window.I18N = {
       cta_ghost:   'Cómo funciona',
     },
 
+    /* --- How it works — the order journey --- */
+    how: {
+      eyebrow: 'CÓMO FUNCIONA',
+      h_a: 'Una orden,',
+      h_accent: ' de principio a fin.',
+      sub: 'Desde el primer mensaje hasta que el cliente vuelve.',
+      steps: [
+        { num: '01', name: 'El cliente escribe por WhatsApp', text: 'Pide, cotiza y agenda su recolección sin instalar ninguna app.' },
+        { num: '02', name: 'La tienda gestiona la orden',      text: 'Cada pedido entra al tablero con su estado: nueva, en ruta, lista, entregada.' },
+        { num: '03', name: 'El repartidor sigue su ruta',      text: 'Las paradas del día, en orden, con confirmación de recolección y entrega.' },
+        { num: '04', name: 'Marketing los trae de vuelta',     text: 'Promociones y recordatorios por WhatsApp para los clientes que dejaron de venir.' },
+      ],
+    },
+
     /* --- Modules — 4 named pillars --- */
     features: {
       eyebrow: 'MÓDULOS · CICLO',
@@ -260,6 +274,19 @@ window.I18N = {
       sub: 'One WhatsApp number to take, charge, and deliver every order.',
       cta_primary: 'Book a demo',
       cta_ghost:   'How it works',
+    },
+
+    how: {
+      eyebrow: 'HOW IT WORKS',
+      h_a: 'One order,',
+      h_accent: ' end to end.',
+      sub: 'From the first message to the customer coming back.',
+      steps: [
+        { num: '01', name: 'The customer messages on WhatsApp', text: 'They order, get a quote, and book a pickup — no app to install.' },
+        { num: '02', name: 'The store manages the order',        text: 'Every order lands on the board with its status: new, en route, ready, delivered.' },
+        { num: '03', name: 'The driver follows the route',       text: 'The day’s stops, in order, with pickup and delivery confirmation.' },
+        { num: '04', name: 'Marketing brings them back',         text: 'WhatsApp promos and reminders for the customers who stopped coming.' },
+      ],
     },
 
     features: {
