@@ -159,36 +159,37 @@ window.I18N = {
 
     /* --- CTA closer --- */
     cta_block: {
-      h_a: 'Empieza ',
-      h_accent: 'mañana',
-      h_b: '. Tu primera venta es ',
-      h_em: 'esta tarde',
+      h_a: 'Pon tu lavandería ',
+      h_accent: 'a domicilio',
+      h_b: ' esta ',
+      h_em: 'semana',
       h_d: '.',
-      sub: 'Crea tu cuenta gratis. Sin tarjeta, sin instalación, sin permanencia.',
-      primary: 'Comenzar gratis',
-      ghost:   'Hablar con un asesor',
+      sub: 'Agenda una demo de 20 minutos y te mostramos cómo se ve tu operación en Ciclo.',
+      primary: 'Agenda una demo',
+      ghost:   'Habla con nosotros',
     },
 
     /* --- Footer --- */
     footer: {
-      tag_a: 'El sistema operativo para la',
-      tag_em: ' lavandería moderna',
-      tag_b: ' en LatAm.',
+      tag_a: 'Tu lavandería y tintorería,',
+      tag_em: ' a domicilio',
+      tag_b: '.',
       cols: [
         {
           h: 'Producto',
           links: [
-            { label: 'Módulos',       href: '#modules' },
-            { label: 'Integraciones', href: '#integrations' },
-            { label: 'Precios',       href: '#pricing' },
-            { label: 'Preguntas',     href: '#faq' },
+            { label: 'WhatsApp',          href: '#modules' },
+            { label: 'Tablero en tienda', href: '#modules' },
+            { label: 'Repartidores',      href: '#modules' },
+            { label: 'Marketing',         href: '#modules' },
           ],
         },
         {
           h: 'Empresa',
           links: [
+            { label: 'Cómo funciona',            href: '#how' },
+            { label: 'Agenda una demo',          href: 'mailto:hola@ciclo.mx?subject=Demo%20Ciclo' },
             { label: 'Contacto · hola@ciclo.mx', href: 'mailto:hola@ciclo.mx' },
-            { label: 'WhatsApp',                 href: '#' },
           ],
         },
         {
@@ -200,7 +201,7 @@ window.I18N = {
         },
       ],
       base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
-      base_right: 'OPERANDO EN LATAM',
+      base_right: 'OPERANDO EN MÉXICO',
     },
 
     /* --- Tweaks panel --- */
@@ -338,30 +339,31 @@ window.I18N = {
     },
 
     cta_block: {
-      h_a: 'Start ',
-      h_accent: 'tomorrow',
-      h_b: '. Your first sale is ',
-      h_em: 'this afternoon',
+      h_a: 'Put your laundromat ',
+      h_accent: 'on delivery',
+      h_b: ' this ',
+      h_em: 'week',
       h_d: '.',
-      sub: 'Create your account free. No card, no install, no commitment.',
-      primary: 'Start free',
-      ghost:   'Talk to an advisor',
+      sub: 'Book a 20-minute demo and we’ll show you what your operation looks like in Ciclo.',
+      primary: 'Book a demo',
+      ghost:   'Talk to us',
     },
 
     footer: {
-      tag_a: 'The operating system for the',
-      tag_em: ' modern laundromat',
-      tag_b: ' in LatAm.',
+      tag_a: 'Your laundromat and dry cleaner,',
+      tag_em: ' delivered',
+      tag_b: '.',
       cols: [
         { h: 'Product', links: [
-          { label: 'Modules',      href: '#modules' },
-          { label: 'Integrations', href: '#integrations' },
-          { label: 'Pricing',      href: '#pricing' },
-          { label: 'FAQ',          href: '#faq' },
+          { label: 'WhatsApp',       href: '#modules' },
+          { label: 'In-store board', href: '#modules' },
+          { label: 'Drivers',        href: '#modules' },
+          { label: 'Marketing',      href: '#modules' },
         ] },
         { h: 'Company', links: [
+          { label: 'How it works',            href: '#how' },
+          { label: 'Book a demo',             href: 'mailto:hola@ciclo.mx?subject=Demo%20Ciclo' },
           { label: 'Contact · hola@ciclo.mx', href: 'mailto:hola@ciclo.mx' },
-          { label: 'WhatsApp',                href: '#' },
         ] },
         { h: 'Legal', links: [
           { label: 'Terms',   href: '/legal/terminos.html' },
@@ -369,7 +371,7 @@ window.I18N = {
         ] },
       ],
       base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
-      base_right: 'OPERATING IN LATAM',
+      base_right: 'OPERATING IN MEXICO',
     },
 
     tweaks: {
