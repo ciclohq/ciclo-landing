@@ -185,7 +185,7 @@
   /* ---------- Audience — laundromats & dry cleaners ---------- */
 
   const Audience = ({ t }) => (
-    <section className="section surface-cream-bg" data-bg="cream">
+    <section id="audience" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
         <Mono className="eyebrow">{t.audience.eyebrow}</Mono>
         <h2 className="h2">
