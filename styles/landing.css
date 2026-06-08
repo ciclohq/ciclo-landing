@@ -161,6 +161,7 @@
 .hero {
   padding-top: clamp(56px, 7vw, 112px);
   padding-bottom: clamp(56px, 7vw, 112px);
+  overflow-x: clip; /* contain the hero-chat card's negative left offset */
 }
 .hero-inner {
   display: grid;
