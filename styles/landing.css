@@ -271,6 +271,24 @@
   }
 }
 
+/* ---------- Audience — dual block ---------- */
+
+.audience-grid {
+  display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px;
+}
+@media (min-width: 760px) { .audience-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.audience-card {
+  padding: 32px;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-tile);
+}
+.audience-name {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 26px; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 12px;
+}
+.audience-text { font-size: 16px; line-height: 1.55; color: var(--body); margin: 0; max-width: 42ch; }
+
 /* ---------- Modules — clickable cards + detail panel ---------- */
 
 .module-cards {

@@ -97,6 +97,19 @@ window.I18N = {
       ],
     },
 
+    /* --- Audience — laundromats & dry cleaners --- */
+    audience: {
+      eyebrow: 'PARA QUIÉN',
+      h_a: 'Hecho para',
+      h_accent: ' lavanderías y tintorerías.',
+      h_b: '',
+      sub: 'El mismo sistema, adaptado a cómo trabaja cada negocio.',
+      cols: [
+        { name: 'Lavanderías', text: 'Cargas por kilo, autoservicio o encargo y recolección a domicilio — todo por el mismo número.' },
+        { name: 'Tintorerías', text: 'Prendas por pieza, servicios delicados y planchado, con seguimiento orden por orden.' },
+      ],
+    },
+
     /* --- Integrations — section header (tile data is hardcoded in landing.jsx) --- */
     integrations: {
       eyebrow: 'CONEXIONES',
@@ -334,6 +347,18 @@ window.I18N = {
             { tag: 'REACTIVATE', text: 'Automatically bring inactive customers back.' },
           ],
         },
+      ],
+    },
+
+    audience: {
+      eyebrow: 'WHO IT’S FOR',
+      h_a: 'Built for',
+      h_accent: ' laundromats and dry cleaners.',
+      h_b: '',
+      sub: 'The same system, adapted to how each business works.',
+      cols: [
+        { name: 'Laundromats',  text: 'Wash-by-kilo, self-service or drop-off, and home pickup — all through one number.' },
+        { name: 'Dry cleaners', text: 'Per-garment items, delicate care and pressing, tracked order by order.' },
       ],
     },
 

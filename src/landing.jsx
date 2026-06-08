@@ -182,6 +182,30 @@
     );
   };
 
+  /* ---------- Audience — laundromats & dry cleaners ---------- */
+
+  const Audience = ({ t }) => (
+    <section className="section surface-cream-bg" data-bg="cream">
+      <div className="container">
+        <Mono className="eyebrow">{t.audience.eyebrow}</Mono>
+        <h2 className="h2">
+          {t.audience.h_a}
+          <span className="lighter">{t.audience.h_accent}</span>
+          {t.audience.h_b}
+        </h2>
+        <p className="lede">{t.audience.sub}</p>
+        <div className="audience-grid">
+          {t.audience.cols.map((c, i) => (
+            <div key={i} className="audience-card">
+              <h3 className="audience-name">{c.name}</h3>
+              <p className="audience-text">{c.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
   /* ---------- Integrations ---------- */
 
   /* Inline SVG marks — text-style for known brands, iconography for the rest */
@@ -511,6 +535,7 @@
         <Hero t={t} />
         <HowItWorks t={t} />
         <Modules t={t} />
+        <Audience t={t} />
         <Integrations t={t} />
         <Pricing t={t} />
         <FAQ t={t} />
