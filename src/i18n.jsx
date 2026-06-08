@@ -90,7 +90,7 @@ window.I18N = {
           body: 'Identifica a quién no ves hace semanas y mándale una promoción por WhatsApp. Llena los días flojos con campañas que armas en minutos.',
           features: [
             { tag: 'SEGMENTOS', text: 'Filtra por última visita o por cuánto gastan.' },
-            { tag: 'PROMOS',    text: 'Envías cupones y recordatorios por WhatsApp.' },
+            { tag: 'PROMOS',    text: 'Envía cupones y recordatorios por WhatsApp.' },
             { tag: 'REACTIVA',  text: 'Trae de vuelta a los clientes inactivos en automático.' },
           ],
         },
