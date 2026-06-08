@@ -206,175 +206,34 @@
     </section>
   );
 
-  /* ---------- Integrations ---------- */
+  /* ---------- Demo / pricing CTA ---------- */
 
-  /* Inline SVG marks — text-style for known brands, iconography for the rest */
-  const ICON = {
-    spei: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M3 7h13l-3-3M21 17H8l3 3" />
-      </svg>
-    ),
-    mercadoPago: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="14" fontWeight="700" letterSpacing="-0.04em">mp</text>
-        <ellipse cx="32" cy="22" rx="11" ry="0.8" />
-      </svg>
-    ),
-    oxxo: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.06em">OXXO</text>
-      </svg>
-    ),
-    clip: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-        <rect x="3" y="6" width="18" height="13" rx="2" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-        <line x1="7" y1="15" x2="11" y2="15" />
-      </svg>
-    ),
-    bbva: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.05em">BBVA</text>
-      </svg>
-    ),
-    sat: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M5 21h14M6 21V10l6-5 6 5v11M9 21v-7h6v7" />
-        <circle cx="12" cy="13" r="0.7" fill="currentColor" />
-      </svg>
-    ),
-    cancel: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M8 8l8 8M16 8l-8 8" />
-      </svg>
-    ),
-    layers: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polygon points="12,3 21,8 12,13 3,8" />
-        <polyline points="3,13 12,18 21,13" />
-        <polyline points="3,18 12,23 21,18" />
-      </svg>
-    ),
-    addenda: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="6" y="3" width="12" height="14" rx="1" opacity="0.45" />
-        <rect x="3" y="6" width="12" height="14" rx="1" />
-        <line x1="6" y1="11" x2="12" y2="11" />
-        <line x1="6" y1="14" x2="10" y2="14" />
-      </svg>
-    ),
-  };
-
-  /* Iconify CDN — real brand logos where the brand exists in SimpleIcons */
-  const iconifyUrl = (slug) => `https://api.iconify.design/simple-icons/${slug}.svg?color=%23ffffff`;
-
-  /* Two-group structure: compact tile grid with arrow tags */
-  const INTEG_GROUPS = [
-    {
-      label: 'Pagos',
-      lede: 'Procesadores integrados — un solo reporte para todo lo que cobras.',
-      items: [
-        { name: 'SPEI',         tag: 'TRANSFERENCIA → CONCILIADA', color: '#0F4C81', icon: ICON.spei },
-        { name: 'Mercado Pago', tag: 'TARJETA · QR · LINK',        color: '#009EE3', iconify: 'mercadopago' },
-        { name: 'OXXO Pay',     tag: '22K SUCURSALES → SISTEMA',   color: '#E1251B', icon: ICON.oxxo, wide: true },
-        { name: 'Clip',         tag: 'TERMINAL → TICKET FIRMADO',  color: '#FB6A1F', icon: ICON.clip },
-      ],
-    },
-    {
-      label: 'SAT · Timbrado',
-      lede: 'PAC certificado incluido — cada venta se timbra al SAT sola.',
-      items: [
-        { name: 'CFDI 4.0',             tag: 'VENTA → TIMBRADO EN 2 SEG',  color: '#6A1B3A', icon: ICON.sat },
-        { name: 'Complementos de pago', tag: 'PAGO TARDÍO → REP AUTO',     color: '#3B82F6', icon: ICON.layers },
-        { name: 'Cancelación 2.0',      tag: 'MOTIVO + SUSTITUCIÓN',       color: '#0F1628', icon: ICON.cancel },
-        { name: 'Addenda corporativa',  tag: 'WALMART · LIVERPOOL · OXXO', color: '#1F5FCF', icon: ICON.addenda },
-      ],
-    },
-  ];
-
-  const Integrations = ({ t }) => (
-    <section id="integrations" className="section surface-ink-bg" data-bg="navy">
-      <div className="container">
-        <div className="integ-head">
-          <div>
-            <Mono className="eyebrow">{t.integrations.eyebrow}</Mono>
-            <h2 className="h2">
-              {t.integrations.h2_a}
-              <span className="lighter">{t.integrations.h2_accent}</span>
-              {t.integrations.h2_b}
-            </h2>
-          </div>
-          <p className="lede">{t.integrations.sub}</p>
-        </div>
-        <div className="integ-groups">
-          {INTEG_GROUPS.map((group, gi) => (
-            <div key={gi} className="integ-group">
-              <div className="integ-group-h">
-                <Mono className="integ-group-num">{`0${gi + 1}`}</Mono>
-                <div>
-                  <div className="integ-group-label">{group.label}</div>
-                  <p className="integ-group-lede">{group.lede}</p>
-                </div>
-              </div>
-              <div className="integ-tiles">
-                {group.items.map((it, i) => (
-                  <div key={i} className="integ-tile">
-                    <div className={`integ-mark ${it.wide ? 'is-wide' : ''}`} style={{ background: it.color }}>
-                      {it.iconify ? (
-                        <img className="integ-mark-img" src={iconifyUrl(it.iconify)} alt="" loading="lazy" />
-                      ) : (
-                        <span className="integ-mark-icon">{it.icon}</span>
-                      )}
-                    </div>
-                    <div className="integ-meta">
-                      <div className="integ-name">{it.name}</div>
-                      <Mono className="integ-tag">{it.tag}</Mono>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-
-  /* ---------- Pricing ---------- */
-
-  const Pricing = ({ t }) => (
+  const DemoCTA = ({ t }) => (
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
-        <Mono className="eyebrow">{t.pricing.eyebrow}</Mono>
-        <h2 className="h2">
-          {t.pricing.h_a}
-          <span className="lighter">{t.pricing.h_accent}</span>
-          {t.pricing.h_b}
-        </h2>
-        <p className="lede">{t.pricing.sub}</p>
-        <div className="pricing-grid">
-          {t.pricing.plans.map((p, i) => (
-            <div key={i} className={`plan ${p.featured ? 'featured' : ''}`}>
-              {p.featured && <span className="plan-popular">{t.pricing.popular}</span>}
-              <Mono className="plan-name">{p.name}</Mono>
-              <div className="plan-price">{p.price}<span className="unit">{p.unit}</span></div>
-              <p className="plan-tag">{p.tag}</p>
-              <ul className="plan-list">
-                {p.features.map((f, j) => <li key={j}>{f}</li>)}
-              </ul>
-              <div className="plan-cta">
-                <a
-                  href={p.cta && /vent|sales/i.test(p.cta) ? 'mailto:ventas@ciclo.mx?subject=Plan%20Empresa' : '#'}
-                  className={`btn ${p.featured ? 'btn-brand' : 'btn-ink'} btn-arrow`}
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  {p.cta}
-                </a>
-              </div>
-            </div>
-          ))}
+        <Mono className="eyebrow">{t.demo.eyebrow}</Mono>
+        <div className="demo-block">
+          <div className="demo-block-text">
+            <h2 className="h2">
+              {t.demo.h_a}
+              <span className="lighter">{t.demo.h_accent}</span>
+              {t.demo.h_b}
+            </h2>
+            <p className="lede">{t.demo.sub}</p>
+            <ul className="demo-points">
+              {t.demo.points.map((p, i) => <li key={i}>{p}</li>)}
+            </ul>
+          </div>
+          <div className="demo-block-cta">
+            <a
+              href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo"
+              className="btn btn-brand btn-arrow"
+              style={{ width: '100%', justifyContent: 'center' }}
+            >
+              {t.demo.cta}
+            </a>
+            <p className="demo-note">{t.demo.note}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -536,8 +395,7 @@
         <HowItWorks t={t} />
         <Modules t={t} />
         <Audience t={t} />
-        <Integrations t={t} />
-        <Pricing t={t} />
+        <DemoCTA t={t} />
         <FAQ t={t} />
         <CTA t={t} />
         <Footer t={t} />

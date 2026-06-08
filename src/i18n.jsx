@@ -110,71 +110,20 @@ window.I18N = {
       ],
     },
 
-    /* --- Integrations — section header (tile data is hardcoded in landing.jsx) --- */
-    integrations: {
-      eyebrow: 'CONEXIONES',
-      h2_a: 'Pagos y facturación',
-      h2_accent: ' incluidos',
-      h2_b: ' — sin proveedores extra.',
-      sub: 'Los procesadores de pago y el PAC fiscal vienen integrados. Tú solo activas la cuenta — no contratas nada por separado, no cargas otra factura cada mes.',
-    },
-
-    /* --- Pricing --- */
-    pricing: {
+    /* --- Demo / pricing CTA --- */
+    demo: {
       eyebrow: 'PRECIOS',
-      h_a: 'Precio',
-      h_accent: ' justo',
-      h_b: ' para LatAm.',
-      sub: 'Empieza gratis. Sin contrato anual, sin permanencia. Si ya no te sirve, te exportas todo en un click. Precios en MXN + IVA.',
-      popular: 'POPULAR',
-      plans: [
-        {
-          name: 'GRATIS',
-          price: '$ 0',
-          unit: 'MXN / mes',
-          tag: 'Para una sola sucursal probando aguas.',
-          features: [
-            '1 sucursal · 1 usuario',
-            'Hasta 80 órdenes / mes',
-            'Punto de venta básico',
-            '50 CFDI 4.0 incluidos',
-            'Soporte por correo',
-          ],
-          cta: 'Crear cuenta',
-        },
-        {
-          name: 'OPERATIVO',
-          price: '$ 399',
-          unit: 'MXN / mes · anual',
-          tag: 'Para la lavandería que ya tiene clientes recurrentes.',
-          featured: true,
-          features: [
-            '1 sucursal · 3 usuarios',
-            '500 órdenes / mes',
-            'CFDI 4.0 ilimitado · PAC incluido',
-            'SPEI, Mercado Pago, OXXO Pay, Clip',
-            'Servicio a domicilio (rutas básicas)',
-            'Reportes en vivo',
-            'Soporte por WhatsApp · horario MX',
-          ],
-          cta: 'Probar 14 días',
-        },
-        {
-          name: 'PRO',
-          price: '$ 899',
-          unit: 'MXN / mes · anual',
-          tag: 'Para operadores con varias sucursales que ya hacen marketing.',
-          features: [
-            'Hasta 5 sucursales · usuarios ilimitados',
-            'Órdenes ilimitadas',
-            'Marketing por WhatsApp (campañas, reactivación)',
-            'Membresías y abonos prepagados',
-            'API + webhooks privados',
-            'Onboarding y soporte prioritario por WhatsApp',
-          ],
-          cta: 'Probar 14 días',
-        },
+      h_a: 'Precio a la medida',
+      h_accent: ' de tu operación.',
+      h_b: '',
+      sub: 'Cuéntanos cuántas órdenes manejas y armamos un plan. Sin instalación y sin contratos largos.',
+      points: [
+        'Los cuatro módulos incluidos',
+        'Número de WhatsApp configurado con tu marca',
+        'Onboarding y soporte en español',
       ],
+      cta: 'Agenda una demo',
+      note: 'Demo de 20 minutos · sin compromiso',
     },
 
     /* --- FAQ --- */
@@ -362,26 +311,19 @@ window.I18N = {
       ],
     },
 
-    integrations: {
-      eyebrow: 'CONNECTIONS',
-      h2_a: 'Payments and invoicing,',
-      h2_accent: ' included',
-      h2_b: ' — no extra vendors.',
-      sub: 'Payment processors and the certified PAC come integrated. You just activate the account — no separate contracts, no extra invoice in your inbox each month.',
-    },
-
-    pricing: {
+    demo: {
       eyebrow: 'PRICING',
-      h_a: 'Fair',
-      h_accent: ' pricing',
-      h_b: ' for LatAm.',
-      sub: 'Start free. No annual contract, no commitment. If it stops being useful, export everything in a click. Prices in MXN + VAT.',
-      popular: 'POPULAR',
-      plans: [
-        { name: 'FREE',        price: '$ 0',    unit: 'MXN / month',          tag: 'For a single branch testing the waters.',                                  features: ['1 branch · 1 user', 'Up to 80 orders / month', 'Basic point of sale', '50 CFDI 4.0 included', 'Email support'],                                                                                              cta: 'Create account' },
-        { name: 'OPERATIONAL', price: '$ 399',  unit: 'MXN / month · annual', tag: 'For the laundromat with recurring customers.',                              featured: true, features: ['1 branch · 3 users', '500 orders / month', 'CFDI 4.0 unlimited · PAC included', 'SPEI, Mercado Pago, OXXO Pay, Clip', 'Home delivery (basic routes)', 'Live reports', 'WhatsApp support · MX hours'], cta: 'Try 14 days' },
-        { name: 'PRO',         price: '$ 899',  unit: 'MXN / month · annual', tag: 'For operators with multiple branches who run marketing.',                   features: ['Up to 5 branches · unlimited users', 'Unlimited orders', 'WhatsApp marketing (campaigns, re-engagement)', 'Memberships and prepaid bundles', 'Private API + webhooks', 'Onboarding and priority WhatsApp support'],                cta: 'Try 14 days' },
+      h_a: 'Pricing that fits',
+      h_accent: ' your operation.',
+      h_b: '',
+      sub: 'Tell us how many orders you handle and we’ll build a plan. No install, no long contracts.',
+      points: [
+        'All four modules included',
+        'A WhatsApp number set up with your brand',
+        'Onboarding and support in Spanish',
       ],
+      cta: 'Book a demo',
+      note: '20-minute demo · no commitment',
     },
 
     faq: {
