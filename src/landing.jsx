@@ -15,10 +15,10 @@
       <div className="nav-row">
         <a href="#" aria-label="Ciclo"><Logo /></a>
         <div className="nav-links">
+          <a href="#how">{t.nav.how}</a>
           <a href="#modules">{t.nav.product}</a>
-          <a href="#integrations">Integraciones</a>
           <a href="#pricing">{t.nav.pricing}</a>
-          <a href="#faq">FAQ</a>
+          <a href="#faq">{t.nav.faq}</a>
         </div>
         <div className="nav-cta">
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>

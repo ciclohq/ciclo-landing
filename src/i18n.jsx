@@ -9,9 +9,11 @@ window.I18N = {
     /* --- Nav --- */
     nav: {
       product: 'Producto',
+      how:     'Cómo funciona',
       pricing: 'Precios',
+      faq:     'FAQ',
       login:   'Acceder',
-      cta:     'Agendar demo',
+      cta:     'Agenda una demo',
     },
 
     /* --- Hero --- */
@@ -250,7 +252,7 @@ window.I18N = {
   },
 
   en: {
-    nav: { product: 'Product', pricing: 'Pricing', login: 'Sign in', cta: 'Book a demo' },
+    nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo' },
 
     hero: {
       h1_a: 'The operating',
