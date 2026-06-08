@@ -35,32 +35,45 @@
       <div className="container">
         <div className="hero-inner">
           <div>
+            <Mono className="eyebrow">{t.hero.eyebrow}</Mono>
             <h1 className="h1">
-              {t.hero.h1_a} {t.hero.h1_b}
+              {t.hero.h1_a}
               <span className="lighter">{t.hero.h1_accent}</span>
-              {t.hero.h1_c}
             </h1>
             <p className="lede">{t.hero.sub}</p>
             <div className="hero-actions">
               <a href="#pricing" className="btn btn-ink btn-arrow">{t.hero.cta_primary}</a>
-              <a href="#modules" className="btn btn-ghost">{t.hero.cta_ghost}</a>
+              <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost}</a>
             </div>
           </div>
-          <HeroPhoto />
+          <HeroVisual />
         </div>
       </div>
     </section>
   );
 
-  const HeroPhoto = () => (
-    <div className="hero-photo">
-      <img
-        src="https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=1600&q=85"
-        srcSet="https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=1600&q=85 1600w, https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=2000&q=85 2000w"
-        sizes="(min-width: 980px) 50vw, 100vw"
-        alt="Lavandería moderna — fila de lavadoras"
-        loading="eager"
-      />
+  const HeroVisual = () => (
+    <div className="hero-visual">
+      <div className="hero-photo">
+        <img
+          src="https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=1600&q=85"
+          srcSet="https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=1600&q=85 1600w, https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=2000&q=85 2000w"
+          sizes="(min-width: 980px) 50vw, 100vw"
+          alt="Repartidor entregando ropa limpia a domicilio"
+          loading="eager"
+        />
+      </div>
+      <div className="hero-chat" aria-hidden="true">
+        <div className="hero-chat-head">
+          <span className="hero-chat-dot">✓</span>
+          Lavandería Roma
+        </div>
+        <div className="hero-chat-body">
+          <span className="bub in">Quiero recoger 2 cobijas y ropa 🧺</span>
+          <span className="bub out">¡Claro! Pasamos hoy 4–6pm · total $240</span>
+          <span className="bub in">Perfecto, gracias 🙌</span>
+        </div>
+      </div>
     </div>
   );
 

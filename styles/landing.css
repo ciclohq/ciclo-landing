@@ -193,6 +193,50 @@
   pointer-events: none;
 }
 
+/* Hero visual — photo with a floating WhatsApp chat card */
+.hero-visual { position: relative; }
+.hero-chat {
+  position: absolute;
+  left: clamp(-12px, -1.5vw, 0px);
+  bottom: 22px;
+  width: min(74%, 300px);
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  box-shadow: var(--shadow-postcard);
+  overflow: hidden;
+  z-index: 2;
+}
+.hero-chat-head {
+  display: flex; align-items: center; gap: 8px;
+  background: #075E54; color: #FFFFFF;
+  padding: 9px 12px;
+  font-family: var(--font-body); font-size: 12.5px; font-weight: 600;
+}
+.hero-chat-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #25D366; color: #075E54;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.hero-chat-body {
+  background: #ECE5DD;
+  padding: 12px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.hero-chat .bub {
+  max-width: 88%;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-family: var(--font-body); font-size: 12px; line-height: 1.35;
+  color: var(--ink);
+}
+.hero-chat .bub.in  { background: #FFFFFF;  align-self: flex-start; border-top-left-radius: 3px; }
+.hero-chat .bub.out { background: #DCF8C6;  align-self: flex-end;   border-top-right-radius: 3px; }
+@media (max-width: 600px) {
+  .hero-chat { position: static; width: 100%; margin-top: 16px; }
+}
+
 /* ---------- Modules — clickable cards + detail panel ---------- */
 
 .module-cards {

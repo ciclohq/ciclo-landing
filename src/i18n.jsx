@@ -18,13 +18,12 @@ window.I18N = {
 
     /* --- Hero --- */
     hero: {
-      h1_a: 'El sistema',
-      h1_b: 'operativo ',
-      h1_accent: 'de tu lavandería',
-      h1_c: ' moderna.',
-      sub: 'Una sola plataforma para operar tu lavandería — punto de venta, servicio a domicilio y marketing por WhatsApp. Sin armar el rompecabezas con cinco sistemas distintos.',
-      cta_primary: 'Comenzar gratis',
-      cta_ghost:   'Ver demo en vivo',
+      eyebrow: 'A DOMICILIO · WHATSAPP',
+      h1_a: 'Tu lavandería y tintorería,',
+      h1_accent: ' a domicilio.',
+      sub: 'Un solo número de WhatsApp para recibir, cobrar y entregar cada orden.',
+      cta_primary: 'Agenda una demo',
+      cta_ghost:   'Cómo funciona',
     },
 
     /* --- Modules — 4 named pillars --- */
@@ -255,13 +254,12 @@ window.I18N = {
     nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo' },
 
     hero: {
-      h1_a: 'The operating',
-      h1_b: 'system ',
-      h1_accent: 'for your modern',
-      h1_c: ' laundromat.',
-      sub: 'One platform to run your laundromat — point of sale, home delivery and WhatsApp marketing. Without piecing five separate systems together.',
-      cta_primary: 'Start free',
-      cta_ghost:   'See live demo',
+      eyebrow: 'DELIVERY · WHATSAPP',
+      h1_a: 'Your laundromat and dry cleaner,',
+      h1_accent: ' delivered.',
+      sub: 'One WhatsApp number to take, charge, and deliver every order.',
+      cta_primary: 'Book a demo',
+      cta_ghost:   'How it works',
     },
 
     features: {
