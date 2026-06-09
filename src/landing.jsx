@@ -33,45 +33,77 @@
   const Hero = ({ t }) => (
     <section className="hero" data-bg="cream">
       <div className="container">
-        <div className="hero-inner">
-          <div>
-            <Mono className="eyebrow">{t.hero.eyebrow}</Mono>
-            <h1 className="h1">
-              {t.hero.h1_a}
-              <span className="lighter">{t.hero.h1_accent}</span>
-            </h1>
-            <p className="lede">{t.hero.sub}</p>
-            <div className="hero-actions">
-              <a href="#pricing" className="btn btn-ink btn-arrow">{t.hero.cta_primary}</a>
-              <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost}</a>
-            </div>
+        <div className="hero-head">
+          <span className="badge"><i />{t.hero.badge}</span>
+          <h1 className="h1">
+            {t.hero.h1_a}
+            <span className="lighter">{t.hero.h1_accent}</span>
+          </h1>
+          <p className="lede">{t.hero.sub}</p>
+          <div className="hero-actions">
+            <a href="#pricing" className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
+            <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost} →</a>
           </div>
-          <HeroVisual />
+          <p className="hero-trust">{t.hero.trust}</p>
         </div>
+        <HeroVisual />
       </div>
     </section>
   );
 
   const HeroVisual = () => (
-    <div className="hero-visual">
-      <div className="hero-photo">
-        <img
-          src="https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=1600&q=85"
-          srcSet="https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=1600&q=85 1600w, https://images.unsplash.com/photo-1770927423939-bae721171237?auto=format&fit=crop&w=2000&q=85 2000w"
-          sizes="(min-width: 980px) 50vw, 100vw"
-          alt="Repartidor entregando ropa limpia a domicilio"
-          loading="eager"
-        />
-      </div>
-      <div className="hero-chat" aria-hidden="true">
-        <div className="hero-chat-head">
-          <span className="hero-chat-dot">✓</span>
-          Lavandería Roma
+    <div className="hero-stage" aria-hidden="true">
+      <div className="app">
+        <div className="appbar">
+          <span className="appbar-dots"><i /><i /><i /></span>
+          <span className="appbar-url">app.ciclo.mx/tablero</span>
         </div>
-        <div className="hero-chat-body">
-          <span className="bub in">Quiero recoger 2 cobijas y ropa 🧺</span>
-          <span className="bub out">¡Claro! Pasamos hoy 4–6pm · total $240</span>
-          <span className="bub in">Perfecto, gracias 🙌</span>
+        <div className="app-body">
+          <aside className="app-side">
+            <div className="app-brand">ciclo<span className="dot-accent">.</span></div>
+            <div className="app-navlbl">Operación</div>
+            <div className="app-nav is-active"><span className="app-ic" />Tablero</div>
+            <div className="app-nav"><span className="app-ic" />WhatsApp<span className="app-badge">3</span></div>
+            <div className="app-nav"><span className="app-ic" />Órdenes</div>
+            <div className="app-nav"><span className="app-ic" />Rutas</div>
+            <div className="app-nav"><span className="app-ic" />Repartidores</div>
+            <div className="app-navlbl">Crecimiento</div>
+            <div className="app-nav"><span className="app-ic" />Marketing</div>
+            <div className="app-nav"><span className="app-ic" />Clientes</div>
+          </aside>
+          <main className="app-main">
+            <div className="app-mhead">
+              <div>
+                <div className="app-greet">Buenas tardes, Lavandería Roma</div>
+                <div className="app-date">Domingo · 8 de junio</div>
+              </div>
+              <span className="app-newbtn">+ Nueva orden</span>
+            </div>
+            <div className="app-stats">
+              <div className="app-stat"><div className="k">Órdenes hoy</div><div className="v">38</div><div className="d up">▲ 12% vs ayer</div></div>
+              <div className="app-stat"><div className="k">En ruta</div><div className="v">6</div><div className="d">2 repartidores</div></div>
+              <div className="app-stat"><div className="k">Listas</div><div className="v">12</div><div className="d">para entrega</div></div>
+              <div className="app-stat accent"><div className="k">Recuperados · 30d</div><div className="v">+18%</div><div className="d">campañas WhatsApp</div></div>
+            </div>
+            <div className="app-grid2">
+              <div className="app-panel">
+                <div className="app-panel-h"><span className="t">Órdenes de hoy</span><span className="a">VER TODAS</span></div>
+                <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
+                <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
+                <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
+                <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
+              </div>
+              <div className="app-panel">
+                <div className="app-panel-h"><span className="t">WhatsApp</span><span className="a">3 NUEVOS</span></div>
+                <div className="wmini">
+                  <div className="wmrow"><span className="wmav">M</span><div className="wmbody"><div className="wmname">María G.</div><div className="wmmsg">¿A qué hora pasan por la ropa?</div></div><span className="wmun">2</span></div>
+                  <div className="wmrow"><span className="wmav">J</span><div className="wmbody"><div className="wmname">Jorge T.</div><div className="wmmsg">Quiero agendar recolección 🧺</div></div><span className="wmun">1</span></div>
+                  <div className="wmrow"><span className="wmav">A</span><div className="wmbody"><div className="wmname">Ana P.</div><div className="wmmsg">Gracias, todo perfecto 🙌</div></div></div>
+                </div>
+                <div className="wmfoot"><span className="wmpill">Responder a María…</span><span className="wmsend">➤</span></div>
+              </div>
+            </div>
+          </main>
         </div>
       </div>
     </div>
@@ -103,20 +135,62 @@
 
   /* ---------- Modules ---------- */
 
-  /* Per-module photos (Unsplash, all desaturated + cobalt-tinted via CSS) */
-  const MODULE_PHOTOS = [
-    { src: 'https://images.unsplash.com/photo-1635274605638-d44babc08a4f', alt: 'WhatsApp — ropa doblada lista en el mostrador' },
-    { src: 'https://images.unsplash.com/photo-1604335398980-ededcadcc37d', alt: 'Tablero en tienda — fila de lavadoras' },
-    { src: 'https://images.unsplash.com/photo-1770927423939-bae721171237', alt: 'App de repartidores — repartidor en moto, calle mojada' },
-    { src: 'https://images.unsplash.com/photo-1567113463300-102a7eb3cb26', alt: 'Marketing — prendas en perchero' },
-  ];
-  const photoUrl = (src, w) => `${src}?auto=format&fit=crop&w=${w}&q=85`;
+  /* Per-module UI vignettes — show the actual product, not stock photos */
+  const ModuleMock = ({ active }) => {
+    if (active === 1) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Tablero · Órdenes hoy<span className="mk-h-r">38</span></div>
+        <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
+        <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
+        <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
+        <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
+      </div>
+    );
+    if (active === 2) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Ruta de hoy · Repartidor 1<span className="mk-h-r">5 paradas</span></div>
+        <div className="mk-map">
+          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
+            <path className="mk-route" d="M28 116 C 80 96, 70 50, 130 54 S 210 96, 250 60 300 30" />
+            <g className="mk-stop-dot"><circle cx="28" cy="116" r="6"/><text x="28" y="120">1</text></g>
+            <g className="mk-stop-dot act"><circle cx="130" cy="54" r="8"/><text x="130" y="58">2</text></g>
+            <g className="mk-stop-dot"><circle cx="250" cy="60" r="6"/><text x="250" y="64">3</text></g>
+            <g className="mk-stop-dot"><circle cx="300" cy="30" r="6"/><text x="300" y="34">4</text></g>
+          </svg>
+        </div>
+        <div className="mk-stop"><span className="mk-stopn done">1</span><span>Roma · recolección</span><span className="chip c-done">HECHA</span></div>
+        <div className="mk-stop"><span className="mk-stopn act">2</span><span>Condesa · entrega</span><span className="chip c-rt">AHORA</span></div>
+        <div className="mk-stop"><span className="mk-stopn">3</span><span>Nápoles · entrega</span><span className="mk-eta">5:10pm</span></div>
+      </div>
+    );
+    if (active === 3) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Campaña · WhatsApp<span className="mk-h-r">Borrador</span></div>
+        <div className="mk-seg"><span className="mk-seg-k">SEGMENTO</span><span className="mk-seg-v">Sin pedido en 30 días</span><span className="mk-seg-n">248</span></div>
+        <div className="mk-wa-thread compact">
+          <span className="mk-bub out promo">🧺 ¡Te extrañamos! 20% de descuento en tu próxima recolección esta semana. Responde <b>SÍ</b> y pasamos por tu ropa.</span>
+        </div>
+        <div className="mk-camp-foot"><span className="mk-send-btn">Enviar a 248 clientes</span><span className="mk-camp-stat">▲ +18% reactivados</span></div>
+      </div>
+    );
+    return (
+      <div className="mk mk-wa" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot wa" />WhatsApp · Lavandería Roma<span className="mk-h-r">en línea</span></div>
+        <div className="mk-wa-thread">
+          <span className="mk-bub in">Hola, quiero recoger 2 cobijas y ropa 🧺</span>
+          <span className="mk-bub out">¡Claro! ¿Te late hoy de 4–6pm?</span>
+          <span className="mk-bub in">Sí 🙌 ¿cuánto sale?</span>
+          <span className="mk-bub out">Total estimado <b>$240</b>. Te mando el link de pago.</span>
+        </div>
+        <div className="mk-wa-input"><span>Escribe un mensaje…</span><i className="mk-send" /></div>
+      </div>
+    );
+  };
 
   /* Modules — condensed: 4 clickable cards + detail panel for the active one */
   const Modules = ({ t }) => {
     const [active, setActive] = useState(0);
     const m = t.features.modules[active];
-    const photo = MODULE_PHOTOS[active] || MODULE_PHOTOS[0];
     return (
       <section id="modules" className="section surface-white-bg" data-bg="off">
         <div className="container">
@@ -167,14 +241,8 @@
                 ))}
               </ul>
             </div>
-            <div className="module-deep-photo">
-              <img
-                src={photoUrl(photo.src, 1400)}
-                srcSet={`${photoUrl(photo.src, 800)} 800w, ${photoUrl(photo.src, 1400)} 1400w, ${photoUrl(photo.src, 1800)} 1800w`}
-                sizes="(min-width: 980px) 50vw, 100vw"
-                alt={photo.alt}
-                loading="lazy"
-              />
+            <div className="module-mock">
+              <ModuleMock active={active} />
             </div>
           </article>
         </div>

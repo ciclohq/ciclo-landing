@@ -18,12 +18,13 @@ window.I18N = {
 
     /* --- Hero --- */
     hero: {
-      eyebrow: 'A DOMICILIO · WHATSAPP',
-      h1_a: 'Tu lavandería y tintorería,',
-      h1_accent: ' a domicilio.',
-      sub: 'Un solo número de WhatsApp para recibir, cobrar y entregar cada orden.',
+      badge: 'Para lavanderías y tintorerías',
+      h1_a: 'Tu lavandería,',
+      h1_accent: ' operada por WhatsApp.',
+      sub: 'Un solo número para recibir, cobrar y entregar cada orden — y un tablero que lo controla todo, de la recolección a la entrega.',
       cta_primary: 'Agenda una demo',
       cta_ghost:   'Cómo funciona',
+      trust: 'Sin instalar apps · Configuramos tu número en la demo',
     },
 
     /* --- How it works — the order journey --- */
@@ -219,12 +220,13 @@ window.I18N = {
     nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo' },
 
     hero: {
-      eyebrow: 'DELIVERY · WHATSAPP',
-      h1_a: 'Your laundromat and dry cleaner,',
-      h1_accent: ' delivered.',
-      sub: 'One WhatsApp number to take, charge, and deliver every order.',
+      badge: 'For laundromats and dry cleaners',
+      h1_a: 'Your laundromat,',
+      h1_accent: ' run on WhatsApp.',
+      sub: 'One number to take, charge, and deliver every order — and one board that runs it all, from pickup to drop-off.',
       cta_primary: 'Book a demo',
       cta_ghost:   'How it works',
+      trust: 'No apps to install · We set up your number in the demo',
     },
 
     how: {
