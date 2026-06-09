@@ -15,10 +15,10 @@
       <div className="nav-row">
         <a href="#" aria-label="Ciclo"><Logo /></a>
         <div className="nav-links">
+          <a href="#how">{t.nav.how}</a>
           <a href="#modules">{t.nav.product}</a>
-          <a href="#integrations">Integraciones</a>
           <a href="#pricing">{t.nav.pricing}</a>
-          <a href="#faq">FAQ</a>
+          <a href="#faq">{t.nav.faq}</a>
         </div>
         <div className="nav-cta">
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
@@ -33,53 +33,164 @@
   const Hero = ({ t }) => (
     <section className="hero" data-bg="cream">
       <div className="container">
-        <div className="hero-inner">
-          <div>
-            <h1 className="h1">
-              {t.hero.h1_a} {t.hero.h1_b}
-              <span className="lighter">{t.hero.h1_accent}</span>
-              {t.hero.h1_c}
-            </h1>
-            <p className="lede">{t.hero.sub}</p>
-            <div className="hero-actions">
-              <a href="#pricing" className="btn btn-ink btn-arrow">{t.hero.cta_primary}</a>
-              <a href="#modules" className="btn btn-ghost">{t.hero.cta_ghost}</a>
-            </div>
+        <div className="hero-head">
+          <span className="badge"><i />{t.hero.badge}</span>
+          <h1 className="h1">
+            {t.hero.h1_a}
+            <span className="lighter">{t.hero.h1_accent}</span>
+          </h1>
+          <p className="lede">{t.hero.sub}</p>
+          <div className="hero-actions">
+            <a href="#pricing" className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
+            <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost} →</a>
           </div>
-          <HeroPhoto />
+          <p className="hero-trust">{t.hero.trust}</p>
         </div>
+        <HeroVisual />
       </div>
     </section>
   );
 
-  const HeroPhoto = () => (
-    <div className="hero-photo">
-      <img
-        src="https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=1600&q=85"
-        srcSet="https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=1600&q=85 1600w, https://images.unsplash.com/photo-1668417863230-64f268d1d252?auto=format&fit=crop&w=2000&q=85 2000w"
-        sizes="(min-width: 980px) 50vw, 100vw"
-        alt="Lavandería moderna — fila de lavadoras"
-        loading="eager"
-      />
+  const HeroVisual = () => (
+    <div className="hero-stage" aria-hidden="true">
+      <div className="app">
+        <div className="appbar">
+          <span className="appbar-dots"><i /><i /><i /></span>
+          <span className="appbar-url">app.ciclo.mx/tablero</span>
+        </div>
+        <div className="app-body">
+          <aside className="app-side">
+            <div className="app-brand">ciclo<span className="dot-accent">.</span></div>
+            <div className="app-navlbl">Operación</div>
+            <div className="app-nav is-active"><span className="app-ic" />Tablero</div>
+            <div className="app-nav"><span className="app-ic" />WhatsApp<span className="app-badge">3</span></div>
+            <div className="app-nav"><span className="app-ic" />Órdenes</div>
+            <div className="app-nav"><span className="app-ic" />Rutas</div>
+            <div className="app-nav"><span className="app-ic" />Repartidores</div>
+            <div className="app-navlbl">Crecimiento</div>
+            <div className="app-nav"><span className="app-ic" />Marketing</div>
+            <div className="app-nav"><span className="app-ic" />Clientes</div>
+          </aside>
+          <main className="app-main">
+            <div className="app-mhead">
+              <div>
+                <div className="app-greet">Buenas tardes, Lavandería Roma</div>
+                <div className="app-date">Domingo · 8 de junio</div>
+              </div>
+              <span className="app-newbtn">+ Nueva orden</span>
+            </div>
+            <div className="app-stats">
+              <div className="app-stat"><div className="k">Órdenes hoy</div><div className="v">38</div><div className="d up">▲ 12% vs ayer</div></div>
+              <div className="app-stat"><div className="k">En ruta</div><div className="v">6</div><div className="d">2 repartidores</div></div>
+              <div className="app-stat"><div className="k">Listas</div><div className="v">12</div><div className="d">para entrega</div></div>
+              <div className="app-stat accent"><div className="k">Recuperados · 30d</div><div className="v">+18%</div><div className="d">campañas WhatsApp</div></div>
+            </div>
+            <div className="app-grid2">
+              <div className="app-panel">
+                <div className="app-panel-h"><span className="t">Órdenes de hoy</span><span className="a">VER TODAS</span></div>
+                <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
+                <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
+                <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
+                <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
+              </div>
+              <div className="app-panel">
+                <div className="app-panel-h"><span className="t">WhatsApp</span><span className="a">3 NUEVOS</span></div>
+                <div className="wmini">
+                  <div className="wmrow"><span className="wmav">M</span><div className="wmbody"><div className="wmname">María G.</div><div className="wmmsg">¿A qué hora pasan por la ropa?</div></div><span className="wmun">2</span></div>
+                  <div className="wmrow"><span className="wmav">J</span><div className="wmbody"><div className="wmname">Jorge T.</div><div className="wmmsg">Quiero agendar recolección 🧺</div></div><span className="wmun">1</span></div>
+                  <div className="wmrow"><span className="wmav">A</span><div className="wmbody"><div className="wmname">Ana P.</div><div className="wmmsg">Gracias, todo perfecto 🙌</div></div></div>
+                </div>
+                <div className="wmfoot"><span className="wmpill">Responder a María…</span><span className="wmsend">➤</span></div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
     </div>
+  );
+
+  /* ---------- How it works — order journey ---------- */
+
+  const HowItWorks = ({ t }) => (
+    <section id="how" className="section surface-tint-bg" data-bg="tint">
+      <div className="container">
+        <Mono className="eyebrow">{t.how.eyebrow}</Mono>
+        <h2 className="h2">
+          {t.how.h_a}
+          <span className="lighter">{t.how.h_accent}</span>
+        </h2>
+        <p className="lede">{t.how.sub}</p>
+        <ol className="journey">
+          {t.how.steps.map((s, i) => (
+            <li key={i} className="journey-step">
+              <span className="journey-num">{s.num}</span>
+              <h3 className="journey-name">{s.name}</h3>
+              <p className="journey-text">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 
   /* ---------- Modules ---------- */
 
-  /* Per-module photos (Unsplash, all desaturated + cobalt-tinted via CSS) */
-  const MODULE_PHOTOS = [
-    { src: 'https://images.unsplash.com/photo-1604335398980-ededcadcc37d', alt: 'Multi-sucursal — fila de lavadoras' },
-    { src: 'https://images.unsplash.com/photo-1635274605638-d44babc08a4f', alt: 'Punto de venta — prendas dobladas' },
-    { src: 'https://images.unsplash.com/photo-1770927423939-bae721171237', alt: 'A domicilio — repartidores en moto, calle mojada' },
-    { src: 'https://images.unsplash.com/photo-1567113463300-102a7eb3cb26', alt: 'Marketing — prendas en perchero' },
-  ];
-  const photoUrl = (src, w) => `${src}?auto=format&fit=crop&w=${w}&q=85`;
+  /* Per-module UI vignettes — show the actual product, not stock photos */
+  const ModuleMock = ({ active }) => {
+    if (active === 1) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Tablero · Órdenes hoy<span className="mk-h-r">38</span></div>
+        <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
+        <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
+        <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
+        <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
+      </div>
+    );
+    if (active === 2) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Ruta de hoy · Repartidor 1<span className="mk-h-r">5 paradas</span></div>
+        <div className="mk-map">
+          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
+            <path className="mk-route" d="M28 116 C 80 96, 70 50, 130 54 S 210 96, 250 60 300 30" />
+            <g className="mk-stop-dot"><circle cx="28" cy="116" r="6"/><text x="28" y="120">1</text></g>
+            <g className="mk-stop-dot act"><circle cx="130" cy="54" r="8"/><text x="130" y="58">2</text></g>
+            <g className="mk-stop-dot"><circle cx="250" cy="60" r="6"/><text x="250" y="64">3</text></g>
+            <g className="mk-stop-dot"><circle cx="300" cy="30" r="6"/><text x="300" y="34">4</text></g>
+          </svg>
+        </div>
+        <div className="mk-stop"><span className="mk-stopn done">1</span><span>Roma · recolección</span><span className="chip c-done">HECHA</span></div>
+        <div className="mk-stop"><span className="mk-stopn act">2</span><span>Condesa · entrega</span><span className="chip c-rt">AHORA</span></div>
+        <div className="mk-stop"><span className="mk-stopn">3</span><span>Nápoles · entrega</span><span className="mk-eta">5:10pm</span></div>
+      </div>
+    );
+    if (active === 3) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Campaña · WhatsApp<span className="mk-h-r">Borrador</span></div>
+        <div className="mk-seg"><span className="mk-seg-k">SEGMENTO</span><span className="mk-seg-v">Sin pedido en 30 días</span><span className="mk-seg-n">248</span></div>
+        <div className="mk-wa-thread compact">
+          <span className="mk-bub out promo">🧺 ¡Te extrañamos! 20% de descuento en tu próxima recolección esta semana. Responde <b>SÍ</b> y pasamos por tu ropa.</span>
+        </div>
+        <div className="mk-camp-foot"><span className="mk-send-btn">Enviar a 248 clientes</span><span className="mk-camp-stat">▲ +18% reactivados</span></div>
+      </div>
+    );
+    return (
+      <div className="mk mk-wa" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot wa" />WhatsApp · Lavandería Roma<span className="mk-h-r">en línea</span></div>
+        <div className="mk-wa-thread">
+          <span className="mk-bub in">Hola, quiero recoger 2 cobijas y ropa 🧺</span>
+          <span className="mk-bub out">¡Claro! ¿Te late hoy de 4–6pm?</span>
+          <span className="mk-bub in">Sí 🙌 ¿cuánto sale?</span>
+          <span className="mk-bub out">Total estimado <b>$240</b>. Te mando el link de pago.</span>
+        </div>
+        <div className="mk-wa-input"><span>Escribe un mensaje…</span><i className="mk-send" /></div>
+      </div>
+    );
+  };
 
   /* Modules — condensed: 4 clickable cards + detail panel for the active one */
   const Modules = ({ t }) => {
     const [active, setActive] = useState(0);
     const m = t.features.modules[active];
-    const photo = MODULE_PHOTOS[active] || MODULE_PHOTOS[0];
     return (
       <section id="modules" className="section surface-white-bg" data-bg="off">
         <div className="container">
@@ -130,14 +241,8 @@
                 ))}
               </ul>
             </div>
-            <div className="module-deep-photo">
-              <img
-                src={photoUrl(photo.src, 1400)}
-                srcSet={`${photoUrl(photo.src, 800)} 800w, ${photoUrl(photo.src, 1400)} 1400w, ${photoUrl(photo.src, 1800)} 1800w`}
-                sizes="(min-width: 980px) 50vw, 100vw"
-                alt={photo.alt}
-                loading="lazy"
-              />
+            <div className="module-mock">
+              <ModuleMock active={active} />
             </div>
           </article>
         </div>
@@ -145,135 +250,23 @@
     );
   };
 
-  /* ---------- Integrations ---------- */
+  /* ---------- Audience — laundromats & dry cleaners ---------- */
 
-  /* Inline SVG marks — text-style for known brands, iconography for the rest */
-  const ICON = {
-    spei: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M3 7h13l-3-3M21 17H8l3 3" />
-      </svg>
-    ),
-    mercadoPago: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="14" fontWeight="700" letterSpacing="-0.04em">mp</text>
-        <ellipse cx="32" cy="22" rx="11" ry="0.8" />
-      </svg>
-    ),
-    oxxo: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.06em">OXXO</text>
-      </svg>
-    ),
-    clip: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-        <rect x="3" y="6" width="18" height="13" rx="2" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-        <line x1="7" y1="15" x2="11" y2="15" />
-      </svg>
-    ),
-    bbva: (
-      <svg viewBox="0 0 64 24" fill="currentColor" aria-hidden="true">
-        <text x="32" y="17" textAnchor="middle" fontFamily="'Bricolage Grotesque', sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.05em">BBVA</text>
-      </svg>
-    ),
-    sat: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M5 21h14M6 21V10l6-5 6 5v11M9 21v-7h6v7" />
-        <circle cx="12" cy="13" r="0.7" fill="currentColor" />
-      </svg>
-    ),
-    cancel: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M8 8l8 8M16 8l-8 8" />
-      </svg>
-    ),
-    layers: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polygon points="12,3 21,8 12,13 3,8" />
-        <polyline points="3,13 12,18 21,13" />
-        <polyline points="3,18 12,23 21,18" />
-      </svg>
-    ),
-    addenda: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="6" y="3" width="12" height="14" rx="1" opacity="0.45" />
-        <rect x="3" y="6" width="12" height="14" rx="1" />
-        <line x1="6" y1="11" x2="12" y2="11" />
-        <line x1="6" y1="14" x2="10" y2="14" />
-      </svg>
-    ),
-  };
-
-  /* Iconify CDN — real brand logos where the brand exists in SimpleIcons */
-  const iconifyUrl = (slug) => `https://api.iconify.design/simple-icons/${slug}.svg?color=%23ffffff`;
-
-  /* Two-group structure: compact tile grid with arrow tags */
-  const INTEG_GROUPS = [
-    {
-      label: 'Pagos',
-      lede: 'Procesadores integrados — un solo reporte para todo lo que cobras.',
-      items: [
-        { name: 'SPEI',         tag: 'TRANSFERENCIA → CONCILIADA', color: '#0F4C81', icon: ICON.spei },
-        { name: 'Mercado Pago', tag: 'TARJETA · QR · LINK',        color: '#009EE3', iconify: 'mercadopago' },
-        { name: 'OXXO Pay',     tag: '22K SUCURSALES → SISTEMA',   color: '#E1251B', icon: ICON.oxxo, wide: true },
-        { name: 'Clip',         tag: 'TERMINAL → TICKET FIRMADO',  color: '#FB6A1F', icon: ICON.clip },
-      ],
-    },
-    {
-      label: 'SAT · Timbrado',
-      lede: 'PAC certificado incluido — cada venta se timbra al SAT sola.',
-      items: [
-        { name: 'CFDI 4.0',             tag: 'VENTA → TIMBRADO EN 2 SEG',  color: '#6A1B3A', icon: ICON.sat },
-        { name: 'Complementos de pago', tag: 'PAGO TARDÍO → REP AUTO',     color: '#3B82F6', icon: ICON.layers },
-        { name: 'Cancelación 2.0',      tag: 'MOTIVO + SUSTITUCIÓN',       color: '#0F1628', icon: ICON.cancel },
-        { name: 'Addenda corporativa',  tag: 'WALMART · LIVERPOOL · OXXO', color: '#1F5FCF', icon: ICON.addenda },
-      ],
-    },
-  ];
-
-  const Integrations = ({ t }) => (
-    <section id="integrations" className="section surface-ink-bg" data-bg="navy">
+  const Audience = ({ t }) => (
+    <section id="audience" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
-        <div className="integ-head">
-          <div>
-            <Mono className="eyebrow">{t.integrations.eyebrow}</Mono>
-            <h2 className="h2">
-              {t.integrations.h2_a}
-              <span className="lighter">{t.integrations.h2_accent}</span>
-              {t.integrations.h2_b}
-            </h2>
-          </div>
-          <p className="lede">{t.integrations.sub}</p>
-        </div>
-        <div className="integ-groups">
-          {INTEG_GROUPS.map((group, gi) => (
-            <div key={gi} className="integ-group">
-              <div className="integ-group-h">
-                <Mono className="integ-group-num">{`0${gi + 1}`}</Mono>
-                <div>
-                  <div className="integ-group-label">{group.label}</div>
-                  <p className="integ-group-lede">{group.lede}</p>
-                </div>
-              </div>
-              <div className="integ-tiles">
-                {group.items.map((it, i) => (
-                  <div key={i} className="integ-tile">
-                    <div className={`integ-mark ${it.wide ? 'is-wide' : ''}`} style={{ background: it.color }}>
-                      {it.iconify ? (
-                        <img className="integ-mark-img" src={iconifyUrl(it.iconify)} alt="" loading="lazy" />
-                      ) : (
-                        <span className="integ-mark-icon">{it.icon}</span>
-                      )}
-                    </div>
-                    <div className="integ-meta">
-                      <div className="integ-name">{it.name}</div>
-                      <Mono className="integ-tag">{it.tag}</Mono>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <Mono className="eyebrow">{t.audience.eyebrow}</Mono>
+        <h2 className="h2">
+          {t.audience.h_a}
+          <span className="lighter">{t.audience.h_accent}</span>
+          {t.audience.h_b}
+        </h2>
+        <p className="lede">{t.audience.sub}</p>
+        <div className="audience-grid">
+          {t.audience.cols.map((c, i) => (
+            <div key={i} className="audience-card">
+              <h3 className="audience-name">{c.name}</h3>
+              <p className="audience-text">{c.text}</p>
             </div>
           ))}
         </div>
@@ -281,39 +274,34 @@
     </section>
   );
 
-  /* ---------- Pricing ---------- */
+  /* ---------- Demo / pricing CTA ---------- */
 
-  const Pricing = ({ t }) => (
+  const DemoCTA = ({ t }) => (
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
-        <Mono className="eyebrow">{t.pricing.eyebrow}</Mono>
-        <h2 className="h2">
-          {t.pricing.h_a}
-          <span className="lighter">{t.pricing.h_accent}</span>
-          {t.pricing.h_b}
-        </h2>
-        <p className="lede">{t.pricing.sub}</p>
-        <div className="pricing-grid">
-          {t.pricing.plans.map((p, i) => (
-            <div key={i} className={`plan ${p.featured ? 'featured' : ''}`}>
-              {p.featured && <span className="plan-popular">{t.pricing.popular}</span>}
-              <Mono className="plan-name">{p.name}</Mono>
-              <div className="plan-price">{p.price}<span className="unit">{p.unit}</span></div>
-              <p className="plan-tag">{p.tag}</p>
-              <ul className="plan-list">
-                {p.features.map((f, j) => <li key={j}>{f}</li>)}
-              </ul>
-              <div className="plan-cta">
-                <a
-                  href={p.cta && /vent|sales/i.test(p.cta) ? 'mailto:ventas@ciclo.mx?subject=Plan%20Empresa' : '#'}
-                  className={`btn ${p.featured ? 'btn-brand' : 'btn-ink'} btn-arrow`}
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  {p.cta}
-                </a>
-              </div>
-            </div>
-          ))}
+        <Mono className="eyebrow">{t.demo.eyebrow}</Mono>
+        <div className="demo-block">
+          <div className="demo-block-text">
+            <h2 className="h2">
+              {t.demo.h_a}
+              <span className="lighter">{t.demo.h_accent}</span>
+              {t.demo.h_b}
+            </h2>
+            <p className="lede">{t.demo.sub}</p>
+            <ul className="demo-points">
+              {t.demo.points.map((p, i) => <li key={i}>{p}</li>)}
+            </ul>
+          </div>
+          <div className="demo-block-cta">
+            <a
+              href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo"
+              className="btn btn-brand btn-arrow"
+              style={{ width: '100%', justifyContent: 'center' }}
+            >
+              {t.demo.cta}
+            </a>
+            <p className="demo-note">{t.demo.note}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -472,9 +460,10 @@
       <>
         <Nav t={t} navBg={navBg} />
         <Hero t={t} />
+        <HowItWorks t={t} />
         <Modules t={t} />
-        <Integrations t={t} />
-        <Pricing t={t} />
+        <Audience t={t} />
+        <DemoCTA t={t} />
         <FAQ t={t} />
         <CTA t={t} />
         <Footer t={t} />

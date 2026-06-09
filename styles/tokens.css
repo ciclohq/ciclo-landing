@@ -5,20 +5,26 @@
    ============================================================= */
 
 :root {
-  /* Palette — Sky / Electric: cool stone bg + sky-blue brand + charcoal ink */
-  --paper-cream:   #F0F2F5;          /* renamed-in-place: cool stone, the main bg */
-  --off-white:     #F8FAFC;          /* near-white with slight cool cast */
+  /* Palette — Clean white + electric blue, charcoal ink (refs: Handle / Cents) */
+  --paper-cream:   #FBFBFD;          /* clean near-white, the main bg */
+  --off-white:     #F6F8FB;          /* faint cool white for alternating sections */
   --bright-white:  #FFFFFF;
-  --pale-cobalt:   #DBE8FA;          /* pale sky tint surface */
-  --ink:           #18181B;          /* charcoal near-black */
-  --ink-soft:      #2A2A2D;
+  --pale-cobalt:   #E2F4FD;          /* pale cyan tint surface */
+  --ink:           #0E1116;          /* near-black */
+  --ink-soft:      #1B1F27;
 
-  /* Brand — sky blue */
-  --brand:         #3B82F6;
-  --brand-deep:    #1F5FCF;
-  --brand-tint:    #DEEBFE;
+  /* Brand — sky cyan, single accent */
+  --brand:         #0C90E0;
+  --brand-deep:    #0A6FB0;
+  --brand-tint:    #E2F4FD;
 
-  --sun:           #3B82F6;          /* synced — single accent */
+  --sun:           #0C90E0;          /* synced — single accent */
+
+  /* Status chips (order states) */
+  --chip-new-b:    #CDEBFA; --chip-new-f:   #0A6FB0;
+  --chip-route-b:  #FBE5C0; --chip-route-f: #9A6B00;
+  --chip-ready-b:  #E4E1FB; --chip-ready-f: #5B43C9;
+  --chip-done-b:   #D6F2DE; --chip-done-f:  #1C7A41;
 
   /* Glass — kept defined but unused on cream bg */
   --glass:         rgba(255, 255, 255, 0.55);
@@ -27,11 +33,9 @@
   --glass-dark:    rgba(22, 23, 14, 0.78);
   --glass-border:  rgba(255, 255, 255, 0.65);
 
-  /* Soft sky-blue gradient blooms on the page bg */
+  /* Whisper-soft single bloom — keeps the page clean, not "gradient slab" */
   --bg-blobs:
-    radial-gradient(ellipse 1100px 800px at 12% 12%, rgba( 59, 130, 246, 0.18), transparent 60%),
-    radial-gradient(ellipse 1000px 800px at 88% 92%, rgba( 31,  95, 207, 0.14), transparent 60%),
-    radial-gradient(ellipse  900px 700px at 60% 50%, rgba(180, 210, 255, 0.20), transparent 70%);
+    radial-gradient(ellipse 1200px 620px at 50% -8%, rgba(12, 144, 224, 0.07), transparent 60%);
 
   /* Hairlines */
   --hairline:           rgba(24, 24, 27, 0.10);

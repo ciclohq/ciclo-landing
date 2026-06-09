@@ -1,6 +1,6 @@
 # Ciclo — Landing
 
-Marketing landing page for [Ciclo](https://ciclo.mx) — the operating system for laundromats and dry cleaners in LatAm. Punto de venta, órdenes, rutas, pagos y CFDI 4.0 en una sola plataforma.
+Marketing landing page for [Ciclo](https://ciclo.mx) — laundry & dry-cleaning delivery, run through one WhatsApp number. In-store order board, driver routing app, and win-back marketing for laundromats and dry cleaners in Mexico.
 
 ## Stack
 
