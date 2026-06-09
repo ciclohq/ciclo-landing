@@ -20,7 +20,7 @@
 }
 .nav-bg-cream { background: rgba(251, 251, 253, 0.82); }
 .nav-bg-off   { background: rgba(246, 248, 251, 0.85); }
-.nav-bg-tint  { background: rgba(234, 241, 255, 0.85); }
+.nav-bg-tint  { background: rgba(226, 244, 253, 0.85); }
 .nav-bg-navy {
   background: rgba(14, 22, 40, 0.85);
   border-bottom-color: rgba(255, 255, 255, 0.10);
@@ -594,9 +594,9 @@
   text-align: center;
   padding: clamp(96px, 11vw, 180px) 0 clamp(64px, 8vw, 120px);
   background:
-    radial-gradient(ellipse 1200px 700px at 30% 110%, rgba( 59, 130, 246, 0.30), transparent 60%),
-    radial-gradient(ellipse 1100px 800px at 75% 120%, rgba( 31,  95, 207, 0.20), transparent 60%),
-    radial-gradient(ellipse  900px 600px at 50%  20%, rgba(222, 235, 254, 0.75), transparent 70%),
+    radial-gradient(ellipse 1200px 700px at 30% 110%, rgba( 12, 144, 224, 0.28), transparent 60%),
+    radial-gradient(ellipse 1100px 800px at 75% 120%, rgba( 10, 111, 176, 0.18), transparent 60%),
+    radial-gradient(ellipse  900px 600px at 50%  20%, rgba(226, 244, 253, 0.80), transparent 70%),
     var(--paper-cream);
   color: var(--ink);
 }

@@ -9,19 +9,19 @@
   --paper-cream:   #FBFBFD;          /* clean near-white, the main bg */
   --off-white:     #F6F8FB;          /* faint cool white for alternating sections */
   --bright-white:  #FFFFFF;
-  --pale-cobalt:   #EAF1FF;          /* pale blue tint surface */
+  --pale-cobalt:   #E2F4FD;          /* pale cyan tint surface */
   --ink:           #0E1116;          /* near-black */
   --ink-soft:      #1B1F27;
 
-  /* Brand — electric blue, single accent */
-  --brand:         #2F6DF0;
-  --brand-deep:    #1B53D6;
-  --brand-tint:    #EAF1FF;
+  /* Brand — sky cyan, single accent */
+  --brand:         #0C90E0;
+  --brand-deep:    #0A6FB0;
+  --brand-tint:    #E2F4FD;
 
-  --sun:           #2F6DF0;          /* synced — single accent */
+  --sun:           #0C90E0;          /* synced — single accent */
 
   /* Status chips (order states) */
-  --chip-new-b:    #DCE8FF; --chip-new-f:   #1B53D6;
+  --chip-new-b:    #CDEBFA; --chip-new-f:   #0A6FB0;
   --chip-route-b:  #FBE5C0; --chip-route-f: #9A6B00;
   --chip-ready-b:  #E4E1FB; --chip-ready-f: #5B43C9;
   --chip-done-b:   #D6F2DE; --chip-done-f:  #1C7A41;
@@ -35,7 +35,7 @@
 
   /* Whisper-soft single bloom — keeps the page clean, not "gradient slab" */
   --bg-blobs:
-    radial-gradient(ellipse 1200px 620px at 50% -8%, rgba(47, 109, 240, 0.06), transparent 60%);
+    radial-gradient(ellipse 1200px 620px at 50% -8%, rgba(12, 144, 224, 0.07), transparent 60%);
 
   /* Hairlines */
   --hairline:           rgba(24, 24, 27, 0.10);
