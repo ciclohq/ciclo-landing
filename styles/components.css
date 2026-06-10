@@ -27,7 +27,8 @@
   transition: transform 160ms var(--ease-out),
               background-color 160ms var(--ease-out),
               color 160ms var(--ease-out),
-              border-color 160ms var(--ease-out);
+              border-color 160ms var(--ease-out),
+              box-shadow 160ms var(--ease-out);
 }
 .btn:active { transform: translateY(1px); }
 
@@ -35,25 +36,33 @@
   background: var(--ink);
   color: #FFFFFF;
   border-color: var(--ink);
+  box-shadow: 0 1px 2px rgba(11, 14, 20, 0.18), 0 8px 18px -10px rgba(11, 14, 20, 0.45);
 }
-.btn-ink:hover { background: #000713; border-color: #000713; }
+.btn-ink:hover {
+  background: #000713; border-color: #000713;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 3px rgba(11, 14, 20, 0.18), 0 12px 24px -10px rgba(11, 14, 20, 0.5);
+}
 
 .btn-ghost {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.6);
   color: var(--ink);
   border-color: var(--hairline);
 }
-.btn-ghost:hover { border-color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); background: var(--bright-white); }
 
 .btn-brand {
   background: var(--brand);
   color: #FFFFFF;
   border-color: var(--brand);
+  box-shadow: 0 1px 2px rgba(10, 111, 176, 0.3), 0 10px 22px -10px rgba(12, 144, 224, 0.6);
 }
 .btn-brand:hover {
   background: var(--brand-deep);
   border-color: var(--brand-deep);
   color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 3px rgba(10, 111, 176, 0.3), 0 14px 28px -10px rgba(12, 144, 224, 0.65);
 }
 
 .btn-arrow::after {

@@ -120,7 +120,7 @@
           <span className="lighter">{t.how.h_accent}</span>
         </h2>
         <p className="lede">{t.how.sub}</p>
-        <ol className="journey">
+        <ol className="journey" data-reveal="stagger">
           {t.how.steps.map((s, i) => (
             <li key={i} className="journey-step">
               <span className="journey-num">{s.num}</span>
@@ -203,7 +203,7 @@
           <p className="lede">{t.features.spotlight.body}</p>
 
           {/* Clickable cards row */}
-          <div className="module-cards">
+          <div className="module-cards" data-reveal="stagger">
             {t.features.modules.map((mm, i) => (
               <button
                 key={i}
@@ -262,7 +262,7 @@
           {t.audience.h_b}
         </h2>
         <p className="lede">{t.audience.sub}</p>
-        <div className="audience-grid">
+        <div className="audience-grid" data-reveal="stagger">
           {t.audience.cols.map((c, i) => (
             <div key={i} className="audience-card">
               <h3 className="audience-name">{c.name}</h3>
@@ -280,7 +280,7 @@
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
         <Mono className="eyebrow">{t.demo.eyebrow}</Mono>
-        <div className="demo-block">
+        <div className="demo-block" data-reveal="">
           <div className="demo-block-text">
             <h2 className="h2">
               {t.demo.h_a}
@@ -315,7 +315,7 @@
       <section id="faq" className="section surface-white-bg" data-bg="off">
         <div className="container">
           <Mono className="eyebrow">{t.faq.eyebrow}</Mono>
-          <div className="faq-row">
+          <div className="faq-row" data-reveal="">
             <div>
               <h2 className="h2">
                 {t.faq.h_a}
@@ -355,7 +355,7 @@
 
   const CTA = ({ t }) => (
     <section className="cta-block" data-bg="cream">
-      <div className="container">
+      <div className="container" data-reveal="">
         <h2 className="h1">
           {t.cta_block.h_a}
           <span className="lighter">{t.cta_block.h_accent}</span>
@@ -422,6 +422,24 @@
       };
       document.addEventListener('click', onClick);
       return () => document.removeEventListener('click', onClick);
+    }, []);
+
+    /* Scroll reveal — flag <html> as reveal-ready (so content stays visible
+       if JS never runs), then mark each [data-reveal] element on first entry. */
+    useEffect(() => {
+      if (!('IntersectionObserver' in window)) return;
+      document.documentElement.classList.add('reveal-ready');
+      const els = document.querySelectorAll('[data-reveal]');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      els.forEach((el) => io.observe(el));
+      return () => io.disconnect();
     }, []);
 
     /* Track which [data-bg] section is at the top of the viewport
