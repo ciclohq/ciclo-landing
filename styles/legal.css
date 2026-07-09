@@ -93,7 +93,7 @@ body { background: var(--paper-cream); }
 .legal a {
   color: var(--brand);
   text-decoration: underline;
-  text-decoration-color: rgba(12, 144, 224, 0.35);
+  text-decoration-color: rgba(0, 143, 146, 0.35);
   text-underline-offset: 2px;
 }
 .legal a:hover { text-decoration-color: var(--brand); }

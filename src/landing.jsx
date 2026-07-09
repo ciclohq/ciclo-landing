@@ -27,7 +27,7 @@
       raf = requestAnimationFrame(tick);
       return () => cancelAnimationFrame(raf);
     }, [end, duration]);
-    return <>{prefix}{val}{suffix}</>;
+    return <>{prefix}{val.toLocaleString('en-US')}{suffix}</>;
   };
 
   /* Cursor-follow tilt — desktop pointers only, springs back on leave */
@@ -98,6 +98,9 @@
     </section>
   );
 
+  /* Faithful mock of the real product dashboard (apps/web):
+     inset sidebar (Plataforma nav), h-12 topbar with branch switcher,
+     "Hola, {nombre} 👋" header, 4 stat cards with delta badges. */
   const HeroVisual = () => {
     const tiltRef = useTilt(2.2);
     return (
@@ -105,51 +108,51 @@
       <div className="app" ref={tiltRef}>
         <div className="appbar">
           <span className="appbar-dots"><i /><i /><i /></span>
-          <span className="appbar-url">app.ciclo.mx/tablero</span>
+          <span className="appbar-url">app.ciclo.mx/dashboard</span>
+        </div>
+        <div className="app-topbar">
+          <span className="app-burger"><i /><i /><i /></span>
+          <span className="app-topsep" />
+          <span className="app-branch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Sucursal Roma<b>⌄</b></span>
         </div>
         <div className="app-body">
           <aside className="app-side">
-            <div className="app-brand">ciclo<span className="dot-accent">.</span></div>
-            <div className="app-navlbl">Operación</div>
-            <div className="app-nav is-active"><span className="app-ic" />Tablero</div>
-            <div className="app-nav"><span className="app-ic" />WhatsApp<span className="app-badge">3</span></div>
+            <div className="app-org"><span className="app-org-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg></span>Lavandería Roma</div>
+            <div className="app-navlbl">Plataforma</div>
+            <div className="app-nav is-active"><span className="app-ic" />Resumen</div>
             <div className="app-nav"><span className="app-ic" />Órdenes</div>
-            <div className="app-nav"><span className="app-ic" />Rutas</div>
-            <div className="app-nav"><span className="app-ic" />Repartidores</div>
-            <div className="app-navlbl">Crecimiento</div>
-            <div className="app-nav"><span className="app-ic" />Marketing</div>
             <div className="app-nav"><span className="app-ic" />Clientes</div>
+            <div className="app-nav"><span className="app-ic" />Productos</div>
+            <div className="app-nav"><span className="app-ic" />Ajustes</div>
           </aside>
           <main className="app-main">
             <div className="app-mhead">
               <div>
-                <div className="app-greet">Buenas tardes, Lavandería Roma</div>
-                <div className="app-date">Domingo · 8 de junio</div>
+                <div className="app-greet">Hola, María 👋</div>
+                <div className="app-date">Este es el resumen de la operación de tu sucursal.</div>
               </div>
               <span className="app-newbtn">+ Nueva orden</span>
             </div>
             <div className="app-stats">
-              <div className="app-stat"><div className="k">Órdenes hoy</div><div className="v"><CountUp end={38} /></div><div className="d up">▲ 12% vs ayer</div></div>
-              <div className="app-stat"><div className="k">En ruta</div><div className="v"><CountUp end={6} /></div><div className="d">2 repartidores</div></div>
-              <div className="app-stat"><div className="k">Listas</div><div className="v"><CountUp end={12} /></div><div className="d">para entrega</div></div>
-              <div className="app-stat accent"><div className="k">Recuperados · 30d</div><div className="v"><CountUp end={18} prefix="+" suffix="%" /></div><div className="d">campañas WhatsApp</div></div>
+              <div className="app-stat"><div className="k">Órdenes activas</div><div className="v"><CountUp end={24} /></div><span className="b">+12%</span></div>
+              <div className="app-stat"><div className="k">Ingresos del día</div><div className="v"><CountUp end={4250} prefix="$" /></div><span className="b">+8%</span></div>
+              <div className="app-stat"><div className="k">Clientes nuevos</div><div className="v"><CountUp end={6} /></div><span className="b">+3</span></div>
+              <div className="app-stat"><div className="k">Tiempo promedio</div><div className="v">26 h</div><span className="b">−2 h</span></div>
             </div>
             <div className="app-grid2">
               <div className="app-panel">
                 <div className="app-panel-h"><span className="t">Órdenes de hoy</span><span className="a">VER TODAS</span></div>
-                <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
+                <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-pick">RECOLECCIÓN</span></div></div>
+                <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-proc">EN PROCESO</span></div></div>
                 <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
-                <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
                 <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
               </div>
               <div className="app-panel">
-                <div className="app-panel-h"><span className="t">WhatsApp</span><span className="a">3 NUEVOS</span></div>
-                <div className="wmini">
-                  <div className="wmrow"><span className="wmav">M</span><div className="wmbody"><div className="wmname">María G.</div><div className="wmmsg">¿A qué hora pasan por la ropa?</div></div><span className="wmun">2</span></div>
-                  <div className="wmrow"><span className="wmav">J</span><div className="wmbody"><div className="wmname">Jorge T.</div><div className="wmmsg">Quiero agendar recolección 🧺</div></div><span className="wmun">1</span></div>
-                  <div className="wmrow"><span className="wmav">A</span><div className="wmbody"><div className="wmname">Ana P.</div><div className="wmmsg">Gracias, todo perfecto 🙌</div></div></div>
-                </div>
-                <div className="wmfoot"><span className="wmpill">Responder a María…</span><span className="wmsend">➤</span></div>
+                <div className="app-panel-h"><span className="t">Servicio a domicilio</span><span className="chip c-done">ACTIVO</span></div>
+                <div className="zrow"><span className="zdot z1" />Roma Norte<span className="zmeta">zona activa</span></div>
+                <div className="zrow"><span className="zdot z2" />Condesa<span className="zmeta">zona activa</span></div>
+                <div className="zrow"><span className="zdot z3" />Del Valle<span className="zmeta">zona activa</span></div>
+                <div className="zfoot">Tarifa: gratis ≥ $300 · después $35</div>
               </div>
             </div>
           </main>
@@ -203,18 +206,40 @@
 
   /* ---------- Modules ---------- */
 
-  /* Per-module UI vignettes — show the actual product, not stock photos */
+  /* Per-module UI vignettes — faithful to the real product screens */
   const ModuleMock = ({ active }) => {
+    /* 01 — Servicio a domicilio: toggles + tarifas (settings screen) */
     if (active === 1) return (
       <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Tablero · Órdenes hoy<span className="mk-h-r">38</span></div>
-        <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-new">NUEVA</span></div></div>
-        <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
-        <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-ready">LISTA</span></div></div>
-        <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
+        <div className="mk-h"><span className="mk-hdot" />Ajustes · Servicio a domicilio<span className="mk-h-r">Sucursal Roma</span></div>
+        <div className="mk-set"><span className="mk-set-t">Servicio a domicilio</span><span className="sw on"><i /></span></div>
+        <div className="mk-set sub"><span className="mk-set-t">Lavandería</span><span className="mk-set-n">3/4 servicios</span><span className="sw on"><i /></span></div>
+        <div className="mk-set sub"><span className="mk-set-t">Tintorería</span><span className="mk-set-n">2/2 servicios</span><span className="sw on"><i /></span></div>
+        <div className="mk-lbl">Tarifas de entrega</div>
+        <div className="rrow"><span className="rnum">01</span><span className="rcond">Monto ≥ $300</span><span className="rval free">Gratis</span></div>
+        <div className="rrow"><span className="rnum">02</span><span className="rcond">Distancia ≥ 5 km</span><span className="rval">$12/km</span></div>
+        <div className="rrow"><span className="rnum">03</span><span className="rcond">Siempre</span><span className="rval">$35</span></div>
       </div>
     );
+    /* 02 — Zonas de entrega: polygons on the map + zone list */
     if (active === 2) return (
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Zonas de entrega<span className="mk-h-r">3 zonas</span></div>
+        <div className="mk-map">
+          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
+            <path className="mk-street" d="M0 40 H320 M0 95 H320 M60 0 V150 M150 0 V150 M240 0 V150" />
+            <polygon className="mk-zone za" points="20,25 130,15 140,70 90,88 25,75" />
+            <polygon className="mk-zone zb" points="160,55 265,40 285,105 195,120 155,95" />
+            <g className="mk-vertex"><circle cx="160" cy="55" r="4"/><circle cx="265" cy="40" r="4"/><circle cx="285" cy="105" r="4"/><circle cx="195" cy="120" r="4"/><circle cx="155" cy="95" r="4"/></g>
+          </svg>
+        </div>
+        <div className="zrow"><span className="zdot z1" />Roma Norte<span className="zmeta">✎</span></div>
+        <div className="zrow"><span className="zdot z2" />Condesa<span className="zmeta">✎</span></div>
+        <div className="zrow"><span className="zdot z3" />Del Valle<span className="zmeta">✎</span></div>
+      </div>
+    );
+    /* 03 — App de repartidores: route + stops */
+    if (active === 3) return (
       <div className="mk" aria-hidden="true">
         <div className="mk-h"><span className="mk-hdot" />Ruta de hoy · Repartidor 1<span className="mk-h-r">5 paradas</span></div>
         <div className="mk-map">
@@ -231,27 +256,18 @@
         <div className="mk-stop"><span className="mk-stopn">3</span><span>Nápoles · entrega</span><span className="mk-eta">5:10pm</span></div>
       </div>
     );
-    if (active === 3) return (
-      <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Campaña · WhatsApp<span className="mk-h-r">Borrador</span></div>
-        <div className="mk-seg"><span className="mk-seg-k">SEGMENTO</span><span className="mk-seg-v">Sin pedido en 30 días</span><span className="mk-seg-n">248</span></div>
-        <div className="mk-wa-thread compact">
-          <span className="mk-bub out promo">🧺 ¡Te extrañamos! 20% de descuento en tu próxima recolección esta semana. Responde <b>SÍ</b> y pasamos por tu ropa.</span>
-        </div>
-        <div className="mk-camp-foot"><span className="mk-send-btn">Enviar a 248 clientes</span><span className="mk-camp-stat">▲ +18% reactivados</span></div>
-      </div>
-    );
+    /* 00 — Tablero: resumen + órdenes */
     return (
-      <div className="mk mk-wa" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot wa" />WhatsApp · Lavandería Roma<span className="mk-h-r">en línea</span></div>
-        <div className="mk-wa-thread">
-          <span className="mk-bub in">Hola, quiero recoger 2 cobijas y ropa 🧺</span>
-          <span className="mk-bub out">¡Claro! ¿Te late hoy de 4–6pm?</span>
-          <span className="mk-bub in">Sí 🙌 ¿cuánto sale?</span>
-          <span className="mk-bub out">Total estimado <b>$240</b>. Te mando el link de pago.</span>
-          <span className="mk-typing"><i /><i /><i /></span>
+      <div className="mk" aria-hidden="true">
+        <div className="mk-h"><span className="mk-hdot" />Resumen · Hoy<span className="mk-h-r">Sucursal Roma</span></div>
+        <div className="mk-stats">
+          <div className="mk-stat"><span className="k">Activas</span><span className="v">24</span></div>
+          <div className="mk-stat"><span className="k">Ingresos</span><span className="v">$4,250</span></div>
+          <div className="mk-stat"><span className="k">Nuevos</span><span className="v">6</span></div>
         </div>
-        <div className="mk-wa-input"><span>Escribe un mensaje…</span><i className="mk-send" /></div>
+        <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-pick">RECOLECCIÓN</span></div></div>
+        <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-proc">EN PROCESO</span></div></div>
+        <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
       </div>
     );
   };
@@ -287,6 +303,14 @@
               </button>
             ))}
           </div>
+
+          {/* Roadmap note — the WhatsApp/marketing vision, honestly flagged */}
+          {t.features.soon && (
+            <div className="soon-strip">
+              <span className="soon-badge">{t.features.soon.label}</span>
+              <span className="soon-text">{t.features.soon.text}</span>
+            </div>
+          )}
 
           {/* Detail panel — body + features + photo for the active module */}
           <article className="module-deep" key={active}>

@@ -5,26 +5,31 @@
    ============================================================= */
 
 :root {
-  /* Palette — Clean white + electric blue, charcoal ink (refs: Handle / Cents) */
-  --paper-cream:   #FBFBFD;          /* clean near-white, the main bg */
-  --off-white:     #F6F8FB;          /* faint cool white for alternating sections */
-  --bright-white:  #FFFFFF;
-  --pale-cobalt:   #E2F4FD;          /* pale cyan tint surface */
-  --ink:           #0E1116;          /* near-black */
-  --ink-soft:      #1B1F27;
+  /* Palette — matched to the Ciclo product UI (shadcn Radix Nova theme).
+     Values converted from the app's oklch tokens (apps/web globals.css). */
+  --paper-cream:   #F8F8F8;          /* product --background */
+  --off-white:     #F5F5F5;          /* product --sidebar / --muted */
+  --bright-white:  #FFFFFF;          /* product --card */
+  --pale-cobalt:   #E6F4F4;          /* teal 10% tint surface */
+  --ink:           #1D293D;          /* product --foreground */
+  --ink-soft:      #2A3850;
 
-  /* Brand — sky cyan, single accent */
-  --brand:         #0C90E0;
-  --brand-deep:    #0A6FB0;
-  --brand-tint:    #E2F4FD;
+  /* Brand — product primary teal oklch(0.58 0.118 197) */
+  --brand:         #008F92;
+  --brand-deep:    #006B6D;          /* product chart-5 */
+  --brand-tint:    #E6F4F4;
+  --brand-ring:    #35BABC;          /* product --ring */
 
-  --sun:           #0C90E0;          /* synced — single accent */
+  --sun:           #008F92;          /* synced — single accent */
 
-  /* Status chips (order states) */
-  --chip-new-b:    #CDEBFA; --chip-new-f:   #0A6FB0;
-  --chip-route-b:  #FBE5C0; --chip-route-f: #9A6B00;
-  --chip-ready-b:  #E4E1FB; --chip-ready-f: #5B43C9;
-  --chip-done-b:   #D6F2DE; --chip-done-f:  #1C7A41;
+  /* Status chips — product status.tsx style: color/10 bg, color/20 border, color-600 text */
+  --chip-new-b:    #F1F3F6; --chip-new-f:   #6C727E; /* default/muted */
+  --chip-pick-b:   #EFF4FE; --chip-pick-f:  #2563EB; /* info blue */
+  --chip-proc-b:   #FEF3EC; --chip-proc-f:  #EA580C; /* warning orange */
+  --chip-route-b:  #E6F4F4; --chip-route-f: #006B6D; /* brand teal */
+  --chip-done-b:   #EDF9F0; --chip-done-f:  #16A34A; /* success green */
+  /* legacy aliases */
+  --chip-ready-b:  #EFF4FE; --chip-ready-f: #2563EB;
 
   /* Glass — kept defined but unused on cream bg */
   --glass:         rgba(255, 255, 255, 0.55);
@@ -35,28 +40,28 @@
 
   /* Whisper-soft single bloom — keeps the page clean, not "gradient slab" */
   --bg-blobs:
-    radial-gradient(ellipse 1200px 620px at 50% -8%, rgba(12, 144, 224, 0.07), transparent 60%);
+    radial-gradient(ellipse 1200px 620px at 50% -8%, rgba(0, 143, 146, 0.06), transparent 60%);
 
-  /* Hairlines */
-  --hairline:           rgba(24, 24, 27, 0.10);
-  --hairline-soft:      rgba(24, 24, 27, 0.05);
+  /* Hairlines — from product --border #D0D4DB */
+  --hairline:           rgba(29, 41, 61, 0.14);
+  --hairline-soft:      rgba(29, 41, 61, 0.07);
   --hairline-on-dark:   rgba(255, 255, 255, 0.14);
   --hairline-on-dark-soft: rgba(255, 255, 255, 0.07);
 
-  /* Body */
-  --body:          #3F3F45;
-  --body-muted:    rgba(24, 24, 27, 0.55);
+  /* Body — from product foreground/muted-foreground */
+  --body:          #45506A;
+  --body-muted:    #6C727E;
   --body-on-dark:  rgba(255, 255, 255, 0.78);
   --body-on-dark-muted: rgba(255, 255, 255, 0.52);
 
-  /* Type */
-  --font-display: 'Bricolage Grotesque', 'Geist', -apple-system, sans-serif;
+  /* Type — matched to the product app: Inter headings, Geist body, JetBrains Mono */
+  --font-display: 'Inter', 'Geist', -apple-system, sans-serif;
   --font-body:    'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono:    'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-mono:    'JetBrains Mono', 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
   --font-serif:   'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
 
-  --tracking-display: -0.04em;
-  --tracking-display-tight: -0.045em;
+  --tracking-display: -0.025em;
+  --tracking-display-tight: -0.03em;
   --tracking-mono: 0.06em;
 
   /* Layout */
@@ -64,10 +69,10 @@
   --gutter: clamp(20px, 4vw, 64px);
   --section-y: clamp(72px, 9vw, 144px);
 
-  /* Radii */
+  /* Radii — product base radius 10px (radius-lg), xl 14px */
   --radius-button: 8px;
   --radius-tile:   14px;
-  --radius-card:   12px;
+  --radius-card:   10px;
 
   --shadow-tile: 0 1px 0 rgba(255,255,255,0.5) inset, 0 8px 16px -10px rgba(22,23,14,0.10);
   --shadow-postcard: 0 16px 40px -20px rgba(22,23,14,0.18);
