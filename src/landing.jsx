@@ -5,8 +5,55 @@
    ============================================================= */
 
 (() => {
-  const { useState, useEffect } = React;
+  const { useState, useEffect, useRef } = React;
   const { Logo, Mono, TweaksPanel } = window.UI;
+
+  const prefersReducedMotion = () =>
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Count-up stat — ticks from 0 to `end` once on mount */
+  const CountUp = ({ end, prefix = '', suffix = '', duration = 1100 }) => {
+    const [val, setVal] = useState(prefersReducedMotion() ? end : 0);
+    useEffect(() => {
+      if (prefersReducedMotion()) return;
+      let raf;
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - t0) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setVal(Math.round(end * eased));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, [end, duration]);
+    return <>{prefix}{val}{suffix}</>;
+  };
+
+  /* Cursor-follow tilt — desktop pointers only, springs back on leave */
+  const useTilt = (max = 2.2) => {
+    const ref = useRef(null);
+    useEffect(() => {
+      const el = ref.current;
+      if (!el) return;
+      if (prefersReducedMotion()) return;
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      const onMove = (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = `perspective(1200px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`;
+      };
+      const onLeave = () => { el.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'; };
+      el.addEventListener('mousemove', onMove);
+      el.addEventListener('mouseleave', onLeave);
+      return () => {
+        el.removeEventListener('mousemove', onMove);
+        el.removeEventListener('mouseleave', onLeave);
+      };
+    }, [max]);
+    return ref;
+  };
 
   /* ---------- Nav ---------- */
 
@@ -51,9 +98,11 @@
     </section>
   );
 
-  const HeroVisual = () => (
+  const HeroVisual = () => {
+    const tiltRef = useTilt(2.2);
+    return (
     <div className="hero-stage" aria-hidden="true">
-      <div className="app">
+      <div className="app" ref={tiltRef}>
         <div className="appbar">
           <span className="appbar-dots"><i /><i /><i /></span>
           <span className="appbar-url">app.ciclo.mx/tablero</span>
@@ -80,10 +129,10 @@
               <span className="app-newbtn">+ Nueva orden</span>
             </div>
             <div className="app-stats">
-              <div className="app-stat"><div className="k">Órdenes hoy</div><div className="v">38</div><div className="d up">▲ 12% vs ayer</div></div>
-              <div className="app-stat"><div className="k">En ruta</div><div className="v">6</div><div className="d">2 repartidores</div></div>
-              <div className="app-stat"><div className="k">Listas</div><div className="v">12</div><div className="d">para entrega</div></div>
-              <div className="app-stat accent"><div className="k">Recuperados · 30d</div><div className="v">+18%</div><div className="d">campañas WhatsApp</div></div>
+              <div className="app-stat"><div className="k">Órdenes hoy</div><div className="v"><CountUp end={38} /></div><div className="d up">▲ 12% vs ayer</div></div>
+              <div className="app-stat"><div className="k">En ruta</div><div className="v"><CountUp end={6} /></div><div className="d">2 repartidores</div></div>
+              <div className="app-stat"><div className="k">Listas</div><div className="v"><CountUp end={12} /></div><div className="d">para entrega</div></div>
+              <div className="app-stat accent"><div className="k">Recuperados · 30d</div><div className="v"><CountUp end={18} prefix="+" suffix="%" /></div><div className="d">campañas WhatsApp</div></div>
             </div>
             <div className="app-grid2">
               <div className="app-panel">
@@ -107,7 +156,26 @@
         </div>
       </div>
     </div>
-  );
+    );
+  };
+
+  /* ---------- Ticker — looping benefits strip under the hero ---------- */
+
+  const Ticker = ({ t }) => {
+    const items = t.hero.ticker || [];
+    const seq = (key) => (
+      <span className="ticker-seq" key={key} aria-hidden={key > 0 ? 'true' : undefined}>
+        {items.map((it, i) => (
+          <span className="ticker-item" key={i}><i />{it}</span>
+        ))}
+      </span>
+    );
+    return (
+      <div className="ticker" data-bg="cream">
+        <div className="ticker-track">{seq(0)}{seq(1)}</div>
+      </div>
+    );
+  };
 
   /* ---------- How it works — order journey ---------- */
 
@@ -181,6 +249,7 @@
           <span className="mk-bub out">¡Claro! ¿Te late hoy de 4–6pm?</span>
           <span className="mk-bub in">Sí 🙌 ¿cuánto sale?</span>
           <span className="mk-bub out">Total estimado <b>$240</b>. Te mando el link de pago.</span>
+          <span className="mk-typing"><i /><i /><i /></span>
         </div>
         <div className="mk-wa-input"><span>Escribe un mensaje…</span><i className="mk-send" /></div>
       </div>
@@ -267,6 +336,11 @@
             <div key={i} className="audience-card">
               <h3 className="audience-name">{c.name}</h3>
               <p className="audience-text">{c.text}</p>
+              {c.chips && (
+                <div className="audience-chips">
+                  {c.chips.map((ch, j) => <span key={j} className="audience-chip">{ch}</span>)}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -478,6 +552,7 @@
       <>
         <Nav t={t} navBg={navBg} />
         <Hero t={t} />
+        <Ticker t={t} />
         <HowItWorks t={t} />
         <Modules t={t} />
         <Audience t={t} />

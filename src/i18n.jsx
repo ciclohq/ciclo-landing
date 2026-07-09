@@ -25,6 +25,14 @@ window.I18N = {
       cta_primary: 'Agenda una demo',
       cta_ghost:   'Cómo funciona',
       trust: 'Sin instalar apps · Configuramos tu número en la demo',
+      ticker: [
+        'Un número de WhatsApp',
+        'Tablero en tienda',
+        'Rutas para repartidores',
+        'Marketing que trae clientes de vuelta',
+        'Sin apps que instalar',
+        'Onboarding en español',
+      ],
     },
 
     /* --- How it works — the order journey --- */
@@ -106,8 +114,8 @@ window.I18N = {
       h_b: '',
       sub: 'El mismo sistema, adaptado a cómo trabaja cada negocio.',
       cols: [
-        { name: 'Lavanderías', text: 'Cargas por kilo, autoservicio o encargo y recolección a domicilio — todo por el mismo número.' },
-        { name: 'Tintorerías', text: 'Prendas por pieza, servicios delicados y planchado, con seguimiento orden por orden.' },
+        { name: 'Lavanderías', text: 'Cargas por kilo, autoservicio o encargo y recolección a domicilio — todo por el mismo número.', chips: ['Por kilo', 'Autoservicio', 'Encargo', 'Recolección a domicilio'] },
+        { name: 'Tintorerías', text: 'Prendas por pieza, servicios delicados y planchado, con seguimiento orden por orden.', chips: ['Por pieza', 'Delicados', 'Planchado', 'Orden por orden'] },
       ],
     },
 
@@ -227,6 +235,14 @@ window.I18N = {
       cta_primary: 'Book a demo',
       cta_ghost:   'How it works',
       trust: 'No apps to install · We set up your number in the demo',
+      ticker: [
+        'One WhatsApp number',
+        'In-store order board',
+        'Routes for drivers',
+        'Marketing that wins customers back',
+        'No apps to install',
+        'White-glove onboarding',
+      ],
     },
 
     how: {
@@ -305,8 +321,8 @@ window.I18N = {
       h_b: '',
       sub: 'The same system, adapted to how each business works.',
       cols: [
-        { name: 'Laundromats',  text: 'Wash-by-kilo, self-service or drop-off, and home pickup — all through one number.' },
-        { name: 'Dry cleaners', text: 'Per-garment items, delicate care and pressing, tracked order by order.' },
+        { name: 'Laundromats',  text: 'Wash by the pound, self-service or drop-off, and home pickup — all through one number.', chips: ['By the pound', 'Self-service', 'Drop-off', 'Home pickup'] },
+        { name: 'Dry cleaners', text: 'Per-garment items, delicate care and pressing, tracked order by order.', chips: ['Per garment', 'Delicates', 'Pressing', 'Order by order'] },
       ],
     },
 

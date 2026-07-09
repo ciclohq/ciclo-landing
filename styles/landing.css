@@ -62,8 +62,17 @@
 
 .nav-links { display: none; gap: 28px; align-items: center; }
 @media (min-width: 880px) { .nav-links { display: inline-flex; } }
-.nav-links a { font-size: 14px; color: var(--ink); }
+.nav-links a { font-size: 14px; color: var(--ink); position: relative; }
+.nav-links a::after {
+  content: '';
+  position: absolute; left: 0; bottom: -5px;
+  width: 100%; height: 1.5px; border-radius: 1px;
+  background: var(--brand);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 220ms var(--ease-out);
+}
 .nav-links a:hover { color: var(--brand); }
+.nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; }
 
@@ -217,6 +226,9 @@
     0 0 0 8px rgba(11, 14, 20, 0.05),
     0 24px 56px -22px rgba(10, 90, 150, 0.26),
     0 56px 110px -44px rgba(11, 14, 20, 0.30);
+  /* Cursor-follow tilt (set from JS) eases through this */
+  transition: transform 340ms var(--ease-out);
+  will-change: transform;
 }
 .appbar { display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-bottom: 1px solid var(--hairline-soft); }
 .appbar-dots { display: flex; gap: 6px; }
@@ -287,6 +299,40 @@
   .app-side { display: none; }
   .app-stats { grid-template-columns: repeat(2, 1fr); }
   .app-grid2 { grid-template-columns: 1fr; }
+}
+
+/* ---------- Ticker — looping benefits strip ---------- */
+
+.ticker {
+  border-top: 1px solid var(--hairline-soft);
+  border-bottom: 1px solid var(--hairline-soft);
+  background: var(--bright-white);
+  overflow: hidden;
+  padding: 14px 0;
+  /* Fade edges so items slide in/out of nothing */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker-scroll 32s linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-seq { display: inline-flex; }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding-right: 44px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--body-muted);
+}
+.ticker-item i {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--brand); flex-shrink: 0;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ---------- How it works — order-journey strip ---------- */
@@ -361,6 +407,16 @@
   font-size: 26px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 12px;
 }
 .audience-text { font-size: 16px; line-height: 1.55; color: var(--body); margin: 0; max-width: 42ch; }
+.audience-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.audience-chip {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-deep);
+  background: var(--brand-tint);
+  border: 1px solid rgba(12, 144, 224, 0.16);
+  border-radius: 999px;
+  padding: 5px 11px;
+}
 
 /* ---------- Modules — clickable cards + detail panel ---------- */
 
@@ -519,6 +575,11 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 30px 70px -38px rgba(11, 14, 20, 0.3), 0 6px 18px -14px rgba(11, 14, 20, 0.16);
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
+}
+.mk:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 38px 80px -38px rgba(10, 90, 150, 0.38), 0 8px 22px -14px rgba(11, 14, 20, 0.18);
 }
 .mk-h {
   display: flex; align-items: center; gap: 8px;
@@ -542,6 +603,24 @@
 .mk-bub.in  { background: #fff; align-self: flex-start; border-top-left-radius: 3px; }
 .mk-bub.out { background: #DCF8C6; align-self: flex-end; border-top-right-radius: 3px; }
 .mk-bub.promo { align-self: stretch; max-width: 100%; background: var(--brand-tint); color: var(--ink); }
+.mk-typing {
+  display: inline-flex; align-items: center; gap: 4px;
+  align-self: flex-start;
+  background: #fff; border-radius: 13px; border-top-left-radius: 3px;
+  padding: 11px 13px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.mk-typing i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(20, 24, 29, 0.35);
+  animation: typing-bounce 1.3s ease-in-out infinite;
+}
+.mk-typing i:nth-child(2) { animation-delay: 160ms; }
+.mk-typing i:nth-child(3) { animation-delay: 320ms; }
+@keyframes typing-bounce {
+  0%, 55%, 100% { transform: none; opacity: 0.45; }
+  28%           { transform: translateY(-3px); opacity: 1; }
+}
 .mk-wa-input { display: flex; align-items: center; gap: 8px; padding: 10px 13px; background: var(--off-white); }
 .mk-wa-input span { flex: 1; background: #fff; border: 1px solid var(--hairline); border-radius: 999px; padding: 8px 13px; font-size: 11.5px; color: var(--body-muted); }
 .mk-send { width: 30px; height: 30px; border-radius: 50%; background: #25D366; flex-shrink: 0; position: relative; }
@@ -832,6 +911,7 @@
   .hero-head .badge, .hero .h1, .hero .lede,
   .hero-actions, .hero-trust, .hero-stage,
   .mk-route, .wmun, .app-badge,
+  .ticker-track, .mk-typing i,
   .reveal-ready [data-reveal].is-in,
   .reveal-ready [data-reveal='stagger'].is-in > * { animation: none; }
   .reveal-ready [data-reveal]:not(.is-in),
