@@ -14,14 +14,14 @@
   --ink:           #1D293D;          /* product --foreground */
   --ink-soft:      #2A3850;
 
-  /* Brand — two-tone, matching how the app actually uses color:
-     soft mint (org icon / focus ring) for decorative accents,
-     deep teal (--primary) only for buttons, links and strong text. */
-  --brand:         #45BFBA;          /* soft mint — decorative (ring #35BABC territory) */
-  --brand-deep:    #008F92;          /* product --primary — buttons/links */
-  --brand-ink:     #006B6D;          /* product chart-5 — hover */
-  --brand-tint:    #EAF7F6;
-  --brand-ring:    #35BABC;          /* product --ring */
+  /* Brand — #008F92 is THE primary (app --primary token, Alex's call).
+     Soft teal #35BABC stays only for app-faithful mock details (org icon, rings). */
+  --brand:         #008F92;          /* product --primary — the lead color */
+  --brand-deep:    #006B6D;          /* product chart-5 — hover/pressed */
+  --brand-ink:     #00595B;
+  --brand-soft:    #35BABC;          /* product --ring / --sidebar-primary — mock details, on-dark accents */
+  --brand-tint:    #E6F4F4;
+  --brand-ring:    #35BABC;
   --accent-soft:   #E3EAFB;          /* product --accent periwinkle — active states */
 
   --sun:           #008F92;          /* synced — single accent */

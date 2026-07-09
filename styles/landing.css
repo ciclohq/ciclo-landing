@@ -31,8 +31,8 @@
   color: #FFFFFF;
   transition: color 320ms var(--ease-out);
 }
-.nav-bg-navy .nav-logo .accent { color: var(--brand); }
-.nav-bg-navy .nav-links a:hover { color: var(--brand-deep); }
+.nav-bg-navy .nav-logo .accent { color: var(--brand-soft); }
+.nav-bg-navy .nav-links a:hover { color: var(--brand); }
 .nav-bg-navy .btn-ghost {
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.20);
@@ -78,7 +78,7 @@
   transform: scaleX(0); transform-origin: left;
   transition: transform 220ms var(--ease-out);
 }
-.nav-links a:hover { color: var(--brand-deep); }
+.nav-links a:hover { color: var(--brand); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; }
@@ -104,7 +104,7 @@
 }
 .surface-ink-bg .h2, .surface-ink-bg .h1, .surface-ink-bg .h3 { color: #FFFFFF; }
 .surface-ink-bg .eyebrow { color: rgba(255, 255, 255, 0.55); }
-.surface-ink-bg .h2 .lighter { color: var(--brand); }
+.surface-ink-bg .h2 .lighter { color: var(--brand-soft); }
 
 .container {
   max-width: var(--container);
@@ -223,7 +223,7 @@
 .hero-stage::after {
   content: ''; position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
   width: 110%; height: 88%; z-index: -1; filter: blur(28px);
-  background: radial-gradient(52% 56% at 50% 6%, rgba(69, 191, 186, 0.14), transparent 70%);
+  background: radial-gradient(52% 56% at 50% 6%, rgba(0, 143, 146, 0.12), transparent 70%);
 }
 .app {
   background: var(--bright-white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden;
@@ -285,7 +285,7 @@
 }
 .app-org-ic {
   width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0;
-  background: var(--brand); color: #fff;
+  background: var(--brand-soft); color: #fff;
   display: inline-grid; place-items: center;
 }
 .app-org-ic svg { width: 14px; height: 14px; }
@@ -307,7 +307,7 @@
 .app-mhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .app-greet { font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: -0.03em; }
 .app-date { font-size: 12.5px; color: var(--body-muted); margin-top: 3px; }
-.app-newbtn { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--brand-deep); border-radius: 8px; padding: 9px 13px; white-space: nowrap; }
+.app-newbtn { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--brand); border-radius: 8px; padding: 9px 13px; white-space: nowrap; }
 /* Stat cards — product pattern: muted label · 2xl value · secondary badge */
 .app-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
 .app-stat {
@@ -881,7 +881,7 @@
   font-size: 16px; color: var(--ink);
   transition: color 160ms var(--ease-out);
 }
-.faq-list .q:hover { color: var(--brand-deep); }
+.faq-list .q:hover { color: var(--brand); }
 .faq-list .q .q-toggle {
   color: var(--brand);
   font-size: 22px; font-weight: 400;
@@ -939,7 +939,7 @@
   margin: 0 0 36px;
   max-width: 22ch;
 }
-.footer-tag .accent { color: var(--brand); }
+.footer-tag .accent { color: var(--brand-soft); }
 .footer-links {
   display: grid;
   grid-template-columns: 1fr;
