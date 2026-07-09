@@ -32,7 +32,7 @@
   transition: color 320ms var(--ease-out);
 }
 .nav-bg-navy .nav-logo .accent { color: var(--brand); }
-.nav-bg-navy .nav-links a:hover { color: var(--brand); }
+.nav-bg-navy .nav-links a:hover { color: var(--brand-deep); }
 .nav-bg-navy .btn-ghost {
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.20);
@@ -78,7 +78,7 @@
   transform: scaleX(0); transform-origin: left;
   transition: transform 220ms var(--ease-out);
 }
-.nav-links a:hover { color: var(--brand); }
+.nav-links a:hover { color: var(--brand-deep); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; }
@@ -223,7 +223,7 @@
 .hero-stage::after {
   content: ''; position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
   width: 110%; height: 88%; z-index: -1; filter: blur(28px);
-  background: radial-gradient(52% 56% at 50% 6%, rgba(0, 143, 146, 0.17), transparent 70%);
+  background: radial-gradient(52% 56% at 50% 6%, rgba(69, 191, 186, 0.14), transparent 70%);
 }
 .app {
   background: var(--bright-white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden;
@@ -231,8 +231,8 @@
   box-shadow:
     0 0 0 7px rgba(255, 255, 255, 0.65),
     0 0 0 8px rgba(11, 14, 20, 0.05),
-    0 24px 56px -22px rgba(0, 107, 109, 0.26),
-    0 56px 110px -44px rgba(11, 14, 20, 0.30);
+    0 24px 56px -22px rgba(29, 41, 61, 0.18),
+    0 56px 110px -44px rgba(29, 41, 61, 0.24);
   /* Cursor-follow tilt (set from JS) eases through this */
   transition: transform 340ms var(--ease-out);
   will-change: transform;
@@ -258,7 +258,26 @@
 
 .app-body { display: grid; grid-template-columns: 208px 1fr; }
 
-.app-side { background: var(--off-white); border-right: 1px solid var(--hairline-soft); padding: 12px 10px; }
+.app-side {
+  background: #FAFAFB; border-right: 1px solid var(--hairline-soft);
+  padding: 12px 10px;
+  display: flex; flex-direction: column;
+}
+.app-ni { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.75; }
+.app-user {
+  margin-top: auto; padding: 10px 6px 2px;
+  border-top: 1px solid var(--hairline-soft);
+  display: flex; align-items: center; gap: 8px;
+}
+.app-user-av {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid var(--hairline);
+  display: inline-grid; place-items: center;
+  font-size: 9px; font-weight: 600; color: var(--body-muted);
+}
+.app-user-meta { display: flex; flex-direction: column; min-width: 0; }
+.app-user-meta b { font-size: 11px; font-weight: 600; }
+.app-user-meta i { font-style: normal; font-size: 9.5px; color: var(--body-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .app-org {
   display: flex; align-items: center; gap: 8px;
   padding: 4px 6px 12px;
@@ -270,29 +289,35 @@
   display: inline-grid; place-items: center;
 }
 .app-org-ic svg { width: 14px; height: 14px; }
+.app-branch svg { width: 13px; height: 13px; color: var(--body-muted); }
+.app-org-ic svg { width: 14px; height: 14px; }
 .app-brand { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: -0.04em; padding: 4px 8px 14px; }
 .dot-accent { color: var(--brand); }
 .app-navlbl { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; color: var(--body-muted); text-transform: uppercase; padding: 14px 8px 6px; }
-.app-nav { display: flex; align-items: center; gap: 9px; padding: 8px 9px; border-radius: 8px; font-size: 13px; color: var(--body-muted); }
-.app-ic { width: 15px; height: 15px; border-radius: 4px; border: 1.6px solid currentColor; opacity: 0.6; flex-shrink: 0; }
-.app-nav.is-active { background: var(--brand-tint); color: var(--brand-deep); font-weight: 600; }
-.app-nav.is-active .app-ic { opacity: 1; background: var(--brand); border-color: var(--brand); }
+.app-nav { display: flex; align-items: center; gap: 9px; padding: 8px 9px; border-radius: 8px; font-size: 13px; color: var(--body-muted); border: 1px solid transparent; }
+.app-nav.is-active {
+  background: var(--accent-soft);
+  border-color: var(--brand-ring);
+  color: var(--ink); font-weight: 600;
+}
+.app-nav.is-active .app-ni { opacity: 1; color: var(--ink); }
 .app-badge { margin-left: auto; font-family: var(--font-mono); font-size: 10px; background: var(--brand); color: #fff; border-radius: 999px; padding: 1px 6px; }
 
 .app-main { padding: 22px 24px 26px; }
 .app-mhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .app-greet { font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: -0.03em; }
 .app-date { font-size: 12.5px; color: var(--body-muted); margin-top: 3px; }
-.app-newbtn { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--brand); border-radius: 8px; padding: 9px 13px; white-space: nowrap; }
+.app-newbtn { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--brand-deep); border-radius: 8px; padding: 9px 13px; white-space: nowrap; }
 /* Stat cards — product pattern: muted label · 2xl value · secondary badge */
 .app-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
 .app-stat {
-  border: 1px solid var(--hairline); border-radius: 10px; padding: 13px 14px;
+  border: 1px solid var(--hairline-soft); border-radius: 10px; padding: 15px 16px;
   background: var(--bright-white);
-  box-shadow: 0 1px 2px rgba(29, 41, 61, 0.04);
+  box-shadow: 0 1px 2px rgba(29, 41, 61, 0.03);
 }
-.app-stat .k { font-size: 11.5px; color: var(--body-muted); }
-.app-stat .v { font-family: var(--font-display); font-weight: 600; font-size: 27px; letter-spacing: -0.03em; line-height: 1.1; margin-top: 6px; }
+.app-stat .k { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--body-muted); }
+.app-stat .k svg { width: 13px; height: 13px; flex-shrink: 0; }
+.app-stat .v { font-family: var(--font-display); font-weight: 600; font-size: 26px; letter-spacing: -0.02em; line-height: 1.1; margin-top: 7px; }
 .app-stat .b {
   display: inline-block; margin-top: 8px;
   font-size: 10.5px; font-weight: 500;
@@ -856,7 +881,7 @@
   font-size: 16px; color: var(--ink);
   transition: color 160ms var(--ease-out);
 }
-.faq-list .q:hover { color: var(--brand); }
+.faq-list .q:hover { color: var(--brand-deep); }
 .faq-list .q .q-toggle {
   color: var(--brand);
   font-size: 22px; font-weight: 400;
@@ -934,7 +959,7 @@
   font-size: 14.5px;
   text-decoration: none;
 }
-.footer-col a:hover { color: var(--brand); }
+.footer-col a:hover { color: #6FD3CE; }
 .footer-base {
   margin-top: 44px; padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
