@@ -110,6 +110,25 @@
     </section>
   );
 
+  /* ---------- Section jump — mobile-only in-page section nav ----------
+     Stands in for the header's .nav-links row, which is `display: none`
+     below 880px (see .section-jump's comment in landing.css for the full
+     rationale: no JS drawer, a plain static anchor row instead). Reuses
+     the same five anchors and the same t.nav.* labels the desktop header
+     links use, so no new i18n keys. Rendered once, right after Hero and before
+     Arc — never inside Hero — so it can't affect what's above the fold on
+     first load; it only becomes visible once the visitor scrolls to it. */
+
+  const SectionJump = ({ t, lang }) => (
+    <nav className="section-jump" aria-label={lang === 'es' ? 'Secciones' : 'Sections'}>
+      <a href="#how">{t.nav.how}</a>
+      <a href="#asistente">{t.nav.assistant}</a>
+      <a href="#incluye">{t.nav.product}</a>
+      <a href="#pricing">{t.nav.pricing}</a>
+      <a href="#faq">{t.nav.faq}</a>
+    </nav>
+  );
+
   /* ---------- Retention panel — arc part 04's visual ----------
      A stamp card mid-progress plus a membership state on a customer, in
      the order-card idiom (bright-white panel, hairline, mono dt / 16px dd,
@@ -418,7 +437,7 @@
     </section>
   );
 
-  /* ---------- Order models — the same order, priced two ways ----------
+  /* ---------- Order models — two pricing units, one per category ----------
      Replaces the two-card "audience" pattern (identical bordered cards,
      gradient stripe, pill cloud) that said nothing a shop owner couldn't
      have guessed. Every category in the catalog carries a pricing_unit of
@@ -433,18 +452,21 @@
      any category whose pricing_unit isn't per_item — a laundromat's
      per-kilo loads can't run that promotion, a dry cleaner's per-garment
      lines can. Same section slot as the old cards (id="audience"); no
-     cards, no stripes, no pill cloud — one shared "same order" label, then
-     two hairline-separated spec lists in the #incluye idiom (mono dt,
-     16px dd), stacked at mobile so one model reads fully before the other.
-     The peso/prenda figures in each example line are illustrative, not
-     real Ciclo pricing. */
+     cards, no stripes, no pill cloud — two hairline-separated spec lists in
+     the #incluye idiom (mono dt, 16px dd), stacked at mobile so one model
+     reads fully before the other. Deliberately NOT framed as "the same
+     order, two ways" — a 5.4kg per-kilo load and a 2-shirts-plus-a-pair-of-
+     pants per-item order are two different illustrative orders, and
+     claiming they're the same one doesn't survive a reader doing the
+     arithmetic. Each column's total is independently checkable from the
+     per-unit prices in its own example line. The peso/prenda figures are
+     illustrative, not real Ciclo pricing. */
 
   const OrderModels = ({ t }) => (
     <section id="audience" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
         <h2 className="h2">{t.audience.h}</h2>
         <p className="lede">{t.audience.sub}</p>
-        <p className="compare-order">{t.audience.order_label}</p>
         <div className="compare">
           {t.audience.models.map((m, i) => (
             <div key={i} className="compare-model">
@@ -687,6 +709,7 @@
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <main>
           <Hero t={t} lang={lang} />
+          <SectionJump t={t} lang={lang} />
           <Arc t={t} lang={lang} />
           <Assistant t={t} lang={lang} />
           <Included t={t} />

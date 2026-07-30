@@ -84,7 +84,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Opera',
-          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas prendas y precios desde el punto de venta, y cambias de sucursal en un clic.',
+          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas las prendas — cantidades y pesos — desde el punto de venta, y cambias de sucursal en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
           /* Product-shaped visual, not a screenshot — see BoardPanel's
              comment in landing.jsx for the full source citation. Folio
@@ -96,7 +96,7 @@ window.I18N = {
             rows: [
               { folio: '#4821', customer: 'Renata Vidal', stage: 'Por confirmar', stage_kind: 'unconfirmed' },
               { folio: '#4818', customer: 'Diego Salas', stage: 'Recolección', stage_kind: 'pickup' },
-              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Proceso', stage_kind: 'processing' },
+              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Procesamiento', stage_kind: 'processing' },
               { folio: '#4809', customer: 'Luis Fernández', stage: 'Entrega', stage_kind: 'delivery' },
             ],
           },
@@ -123,7 +123,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retiene',
-          body: 'Cada cliente trae su historial: cuántas veces ha pedido y cuándo fue la última. Desde su ficha le asignas una membresía o una promoción, para que la próxima vez te elija a ti primero.',
+          body: 'Cada cliente trae su historial: cuántas veces ha pedido y cuándo fue la última. Desde su ficha le asignas una membresía, para que la próxima vez te elija a ti primero.',
           feats: ['Historial por cliente', 'Clientes frecuentes', 'Membresías', 'Promociones'],
           /* Product-shaped visual, not a screenshot — verified against
              apps/api/src/modules/promotion/promotion-engine.ts (buy_n_get_free,
@@ -146,7 +146,7 @@ window.I18N = {
               progress: 7,
               target: 10,
               progress_sr: '7 de 10 sellos',
-              note: 'Cada orden con camisas suma un sello. Al llegar a 10, la prenda más barata de tu siguiente orden con camisas sale gratis.',
+              note: 'Cada orden completada con camisas suma un sello. Al llegar a 10, la prenda más barata de tu siguiente orden con camisas sale gratis.',
             },
             membership: {
               label: 'Membresía',
@@ -220,26 +220,30 @@ window.I18N = {
       h: 'Entradas y salidas, sucursal por sucursal.',
       sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
       rows: [
-        { name: 'Marisol G.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 08:57 · Salida 18:04', flag: 'Puntual', flag_kind: 'done' },
+        { name: 'Marisol G.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 08:57 · Salida 18:04', flag: 'A tiempo', flag_kind: 'done' },
         { name: 'Iván R.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 09:22 · Salida 18:10', flag: 'Tarde', flag_kind: 'proc' },
         { name: 'Paola T.', meta: 'Sucursal Del Valle · 10:00–19:00', times: 'Sin registro', flag: 'Ausente', flag_kind: 'new' },
       ],
       note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si nunca marca entrada.',
     },
 
-    /* --- Order models — the same order, priced two ways. Verified against
-       apps/api/src/schema/category-type.ts (pricing_unit: per_item |
+    /* --- Order models — two pricing units, one per category. Verified
+       against apps/api/src/schema/category-type.ts (pricing_unit: per_item |
        per_kilo, CHECK-constrained, set per category), apps/api/src/common/
        order-items.ts (lineTotal = price * weight for per_kilo, price *
        quantity for per_item; assertItemsWeighed requires a weight on
        per_kilo lines before it can save) and apps/api/src/modules/
        promotion/promotion.service.ts (~line 419: buy_n_get_free rejects
-       any category whose pricing_unit isn't per_item). The peso/prenda
-       figures in each example line are illustrative, not real pricing. --- */
+       any category whose pricing_unit isn't per_item). The two example
+       lines are two different illustrative orders (not one order shown
+       twice — a per-kilo load and a per-garment order aren't the same
+       order), so there is no shared "same order" framing here; each
+       column's total is independently checkable from the per-unit prices
+       shown in its own example line. The peso/prenda figures are
+       illustrative, not real pricing. --- */
     audience: {
-      h: 'La misma orden, dos formas de cobrarla.',
+      h: 'Dos formas de cobrar, una por categoría.',
       sub: 'Cada categoría de tu catálogo cobra por kilo o por pieza. Ciclo captura la orden distinto según cuál sea.',
-      order_label: 'Misma orden · folio #5104',
       labels: {
         unit: 'Unidad de cobro',
         capture: 'Qué se captura en mostrador',
@@ -258,7 +262,7 @@ window.I18N = {
           name: 'Tintorería',
           unit: 'Por pieza',
           capture: 'La cantidad de cada prenda',
-          example: '2 camisas + 1 pantalón, precio por prenda',
+          example: '2 camisas × $45.00 + 1 pantalón × $60.00',
           total: '$150.00',
         },
       ],
@@ -413,7 +417,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Operate',
-          body: 'Every order lands on the board with its customer, garments and stage. Your counter captures garments and prices from the point of sale, and you switch branches in a click.',
+          body: 'Every order lands on the board with its customer, garments and stage. Your counter captures the garments — quantities and weights — from the point of sale, and you switch branches in a click.',
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           board: {
             label: 'Board · Roma Norte Branch',
@@ -444,7 +448,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retain',
-          body: 'Every customer carries their history — how many times they’ve ordered and when they last came in. From their profile you attach a membership or a promotion, so next time they think of you first.',
+          body: 'Every customer carries their history — how many times they’ve ordered and when they last came in. From their profile you attach a membership, so next time they think of you first.',
           feats: ['Customer history', 'Repeat customers', 'Memberships', 'Promotions'],
           retention: {
             stamp: {
@@ -453,7 +457,7 @@ window.I18N = {
               progress: 7,
               target: 10,
               progress_sr: '7 of 10 stamps',
-              note: 'Every order with shirts adds a stamp. At 10, the lowest-priced shirt in your next shirt order is free.',
+              note: 'Every completed order with shirts adds a stamp. At 10, the lowest-priced shirt in your next shirt order is free.',
             },
             membership: {
               label: 'Membership',
@@ -506,9 +510,8 @@ window.I18N = {
     },
 
     audience: {
-      h: 'The same order, priced two ways.',
+      h: 'Two ways to charge, one per category.',
       sub: 'Every category in your catalog bills by the kilo or by the garment. Ciclo captures the order differently depending on which.',
-      order_label: 'Same order · folio #5104',
       labels: {
         unit: 'Pricing unit',
         capture: 'What gets captured at the counter',
@@ -527,7 +530,7 @@ window.I18N = {
           name: 'Dry cleaner',
           unit: 'By the garment',
           capture: 'The quantity of each garment',
-          example: '2 shirts + 1 pair of pants, priced per garment',
+          example: '2 shirts × $45.00 + 1 pair of pants × $60.00',
           total: '$150.00',
         },
       ],
@@ -554,7 +557,7 @@ window.I18N = {
       side: 'Have another question? Write to hola@ciclo.mx and we’ll cover it in the demo.',
       items: [
         { q: 'Do I need my own drivers?', a: 'You can use your own drivers with the app, or coordinate with whoever you already work with. Ciclo organizes the routes; you decide who runs them.' },
-        { q: 'Does it work for dry cleaning, not just laundry?', a: 'Yes. The system adapts to per-garment items, delicate services and pressing, just as it does to wash-by-the-pound.' },
+        { q: 'Does it work for dry cleaning, not just laundry?', a: 'Yes. The system adapts to per-garment items, delicate services and pressing, just as it does to wash-by-the-kilo.' },
         { q: 'Can I charge delivery however I want?', a: 'Yes. You define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer — with conditions by distance or active route.' },
         { q: 'What do I need to get started?', a: 'Just your service list and prices. We configure branches, zones and delivery fees together during onboarding.' },
       ],

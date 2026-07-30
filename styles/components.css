@@ -93,7 +93,7 @@
    Own palette only — no WhatsApp green, no bubble tails, no device chrome.
    Type sizes are fixed px (not viewport-relative) so a single component
    reads cleanly whether it sits in a 390px mobile column or the arc's
-   ~570px desktop screenshot slot. */
+   ~570px desktop column. */
 
 .thread-frame {
   background: var(--off-white);

@@ -26,12 +26,20 @@
 
   --sun:           #008F92;          /* synced — single accent */
 
-  /* Status chips — product status.tsx style: color/10 bg, color/20 border, color-600 text */
-  --chip-new-b:    #F1F3F6; --chip-new-f:   #6C727E; /* default/muted */
+  /* Status chips — product status.tsx style: color/10 bg, color/20 border, color-600 text.
+     Foregrounds darkened for WCAG AA at 12px (chips render as small text, so
+     the large-text 3:1 exemption doesn't apply — needs >=4.5:1 against their
+     own -b background). Hues kept intact (they mirror the product's stage
+     taxonomy); only lightness moved. Backgrounds untouched.
+       chip-new:  #6C727E → #686E7A on #F1F3F6  (4.35:1 → 4.61:1)
+       chip-proc: #EA580C → #C0480A on #FEF3EC  (3.25:1 → 4.61:1)
+       chip-done: #16A34A → #11813B on #EDF9F0  (3.05:1 → 4.59:1)
+     (chip-pick 4.69:1 and chip-route 5.60:1 already passed; unchanged.) */
+  --chip-new-b:    #F1F3F6; --chip-new-f:   #686E7A; /* default/muted */
   --chip-pick-b:   #EFF4FE; --chip-pick-f:  #2563EB; /* info blue */
-  --chip-proc-b:   #FEF3EC; --chip-proc-f:  #EA580C; /* warning orange */
+  --chip-proc-b:   #FEF3EC; --chip-proc-f:  #C0480A; /* warning orange */
   --chip-route-b:  #E6F4F4; --chip-route-f: #006B6D; /* brand teal */
-  --chip-done-b:   #EDF9F0; --chip-done-f:  #16A34A; /* success green */
+  --chip-done-b:   #EDF9F0; --chip-done-f:  #11813B; /* success green */
   /* legacy aliases */
   --chip-ready-b:  #EFF4FE; --chip-ready-f: #2563EB;
 

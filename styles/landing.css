@@ -85,6 +85,53 @@
 .nav-cta .lang-toggle { display: none; }
 @media (min-width: 768px) { .nav-cta .lang-toggle { display: inline-flex; } }
 
+/* ---------- Section jump — mobile-only in-page section nav ----------
+   Below 880px, .nav-links (the header's link row, above) is `display:
+   none` with nothing standing in for it — small screens had a logo,
+   "Acceder" and the demo CTA and no way to reach any section but the next
+   one down. Deliberately NOT a JS hamburger drawer: that would add open/
+   close state, focus management and an overlay to a page that has none of
+   that machinery today, in a repo with no test framework to catch a
+   regression in it. Instead: a plain, horizontally-scrollable row of real
+   anchor links (no JS at all) that sits in normal document flow right
+   after the hero — never inside the hero itself — so it can't push the
+   hero further down the fold; it only enters the viewport once the
+   visitor scrolls to it. Deliberately NOT sticky/pinned: stacking it under
+   the already-sticky header would double the offset anchor scrolls need
+   to clear, and every section's `scroll-margin-top: 65px` (below) assumes
+   only the header is pinned — a second sticky bar would silently break
+   that math the moment both were onscreen together. A static row avoids
+   the bug outright. overflow-x is scoped to this element alone, so it can
+   scroll horizontally without ever causing the page itself to. */
+.section-jump {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  padding: 10px var(--gutter);
+  background: var(--paper-cream);
+  border-bottom: 1px solid var(--hairline);
+}
+@media (min-width: 880px) { .section-jump { display: none; } }
+.section-jump a {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 16px;
+  margin-right: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--body);
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.section-jump a:last-child { margin-right: 0; }
+.section-jump a:hover { color: var(--brand); border-color: var(--brand); }
+
 /* Anchor-scroll offset — every section the nav links to (or that
    carries its own id) needs to clear the sticky nav, or its heading
    lands underneath the bar. Nav row is 64px + its 1px border. */
@@ -269,21 +316,17 @@
 }
 .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
 
-/* ---------- Order models — same order, two pricing units ----------
+/* ---------- Order models — two pricing units, one per category ----------
    Two hairline-separated spec lists (the #incluye idiom: mono uppercase
-   dt, 16px dd), not cards — no border, no shadow, no stripe. A shared
-   "same order" label sits above both so the "one order, two math" framing
-   reads before either model does. Single column and full-width at mobile
-   so a phone reads one model's four rows, then the other's, without a
-   side-by-side squeeze; a vertical hairline divides the pair from 760px
-   up, matching the breakpoint the old two-up block used. */
+   dt, 16px dd), not cards — no border, no shadow, no stripe. No shared
+   "same order" label above them: the two columns are two different
+   illustrative orders (per-kilo vs. per-garment), not one order shown
+   twice, so the heading and sub carry the framing instead. Single column
+   and full-width at mobile so a phone reads one model's four rows, then
+   the other's, without a side-by-side squeeze; a vertical hairline
+   divides the pair from 760px up, matching the breakpoint the old two-up
+   block used. */
 
-.compare-order {
-  margin: 32px 0 0;
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--body-muted);
-}
 .compare {
   margin-top: 20px;
   display: grid;
@@ -966,7 +1009,6 @@
   .roster-row { padding: 10px 0; }
   .roster-note { margin-top: 14px; }
 
-  .compare-order { margin-top: 18px; }
   .compare { margin-top: 12px; }
   .compare-model { padding: 20px 0; }
   .compare-note { margin-top: 22px; padding-top: 18px; }
