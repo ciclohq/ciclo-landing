@@ -82,6 +82,28 @@
     </section>
   );
 
+  /* ---------- Included — the spec table ----------
+     A definition list, not a card grid: the point is density. This is the
+     one place the uppercase mono label survives (in the `dt`s) — every
+     section eyebrow was removed elsewhere because it read as templated. */
+
+  const Included = ({ t }) => (
+    <section id="incluye" className="section surface-white-bg" data-bg="off">
+      <div className="container">
+        <h2 className="h2">{t.included.h}</h2>
+        <p className="lede">{t.included.sub}</p>
+        <dl className="spec">
+          {t.included.rows.map((r, i) => (
+            <div key={i} className="spec-row">
+              <dt>{r.k}</dt>
+              <dd>{r.v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+
   /* ---------- Audience — laundromats & dry cleaners ---------- */
 
   const Audience = ({ t }) => (
@@ -316,6 +338,7 @@
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <Hero t={t} />
         <Arc t={t} />
+        <Included t={t} />
         <Audience t={t} />
         <DemoCTA t={t} />
         <FAQ t={t} />

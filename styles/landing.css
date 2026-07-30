@@ -336,6 +336,45 @@
 
 .arc-screen { min-width: 0; }
 
+/* ---------- Included — spec table (dl, not a card grid) ----------
+   Two columns at desktop (label / value), stacked at mobile. The `dt` is
+   the only surviving uppercase mono label on the page — kept small and
+   muted so it reads as a spec-sheet field name, not a heading. */
+
+.spec {
+  margin: 48px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.spec-row dt,
+.spec-row dd {
+  margin: 0;
+}
+.spec-row dt {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  font-weight: 500;
+}
+.spec-row dd {
+  font-size: 15.5px; line-height: 1.6;
+  color: var(--body);
+}
+@media (min-width: 640px) {
+  .spec-row {
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: baseline;
+  }
+}
+
 /* ---------- Demo / pricing CTA ---------- */
 
 .demo-block {

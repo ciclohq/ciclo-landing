@@ -64,6 +64,21 @@ window.I18N = {
       ],
     },
 
+    /* --- Included — the spec table; attendance lives here because it sits
+       outside the delivery arc. Google reviews is absent by decision. --- */
+    included: {
+      h: 'Todo lo que incluye',
+      sub: 'Sin módulos que se cobran aparte.',
+      rows: [
+        { k: 'Órdenes',    v: 'Tablero por etapas · punto de venta · multi-sucursal · catálogo y precios · historial por orden' },
+        { k: 'WhatsApp',   v: 'Pedidos automáticos · respuestas por plantilla · transferencia a un humano · bandeja de conversaciones' },
+        { k: 'A domicilio',v: 'Zonas en el mapa · reglas de tarifa por monto, distancia o kilómetro · rutas · app de repartidores' },
+        { k: 'Clientes',   v: 'Membresías · promociones y tarjetas de sellos · seguimiento por link · calificaciones' },
+        { k: 'Personal',   v: 'Asistencia con PIN · horarios por sucursal · resumen diario' },
+        { k: 'Reportes',   v: 'Ventas · clientes · comentarios · asistente con IA' },
+      ],
+    },
+
     /* --- Audience — laundromats & dry cleaners --- */
     audience: {
       eyebrow: 'PARA QUIÉN',
@@ -219,6 +234,19 @@ window.I18N = {
           screen: 'retiene',
           alt: 'Customer profile with an active membership and order history',
         },
+      ],
+    },
+
+    included: {
+      h: 'Everything included',
+      sub: 'Nothing billed as a separate add-on.',
+      rows: [
+        { k: 'Orders',    v: 'Board by stage · point of sale · multi-branch · catalog and pricing · order history' },
+        { k: 'WhatsApp',  v: 'Automated ordering · template-based replies · handoff to a human · conversation inbox' },
+        { k: 'Delivery',  v: 'Zones on the map · fee rules by order amount, distance or kilometer · routes · driver app' },
+        { k: 'Customers', v: 'Memberships · promotions and stamp cards · link-based tracking · ratings' },
+        { k: 'Staff',     v: 'PIN attendance · branch schedules · daily summary' },
+        { k: 'Reports',   v: 'Sales · customers · feedback · AI assistant' },
       ],
     },
 
