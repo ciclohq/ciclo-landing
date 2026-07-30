@@ -127,8 +127,7 @@
 
 .thread-msg { display: flex; }
 .thread-msg--customer { justify-content: flex-start; }
-.thread-msg--ciclo,
-.thread-msg--staff { justify-content: flex-end; }
+.thread-msg--ciclo { justify-content: flex-end; }
 
 .thread-bubble {
   display: flex;
@@ -154,11 +153,6 @@
 .thread-msg--ciclo .thread-bubble {
   background: var(--brand);
   color: var(--bright-white);
-}
-
-.thread-msg--staff .thread-bubble {
-  background: var(--accent-soft);
-  color: var(--ink);
 }
 
 .thread-divider {

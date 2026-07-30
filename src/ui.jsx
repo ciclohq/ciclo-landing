@@ -115,16 +115,20 @@
      chrome. Built entirely from Ciclo tokens so it reads as "a
      conversation happened here" while looking unmistakably like Ciclo.
 
-     Three speaker roles because the handoff is the story: a sceptical
-     owner needs to see the bot handle routine questions and a real
-     person pick up anything unusual, without reading a word.
+     Two speaker roles:
        - customer: inbound, left, bright-white bubble on a hairline.
        - ciclo:    the bot, right, filled --brand, white text.
-       - staff:    a human teammate, right, --accent-soft — same side
-                   as the bot but a different fill, so the transfer is
-                   legible at a glance.
-     A `{ divider: 'text' }` entry marks the instant the bot hands off
-     to a person: a hairline rule with small centered text.
+     A `{ divider: 'text' }` entry marks the instant the bot hands off to
+     a person — a hairline rule with small centered text, no reply bubble
+     of its own. There is deliberately no third "staff" role: Ciclo has no
+     way to put a staff reply in a customer's WhatsApp thread that is both
+     attributable (the `messages` table carries no sender identity) and
+     honestly NOT implied to have been composed inside Ciclo (staff can
+     only reply from WhatsApp directly — see thread-view.tsx's "Responde
+     desde WhatsApp"). A previous version had a `staff` role for exactly
+     one thread; it's gone along with that thread now that the divider
+     alone carries the point. Re-add it only once a caller has a bubble
+     that can be honestly attributed.
 
      Semantics: an <ol role="list"> (role="list" defends against the
      old Safari/VoiceOver bug where `list-style: none` — set globally
@@ -137,12 +141,12 @@
      a role (e.g. the assistant section's 'customer' role is the business
      owner, not a WhatsApp customer) without touching the `from` role
      names themselves — the hero and arc sections still key off
-     'customer'/'ciclo'/'staff' and don't pass this prop, so they keep the
+     'customer'/'ciclo' and don't pass this prop, so they keep the
      default labels unchanged. */
 
   const THREAD_SPEAKER_LABELS = {
-    es: { customer: 'Cliente', ciclo: 'Ciclo (bot)', staff: 'Alguien del equipo' },
-    en: { customer: 'Customer', ciclo: 'Ciclo (bot)', staff: 'Team member' },
+    es: { customer: 'Cliente', ciclo: 'Ciclo (bot)' },
+    en: { customer: 'Customer', ciclo: 'Ciclo (bot)' },
   };
 
   const Thread = ({ messages = [], caption, lang = 'es', speakerLabels }) => {
