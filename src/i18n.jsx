@@ -44,7 +44,7 @@ window.I18N = {
         { from: 'customer', text: 'Como 6 kilos de ropa normal, nada delicado.' },
         { from: 'ciclo', text: 'Perfecto, lavado por kilo a $45/kg. ¿Pasamos hoy en la tarde?' },
         { from: 'customer', text: 'Sí, hoy está bien.' },
-        { from: 'ciclo', text: 'Listo, Renata. Pasamos hoy de 4 a 6 pm por tu ropa y te avisamos cuando el repartidor esté en camino.' },
+        { from: 'ciclo', text: 'Listo, Renata. Pasamos hoy de 4 a 6 pm por tu ropa. Te mando el link para seguir tu pedido.' },
       ],
       order: {
         folio: '#4821',
@@ -243,7 +243,7 @@ window.I18N = {
         { from: 'customer', text: 'About 6 kilos of regular laundry, nothing delicate.' },
         { from: 'ciclo', text: 'Got it — wash by the kilo is $45/kg. Can we come by this afternoon?' },
         { from: 'customer', text: 'Yes, today works.' },
-        { from: 'ciclo', text: 'Done, Renata. We’ll swing by today 4–6pm for your laundry and text you when the driver’s on the way.' },
+        { from: 'ciclo', text: 'Done, Renata. We’ll come by today 4–6pm for your laundry. I’ll send you a link to follow your order.' },
       ],
       order: {
         folio: '#4821',
