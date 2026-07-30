@@ -6,7 +6,7 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, Mono, LangToggle } = window.UI;
+  const { Logo, Mono, LangToggle, Screen } = window.UI;
 
   /* ---------- Nav ---------- */
 
@@ -29,23 +29,6 @@
     </nav>
   );
 
-  /* ---------- Icons — lucide outlines, as in the product app ---------- */
-
-  const IC = {
-    grid:    <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
-    bag:     <><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></>,
-    users:   <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>,
-    box:     <><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></>,
-    gear:    <><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
-    dollar:  <><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
-    clock:   <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
-    pin:     <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></>,
-    building:<><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></>,
-  };
-  const Icon = ({ d, className = '' }) => (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{IC[d]}</svg>
-  );
-
   /* ---------- Hero ---------- */
 
   const Hero = ({ t }) => (
@@ -53,10 +36,7 @@
       <div className="container">
         <div className="hero-head">
           <span className="badge"><i />{t.hero.badge}</span>
-          <h1 className="h1">
-            {t.hero.h1_a}
-            <span className="lighter">{t.hero.h1_accent}</span>
-          </h1>
+          <h1 className="h1">{t.hero.h1}</h1>
           <p className="lede">{t.hero.sub}</p>
           <div className="hero-actions">
             <a href="#pricing" className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
@@ -64,77 +44,15 @@
           </div>
           <p className="hero-trust">{t.hero.trust}</p>
         </div>
-        <HeroVisual />
+        <Screen
+          slug="recibe"
+          alt="Bandeja de conversaciones de WhatsApp en Ciclo, con un pedido entrante"
+          width={1440}
+          height={900}
+        />
       </div>
     </section>
   );
-
-  /* Faithful mock of the real product dashboard (apps/web):
-     inset sidebar (Plataforma nav), h-12 topbar with branch switcher,
-     "Hola, {nombre} 👋" header, 4 stat cards with delta badges. */
-  const HeroVisual = () => {
-    return (
-    <div className="hero-stage" aria-hidden="true">
-      <div className="app">
-        <div className="appbar">
-          <span className="appbar-dots"><i /><i /><i /></span>
-          <span className="appbar-url">app.ciclo.mx/dashboard</span>
-        </div>
-        <div className="app-topbar">
-          <span className="app-burger"><i /><i /><i /></span>
-          <span className="app-topsep" />
-          <span className="app-branch"><Icon d="pin" />Sucursal Centro<b>⌄</b></span>
-        </div>
-        <div className="app-body">
-          <aside className="app-side">
-            <div className="app-org"><span className="app-org-ic"><Icon d="building" /></span>Lavandería Klinko</div>
-            <div className="app-navlbl">Plataforma</div>
-            <div className="app-nav is-active"><Icon d="grid" className="app-ni" />Resumen</div>
-            <div className="app-nav"><Icon d="bag" className="app-ni" />Órdenes</div>
-            <div className="app-nav"><Icon d="users" className="app-ni" />Clientes</div>
-            <div className="app-nav"><Icon d="box" className="app-ni" />Productos</div>
-            <div className="app-nav"><Icon d="gear" className="app-ni" />Ajustes</div>
-            <div className="app-user">
-              <span className="app-user-av">AT</span>
-              <span className="app-user-meta"><b>Alex Torres</b><i>alex.torres@klinko.mx</i></span>
-            </div>
-          </aside>
-          <main className="app-main">
-            <div className="app-mhead">
-              <div>
-                <div className="app-greet">Hola, Alex 👋</div>
-                <div className="app-date">Este es el resumen de la operación de tu sucursal.</div>
-              </div>
-              <span className="app-newbtn">+ Nueva orden</span>
-            </div>
-            <div className="app-stats">
-              <div className="app-stat"><div className="k"><Icon d="bag" />Órdenes activas</div><div className="v">24</div><span className="b">+12%</span></div>
-              <div className="app-stat"><div className="k"><Icon d="dollar" />Ingresos del día</div><div className="v">$8,420</div><span className="b">+4.5%</span></div>
-              <div className="app-stat"><div className="k"><Icon d="users" />Clientes nuevos</div><div className="v">8</div><span className="b">+2</span></div>
-              <div className="app-stat"><div className="k"><Icon d="clock" />Tiempo promedio</div><div className="v">1.8h</div><span className="b">−6%</span></div>
-            </div>
-            <div className="app-grid2">
-              <div className="app-panel">
-                <div className="app-panel-h"><span className="t">Órdenes de hoy</span><span className="a">VER TODAS</span></div>
-                <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-pick">RECOLECCIÓN</span></div></div>
-                <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-proc">EN PROCESO</span></div></div>
-                <div className="orow"><div><div className="who">Carlos R.</div><div className="ometa">#1039 · Condesa · tintorería</div></div><div className="ort"><span className="oamt">$180</span><span className="chip c-rt">EN RUTA</span></div></div>
-                <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
-              </div>
-              <div className="app-panel">
-                <div className="app-panel-h"><span className="t">Servicio a domicilio</span><span className="chip c-done">ACTIVO</span></div>
-                <div className="zrow"><span className="zdot z1" />Roma Norte<span className="zmeta">zona activa</span></div>
-                <div className="zrow"><span className="zdot z2" />Condesa<span className="zmeta">zona activa</span></div>
-                <div className="zrow"><span className="zdot z3" />Del Valle<span className="zmeta">zona activa</span></div>
-                <div className="zfoot">Tarifa: gratis ≥ $300 · después $35</div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-    );
-  };
 
   /* ---------- How it works — order journey ---------- */
 

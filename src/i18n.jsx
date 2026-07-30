@@ -19,11 +19,10 @@ window.I18N = {
     /* --- Hero --- */
     hero: {
       badge: 'Para lavanderías y tintorerías',
-      h1_a: 'Tu lavandería,',
-      h1_accent: ' operada por WhatsApp.',
-      sub: 'Un solo número para recibir, cobrar y entregar cada orden — y un tablero que lo controla todo, de la recolección a la entrega.',
+      h1: 'Tus clientes piden por WhatsApp. Tú solo entregas.',
+      sub: 'Ciclo recibe el pedido, lo cobra y lo pone en tu tablero. Tú y tu equipo solo lavan, planchan y entregan.',
       cta_primary: 'Agenda una demo',
-      cta_ghost:   'Cómo funciona',
+      cta_ghost:   'Ver cómo funciona',
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
     },
 
@@ -215,11 +214,10 @@ window.I18N = {
 
     hero: {
       badge: 'For laundromats and dry cleaners',
-      h1_a: 'Your laundromat,',
-      h1_accent: ' run on WhatsApp.',
-      sub: 'One number to take, charge, and deliver every order — and one board that runs it all, from pickup to drop-off.',
+      h1: 'Your customers order on WhatsApp. You just deliver.',
+      sub: 'Ciclo takes the order, charges it, and puts it on your board. You and your team just wash, iron, and deliver.',
       cta_primary: 'Book a demo',
-      cta_ghost:   'How it works',
+      cta_ghost:   'See how it works',
       trust: 'No long contracts · We set up your operation in the demo',
     },
 
