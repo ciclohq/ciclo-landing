@@ -81,10 +81,7 @@ window.I18N = {
 
     /* --- Audience — laundromats & dry cleaners --- */
     audience: {
-      eyebrow: 'PARA QUIÉN',
-      h_a: 'Hecho para',
-      h_accent: ' lavanderías y tintorerías.',
-      h_b: '',
+      h: 'Hecho para lavanderías y tintorerías.',
       sub: 'El mismo sistema, adaptado a cómo trabaja cada negocio.',
       cols: [
         { name: 'Lavanderías', text: 'Cargas por kilo, autoservicio o encargo y recolección a domicilio — todo por el mismo número.', chips: ['Por kilo', 'Autoservicio', 'Encargo', 'Recolección a domicilio'] },
@@ -94,10 +91,7 @@ window.I18N = {
 
     /* --- Demo / pricing CTA --- */
     demo: {
-      eyebrow: 'PRECIOS',
-      h_a: 'Precio a la medida',
-      h_accent: ' de tu operación.',
-      h_b: '',
+      h: 'Precio a la medida de tu operación.',
       sub: 'Cuéntanos cuántas órdenes manejas y armamos un plan. Sin instalación y sin contratos largos.',
       points: [
         'Tablero, domicilio, zonas y app de repartidores incluidos',
@@ -110,10 +104,7 @@ window.I18N = {
 
     /* --- FAQ --- */
     faq: {
-      eyebrow: 'PREGUNTAS',
-      h_a: 'Lo que ',
-      h_accent: 'casi todos',
-      h_b: ' nos preguntan.',
+      h: 'Lo que casi todos nos preguntan.',
       side: '¿Tienes otra duda? Escríbenos a hola@ciclo.mx y la resolvemos en la demo.',
       items: [
         {
@@ -129,23 +120,27 @@ window.I18N = {
           a: 'Sí. El sistema se adapta a prendas por pieza, servicios delicados y planchado, igual que a cargas por kilo.',
         },
         {
-          q: '¿Ya puedo recibir pedidos por WhatsApp?',
-          a: 'Está en desarrollo. Hoy Ciclo organiza tu operación a domicilio — tablero, zonas, tarifas y rutas — y la integración de WhatsApp con tu marca llega próximamente.',
+          q: '¿Qué hace el bot solo y cuándo entra una persona?',
+          a: 'El bot identifica lo que pide tu cliente y responde con plantillas para lo que ya conoce: catálogo, precios, agendar la recolección. En cuanto la conversación sale de ese guion, pasa a alguien de tu equipo en la bandeja de conversaciones — tu cliente sigue escribiendo al mismo número.',
         },
         {
-          q: '¿Qué necesito para empezar?',
-          a: 'Solo tu catálogo de servicios y precios. Nosotros configuramos tus sucursales, zonas y tarifas contigo durante el onboarding.',
+          q: '¿Mi cliente puede seguir su pedido?',
+          a: 'Sí. Cada pedido a domicilio incluye un link de seguimiento que le compartes a tu cliente, donde ve la etapa de su orden y la ruta del repartidor.',
+        },
+        {
+          q: '¿Qué hacen las membresías y las promociones?',
+          a: 'Las membresías, las promociones y las tarjetas de sellos quedan ligadas al perfil de cada cliente junto con su historial de órdenes, para que reconozcas y premies a quien vuelve.',
+        },
+        {
+          q: '¿Qué cubre la asistencia?',
+          a: 'Tu equipo registra entrada y salida con PIN por sucursal, y tú ves los horarios y un resumen diario de quién trabajó.',
         },
       ],
     },
 
     /* --- CTA closer --- */
     cta_block: {
-      h_a: 'Pon tu lavandería ',
-      h_accent: 'a domicilio',
-      h_b: ' esta ',
-      h_em: 'semana',
-      h_d: '.',
+      h: 'Pon tu lavandería a domicilio esta semana.',
       sub: 'Agenda una demo de 20 minutos y te mostramos cómo se ve tu operación en Ciclo.',
       primary: 'Agenda una demo',
       ghost:   'Habla con nosotros',
@@ -251,10 +246,7 @@ window.I18N = {
     },
 
     audience: {
-      eyebrow: 'WHO IT’S FOR',
-      h_a: 'Built for',
-      h_accent: ' laundromats and dry cleaners.',
-      h_b: '',
+      h: 'Built for laundromats and dry cleaners.',
       sub: 'The same system, adapted to how each business works.',
       cols: [
         { name: 'Laundromats',  text: 'Wash by the pound, self-service or drop-off, and home pickup — all through one number.', chips: ['By the pound', 'Self-service', 'Drop-off', 'Home pickup'] },
@@ -263,10 +255,7 @@ window.I18N = {
     },
 
     demo: {
-      eyebrow: 'PRICING',
-      h_a: 'Pricing that fits',
-      h_accent: ' your operation.',
-      h_b: '',
+      h: 'Pricing that fits your operation.',
       sub: 'Tell us how many orders you handle and we’ll build a plan. No install, no long contracts.',
       points: [
         'Board, delivery, zones and driver app included',
@@ -278,26 +267,21 @@ window.I18N = {
     },
 
     faq: {
-      eyebrow: 'QUESTIONS',
-      h_a: 'What ',
-      h_accent: 'almost everyone',
-      h_b: ' asks us.',
+      h: 'What almost everyone asks us.',
       side: 'Have another question? Write to hola@ciclo.mx and we’ll cover it in the demo.',
       items: [
         { q: 'Do I need my own drivers?', a: 'You can use your own drivers with the app, or coordinate with whoever you already work with. Ciclo organizes the routes; you decide who runs them.' },
         { q: 'Can I charge delivery however I want?', a: 'Yes. You define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer — with conditions by distance or active route.' },
         { q: 'Does it work for dry cleaning, not just laundry?', a: 'Yes. The system adapts to per-garment items, delicate services and pressing, just as it does to wash-by-the-pound.' },
-        { q: 'Can I take orders over WhatsApp yet?', a: 'It’s in development. Today Ciclo runs your delivery operation — board, zones, fees and routes — and branded WhatsApp ordering is coming soon.' },
-        { q: 'What do I need to get started?', a: 'Just your services and price list. We configure your branches, zones and fees with you during onboarding.' },
+        { q: 'What does the bot handle on its own, and when does a person step in?', a: 'The bot reads what your customer is asking for and replies from templates for what it already knows — catalog, prices, scheduling a pickup. The moment the conversation falls outside that script, it hands off to someone on your team in the shared conversation inbox — the customer keeps texting the same number.' },
+        { q: 'Can my customer follow their order?', a: 'Yes. Every delivery order includes a tracking link you share with your customer, where they see the order’s stage and the driver’s route.' },
+        { q: 'What do memberships and promotions do?', a: 'Memberships, promotions and stamp cards attach to each customer’s profile alongside their order history, so you can recognize and reward the ones who come back.' },
+        { q: 'What does attendance cover?', a: 'Your team clocks in and out with a PIN per branch, and you see the schedules and a daily summary of who worked.' },
       ],
     },
 
     cta_block: {
-      h_a: 'Put your laundromat ',
-      h_accent: 'on delivery',
-      h_b: ' this ',
-      h_em: 'week',
-      h_d: '.',
+      h: 'Put your laundromat on delivery this week.',
       sub: 'Book a 20-minute demo and we’ll show you what your operation looks like in Ciclo.',
       primary: 'Book a demo',
       ghost:   'Talk to us',

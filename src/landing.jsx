@@ -109,12 +109,7 @@
   const Audience = ({ t }) => (
     <section id="audience" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
-        <Mono className="eyebrow">{t.audience.eyebrow}</Mono>
-        <h2 className="h2">
-          {t.audience.h_a}
-          <span className="lighter">{t.audience.h_accent}</span>
-          {t.audience.h_b}
-        </h2>
+        <h2 className="h2">{t.audience.h}</h2>
         <p className="lede">{t.audience.sub}</p>
         <div className="audience-grid" data-reveal="stagger">
           {t.audience.cols.map((c, i) => (
@@ -138,14 +133,9 @@
   const DemoCTA = ({ t }) => (
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
-        <Mono className="eyebrow">{t.demo.eyebrow}</Mono>
         <div className="demo-block" data-reveal="">
           <div className="demo-block-text">
-            <h2 className="h2">
-              {t.demo.h_a}
-              <span className="lighter">{t.demo.h_accent}</span>
-              {t.demo.h_b}
-            </h2>
+            <h2 className="h2">{t.demo.h}</h2>
             <p className="lede">{t.demo.sub}</p>
             <ul className="demo-points">
               {t.demo.points.map((p, i) => <li key={i}>{p}</li>)}
@@ -173,14 +163,9 @@
     return (
       <section id="faq" className="section surface-white-bg" data-bg="off">
         <div className="container">
-          <Mono className="eyebrow">{t.faq.eyebrow}</Mono>
           <div className="faq-row" data-reveal="">
             <div>
-              <h2 className="h2">
-                {t.faq.h_a}
-                <span className="lighter">{t.faq.h_accent}</span>
-                {t.faq.h_b}
-              </h2>
+              <h2 className="h2">{t.faq.h}</h2>
               <p className="faq-side" style={{ marginTop: 24 }}>{t.faq.side}</p>
             </div>
             <div className="faq-list">
@@ -215,13 +200,7 @@
   const CTA = ({ t }) => (
     <section className="cta-block" data-bg="cream">
       <div className="container" data-reveal="">
-        <h2 className="h1">
-          {t.cta_block.h_a}
-          <span className="lighter">{t.cta_block.h_accent}</span>
-          {t.cta_block.h_b}
-          <span className="lighter">{t.cta_block.h_em}</span>
-          {t.cta_block.h_d}
-        </h2>
+        <h2 className="h1">{t.cta_block.h}</h2>
         <p className="lede">{t.cta_block.sub}</p>
         <div className="actions">
           <a href="#pricing" className="btn btn-ink btn-arrow">{t.cta_block.primary}</a>
