@@ -24,7 +24,12 @@ window.I18N = {
       lang_label: 'Idioma',
     },
 
-    /* --- Hero --- */
+    /* --- Hero — conversation + the order it produced ---
+       The thread and the order card must agree: same customer, same
+       service, same time. That correspondence is the whole point of the
+       pairing, so don't edit one without the other. No bubble may say
+       the bot charges or collects payment — it quotes a price and
+       schedules the pickup; a person records the payment later. */
     hero: {
       badge: 'Para lavanderías y tintorerías',
       h1: 'Tus clientes piden por WhatsApp. Tú solo entregas.',
@@ -32,7 +37,28 @@ window.I18N = {
       cta_primary: 'Agenda una demo',
       cta_ghost:   'Ver cómo funciona',
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
-      alt: 'Vista general del panel de Ciclo con las órdenes del día',
+      thread_caption: 'Conversación de ejemplo por WhatsApp',
+      thread: [
+        { from: 'customer', text: 'Hola, ¿tienen servicio a domicilio en Roma Norte?' },
+        { from: 'ciclo', text: 'Sí, recogemos y entregamos en Roma Norte. ¿Qué necesitas lavar?' },
+        { from: 'customer', text: 'Como 6 kilos de ropa normal, nada delicado.' },
+        { from: 'ciclo', text: 'Perfecto, lavado por kilo a $45/kg. ¿Pasamos hoy en la tarde?' },
+        { from: 'customer', text: 'Sí, hoy está bien.' },
+        { from: 'ciclo', text: 'Listo, Renata. Pasamos hoy de 4 a 6 pm por tu ropa y te avisamos cuando el repartidor esté en camino.' },
+      ],
+      order: {
+        folio: '#4821',
+        customer_label: 'Cliente',
+        customer: 'Renata Vidal',
+        zone_label: 'Zona',
+        zone: 'Roma Norte',
+        service_label: 'Servicio',
+        service: 'Lavado por kilo · 6 kg',
+        stage: 'Recolección programada',
+        window_label: 'Recolección',
+        window: 'Hoy · 4:00–6:00 pm',
+        note: 'Mismo cliente, mismo servicio, mismo horario — así queda en tu tablero.',
+      },
     },
 
     /* --- Arc — the four-part product narrative (recibe → opera → entrega → retiene) --- */
@@ -210,7 +236,28 @@ window.I18N = {
       cta_primary: 'Book a demo',
       cta_ghost:   'See how it works',
       trust: 'No long contracts · We set up your operation in the demo',
-      alt: 'Overview of the Ciclo dashboard with the day’s orders',
+      thread_caption: 'Example WhatsApp conversation',
+      thread: [
+        { from: 'customer', text: 'Hi, do you deliver in Roma Norte?' },
+        { from: 'ciclo', text: 'We do — we pick up and drop off in Roma Norte. What do you need washed?' },
+        { from: 'customer', text: 'About 6 kilos of regular laundry, nothing delicate.' },
+        { from: 'ciclo', text: 'Got it — wash by the kilo is $45/kg. Can we come by this afternoon?' },
+        { from: 'customer', text: 'Yes, today works.' },
+        { from: 'ciclo', text: 'Done, Renata. We’ll swing by today 4–6pm for your laundry and text you when the driver’s on the way.' },
+      ],
+      order: {
+        folio: '#4821',
+        customer_label: 'Customer',
+        customer: 'Renata Vidal',
+        zone_label: 'Zone',
+        zone: 'Roma Norte',
+        service_label: 'Service',
+        service: 'Wash by the kilo · 6 kg',
+        stage: 'Pickup scheduled',
+        window_label: 'Pickup',
+        window: 'Today · 4:00–6:00 PM',
+        note: 'Same customer, same service, same time — that’s how it lands on your board.',
+      },
     },
 
     /* --- Arc — the four-part product narrative (receive → operate → deliver → retain) --- */

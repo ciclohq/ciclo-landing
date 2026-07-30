@@ -154,10 +154,6 @@
 .hero-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; justify-content: center; }
 .hero-trust { margin: 24px 0 0; font-size: 13px; color: var(--body-muted); }
 
-/* Hero screenshot — same top offset and max-width the old app mock used;
-   .screen's own img rule (components.css) supplies the border/shadow frame. */
-.hero .screen { margin: clamp(40px, 5vw, 64px) auto 0; max-width: 1080px; }
-
 /* Entrance — one orchestrated rise, staggered top to bottom */
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(16px); }
@@ -168,6 +164,93 @@
 .hero .lede       { animation: rise-in 680ms var(--ease-out) 150ms both; }
 .hero-actions     { animation: rise-in 680ms var(--ease-out) 230ms both; }
 .hero-trust       { animation: rise-in 680ms var(--ease-out) 310ms both; }
+
+/* ---------- Hero conversation — Thread + the order it produced ----------
+   Stacked at mobile (thread first, then the card it caused), side by
+   side from 768px up. Both panels are left-aligned regardless of
+   .hero-head's centering above them. No entrance animation here by
+   design — the rebuild removed motion from anything meant to read as a
+   real, static artifact rather than a marketing flourish. */
+.hero-convo {
+  margin: clamp(40px, 5vw, 64px) auto 0;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: left;
+}
+@media (min-width: 768px) {
+  .hero-convo { grid-template-columns: 1fr 1fr; align-items: start; gap: 28px; }
+}
+
+.order-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(20px, 4vw, 28px);
+}
+.order-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.order-card-folio {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: var(--tracking-mono);
+  color: var(--body-muted);
+}
+.order-card-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chip-pick-f);
+  background: var(--chip-pick-b);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.order-card-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+}
+@media (min-width: 460px) {
+  .order-card-fields { grid-template-columns: 1fr 1fr; }
+}
+.order-card-fields dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: 0;
+}
+.order-card-fields dd {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 4px 0 0;
+}
+.order-card-note {
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--body-muted);
+}
 
 .badge {
   display: inline-flex; align-items: center; gap: 8px;

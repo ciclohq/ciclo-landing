@@ -6,7 +6,7 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, LangToggle, Screen } = window.UI;
+  const { Logo, LangToggle, Screen, Thread } = window.UI;
 
   /* ---------- Contact ----------
      Every "Agenda una demo" CTA opens WhatsApp with a prefilled message.
@@ -47,9 +47,43 @@
     </nav>
   );
 
-  /* ---------- Hero ---------- */
+  /* ---------- Hero — conversation, and the order it produced ----------
+     Replaces the old hero screenshot. Left: a real-shaped WhatsApp
+     exchange (Thread). Right: a static order card built from the same
+     tokens, sharing the customer, service and time the thread just
+     agreed on — the correspondence between the two panels is the pitch,
+     not decoration around it. The handoff moment is deliberately absent
+     here; it gets its own dedicated thread in the arc. */
 
-  const Hero = ({ t }) => (
+  const OrderCard = ({ o }) => (
+    <div className="order-card">
+      <div className="order-card-head">
+        <span className="order-card-folio">{o.folio}</span>
+        <span className="order-card-chip">{o.stage}</span>
+      </div>
+      <dl className="order-card-fields">
+        <div>
+          <dt>{o.customer_label}</dt>
+          <dd>{o.customer}</dd>
+        </div>
+        <div>
+          <dt>{o.zone_label}</dt>
+          <dd>{o.zone}</dd>
+        </div>
+        <div>
+          <dt>{o.service_label}</dt>
+          <dd>{o.service}</dd>
+        </div>
+        <div>
+          <dt>{o.window_label}</dt>
+          <dd>{o.window}</dd>
+        </div>
+      </dl>
+      <p className="order-card-note">{o.note}</p>
+    </div>
+  );
+
+  const Hero = ({ t, lang }) => (
     <section className="hero" data-bg="cream">
       <div className="container">
         <div className="hero-head">
@@ -62,13 +96,10 @@
           </div>
           <p className="hero-trust">{t.hero.trust}</p>
         </div>
-        <Screen
-          slug="hero"
-          alt={t.hero.alt}
-          width={1440}
-          height={900}
-          priority
-        />
+        <div className="hero-convo">
+          <Thread messages={t.hero.thread} caption={t.hero.thread_caption} lang={lang} />
+          <OrderCard o={t.hero.order} />
+        </div>
       </div>
     </section>
   );
@@ -346,7 +377,7 @@
       <>
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <main>
-          <Hero t={t} />
+          <Hero t={t} lang={lang} />
           <Arc t={t} />
           <Included t={t} />
           <Audience t={t} />
