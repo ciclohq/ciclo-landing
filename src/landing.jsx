@@ -54,168 +54,33 @@
     </section>
   );
 
-  /* ---------- How it works — order journey ---------- */
+  /* ---------- Arc — the four-part product narrative ----------
+     Replaces HowItWorks + Modules: one story (receive → operate → deliver →
+     retain), each part pairing prose with a real product screenshot. The
+     01–04 numbering survives here and only here, where sequence carries
+     real meaning. */
 
-  const HowItWorks = ({ t }) => (
-    <section id="how" className="section surface-tint-bg" data-bg="tint">
+  const Arc = ({ t }) => (
+    <section id="how" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
-        <Mono className="eyebrow">{t.how.eyebrow}</Mono>
-        <h2 className="h2">
-          {t.how.h_a}
-          <span className="lighter">{t.how.h_accent}</span>
-        </h2>
-        <p className="lede">{t.how.sub}</p>
-        <ol className="journey" data-reveal="stagger">
-          {t.how.steps.map((s, i) => (
-            <li key={i} className="journey-step">
-              <span className="journey-num">{s.num}</span>
-              <h3 className="journey-name">{s.name}</h3>
-              <p className="journey-text">{s.text}</p>
-            </li>
-          ))}
-        </ol>
+        {t.arc.parts.map((p, i) => (
+          <article key={i} className={`arc-part ${i % 2 ? 'is-flipped' : ''}`}>
+            <div className="arc-text">
+              <span className="arc-num">{p.num}</span>
+              <h2 className="arc-name">{p.name}</h2>
+              <p className="arc-body">{p.body}</p>
+              <ul className="arc-feats">
+                {p.feats.map((f, j) => <li key={j}>{f}</li>)}
+              </ul>
+            </div>
+            <div className="arc-screen">
+              <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
-
-  /* ---------- Modules ---------- */
-
-  /* Per-module UI vignettes — faithful to the real product screens */
-  const ModuleMock = ({ active }) => {
-    /* 01 — Servicio a domicilio: toggles + tarifas (settings screen) */
-    if (active === 1) return (
-      <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Ajustes · Servicio a domicilio<span className="mk-h-r">Sucursal Roma</span></div>
-        <div className="mk-set"><span className="mk-set-t">Servicio a domicilio</span><span className="sw on"><i /></span></div>
-        <div className="mk-set sub"><span className="mk-set-t">Lavandería</span><span className="mk-set-n">3/4 servicios</span><span className="sw on"><i /></span></div>
-        <div className="mk-set sub"><span className="mk-set-t">Tintorería</span><span className="mk-set-n">2/2 servicios</span><span className="sw on"><i /></span></div>
-        <div className="mk-lbl">Tarifas de entrega</div>
-        <div className="rrow"><span className="rnum">01</span><span className="rcond">Monto ≥ $300</span><span className="rval free">Gratis</span></div>
-        <div className="rrow"><span className="rnum">02</span><span className="rcond">Distancia ≥ 5 km</span><span className="rval">$12/km</span></div>
-        <div className="rrow"><span className="rnum">03</span><span className="rcond">Siempre</span><span className="rval">$35</span></div>
-      </div>
-    );
-    /* 02 — Zonas de entrega: polygons on the map + zone list */
-    if (active === 2) return (
-      <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Zonas de entrega<span className="mk-h-r">3 zonas</span></div>
-        <div className="mk-map">
-          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
-            <path className="mk-street" d="M0 40 H320 M0 95 H320 M60 0 V150 M150 0 V150 M240 0 V150" />
-            <polygon className="mk-zone za" points="20,25 130,15 140,70 90,88 25,75" />
-            <polygon className="mk-zone zb" points="160,55 265,40 285,105 195,120 155,95" />
-            <g className="mk-vertex"><circle cx="160" cy="55" r="4"/><circle cx="265" cy="40" r="4"/><circle cx="285" cy="105" r="4"/><circle cx="195" cy="120" r="4"/><circle cx="155" cy="95" r="4"/></g>
-          </svg>
-        </div>
-        <div className="zrow"><span className="zdot z1" />Roma Norte<span className="zmeta">✎</span></div>
-        <div className="zrow"><span className="zdot z2" />Condesa<span className="zmeta">✎</span></div>
-        <div className="zrow"><span className="zdot z3" />Del Valle<span className="zmeta">✎</span></div>
-      </div>
-    );
-    /* 03 — App de repartidores: route + stops */
-    if (active === 3) return (
-      <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Ruta de hoy · Repartidor 1<span className="mk-h-r">5 paradas</span></div>
-        <div className="mk-map">
-          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
-            <path className="mk-route" d="M28 116 C 80 96, 70 50, 130 54 S 210 96, 250 60 300 30" />
-            <g className="mk-stop-dot"><circle cx="28" cy="116" r="6"/><text x="28" y="120">1</text></g>
-            <g className="mk-stop-dot act"><circle cx="130" cy="54" r="8"/><text x="130" y="58">2</text></g>
-            <g className="mk-stop-dot"><circle cx="250" cy="60" r="6"/><text x="250" y="64">3</text></g>
-            <g className="mk-stop-dot"><circle cx="300" cy="30" r="6"/><text x="300" y="34">4</text></g>
-          </svg>
-        </div>
-        <div className="mk-stop"><span className="mk-stopn done">1</span><span>Roma · recolección</span><span className="chip c-done">HECHA</span></div>
-        <div className="mk-stop"><span className="mk-stopn act">2</span><span>Condesa · entrega</span><span className="chip c-rt">AHORA</span></div>
-        <div className="mk-stop"><span className="mk-stopn">3</span><span>Nápoles · entrega</span><span className="mk-eta">5:10pm</span></div>
-      </div>
-    );
-    /* 00 — Tablero: resumen + órdenes */
-    return (
-      <div className="mk" aria-hidden="true">
-        <div className="mk-h"><span className="mk-hdot" />Resumen · Hoy<span className="mk-h-r">Sucursal Roma</span></div>
-        <div className="mk-stats">
-          <div className="mk-stat"><span className="k">Activas</span><span className="v">24</span></div>
-          <div className="mk-stat"><span className="k">Ingresos</span><span className="v">$4,250</span></div>
-          <div className="mk-stat"><span className="k">Nuevos</span><span className="v">6</span></div>
-        </div>
-        <div className="orow"><div><div className="who">María G.</div><div className="ometa">#1042 · Roma · 2 cobijas + ropa</div></div><div className="ort"><span className="oamt">$240</span><span className="chip c-pick">RECOLECCIÓN</span></div></div>
-        <div className="orow"><div><div className="who">Sofía M.</div><div className="ometa">#1038 · Nápoles · 6 kg</div></div><div className="ort"><span className="oamt">$150</span><span className="chip c-proc">EN PROCESO</span></div></div>
-        <div className="orow"><div><div className="who">Diego L.</div><div className="ometa">#1035 · Roma Sur · edredón</div></div><div className="ort"><span className="oamt">$320</span><span className="chip c-done">ENTREGADA</span></div></div>
-      </div>
-    );
-  };
-
-  /* Modules — condensed: 4 clickable cards + detail panel for the active one */
-  const Modules = ({ t }) => {
-    const [active, setActive] = useState(0);
-    const m = t.features.modules[active];
-    return (
-      <section id="modules" className="section surface-white-bg" data-bg="off">
-        <div className="container">
-          <Mono className="eyebrow">{t.features.eyebrow}</Mono>
-          <h2 className="h2">
-            {t.features.spotlight.h_a}
-            <span className="lighter">{t.features.spotlight.h_accent}</span>
-            {t.features.spotlight.h_b}
-          </h2>
-          <p className="lede">{t.features.spotlight.body}</p>
-
-          {/* Clickable cards row */}
-          <div className="module-cards" data-reveal="stagger">
-            {t.features.modules.map((mm, i) => (
-              <button
-                key={i}
-                className={`module-card ${active === i ? 'is-active' : ''}`}
-                onClick={() => setActive(i)}
-                aria-pressed={active === i}
-              >
-                <span className="num">{`0${i + 1}`}</span>
-                <span className="kicker">{mm.kicker}</span>
-                <span className="name">{mm.name}</span>
-                <span className="tag-line">{mm.tagline}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Roadmap note — the WhatsApp/marketing vision, honestly flagged */}
-          {t.features.soon && (
-            <div className="soon-strip">
-              <span className="soon-badge">{t.features.soon.label}</span>
-              <span className="soon-text">{t.features.soon.text}</span>
-            </div>
-          )}
-
-          {/* Detail panel — body + features + photo for the active module */}
-          <article className="module-deep" key={active}>
-            <div className="module-deep-text">
-              <div className="module-num-row">
-                <span className="module-num">{`0${active + 1}`}</span>
-                <span className="module-kicker">{m.kicker}</span>
-              </div>
-              <h3 className="module-name">{m.name}</h3>
-              <p className="module-tagline">{m.tagline}</p>
-              <p className="module-body">{m.body}</p>
-              <ul className="module-features">
-                {m.features.map((f, j) => (
-                  <li key={j}>
-                    <span className="feat-num">{`0${j + 1}`}</span>
-                    <div className="feat-body">
-                      <span className="feat-tag">{f.tag}</span>
-                      <span className="feat-text">{f.text}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="module-mock">
-              <ModuleMock active={active} />
-            </div>
-          </article>
-        </div>
-      </section>
-    );
-  };
 
   /* ---------- Audience — laundromats & dry cleaners ---------- */
 
@@ -450,8 +315,7 @@
       <>
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <Hero t={t} />
-        <HowItWorks t={t} />
-        <Modules t={t} />
+        <Arc t={t} />
         <Audience t={t} />
         <DemoCTA t={t} />
         <FAQ t={t} />

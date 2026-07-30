@@ -26,79 +26,42 @@ window.I18N = {
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
     },
 
-    /* --- How it works — the order journey --- */
-    how: {
-      eyebrow: 'CÓMO FUNCIONA',
-      h_a: 'Una orden,',
-      h_accent: ' de principio a fin.',
-      sub: 'Desde el primer mensaje hasta que el cliente vuelve.',
-      steps: [
-        { num: '01', name: 'El cliente pide a domicilio',      text: 'La orden entra al sistema con su cliente, dirección y servicios — y su tarifa de envío se calcula sola.' },
-        { num: '02', name: 'La tienda la procesa en el tablero', text: 'Cada orden avanza por etapas: recolección, proceso, entrega e inspección.' },
-        { num: '03', name: 'El repartidor sigue su ruta',      text: 'Las recolecciones y entregas del día en su app, con acceso propio por repartidor.' },
-        { num: '04', name: 'Todo queda registrado',            text: 'Cada transición guarda quién la hizo y cuándo — historial completo por orden.' },
-      ],
-    },
-
-    /* --- Modules — 4 named pillars --- */
-    features: {
-      eyebrow: 'PRODUCTO',
-      spotlight: {
-        h_a: 'Cuatro piezas,',
-        h_accent: ' un solo',
-        h_b: ' sistema.',
-        body: 'Todo lo que necesitas para operar tu lavandería o tintorería a domicilio — sin pegar cinco herramientas distintas.',
-      },
-      modules: [
+    /* --- Arc — the four-part product narrative (recibe → opera → entrega → retiene) --- */
+    arc: {
+      parts: [
         {
-          kicker: 'OPERACIÓN',
-          name: 'Tablero',
-          tagline: 'Toda tu operación de un vistazo.',
-          body: 'Un tablero web para el mostrador: el resumen del día, cada orden con su etapa y su cliente, y tu catálogo de servicios con precios. Con una o varias sucursales.',
-          features: [
-            { tag: 'RESUMEN',    text: 'Órdenes activas, ingresos del día y clientes nuevos de un vistazo.' },
-            { tag: 'ETAPAS',     text: 'Cada orden avanza por etapas: recolección, proceso, entrega e inspección.' },
-            { tag: 'SUCURSALES', text: 'Cambia de sucursal en un clic; cada una con su catálogo y su equipo.' },
-          ],
+          num: '01',
+          name: 'Recibe',
+          body: 'Tus clientes escriben al mismo número de siempre. El bot entiende qué necesitan, arma el pedido y lo cobra. Cuando algo se sale del guion, la conversación pasa a una persona de tu equipo sin que el cliente lo note.',
+          feats: ['Pedidos por WhatsApp', 'Respuestas automáticas', 'Transferencia a un humano'],
+          screen: 'recibe',
+          alt: 'Bandeja de conversaciones con un pedido tomado por el bot',
         },
         {
-          kicker: 'A DOMICILIO',
-          name: 'Servicio a domicilio',
-          tagline: 'Tarifas de envío que tú decides.',
-          body: 'Activa qué servicios ofreces a domicilio y define reglas de tarifa con prioridad: entrega gratis a partir de cierto monto, cobro fijo, porcentaje del pedido o por kilómetro.',
-          features: [
-            { tag: 'SERVICIOS',   text: 'Elige qué categorías y servicios ofreces a domicilio, con sus precios.' },
-            { tag: 'TARIFAS',     text: 'Gratis, fija, porcentaje o por kilómetro — en el orden que tú definas.' },
-            { tag: 'CONDICIONES', text: 'Por monto mínimo, por distancia o cuando ya hay una ruta activa.' },
-          ],
+          num: '02',
+          name: 'Opera',
+          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. Recolección, proceso, entrega. Tu mostrador levanta órdenes desde el punto de venta y, si tienes varias sucursales, cambias entre ellas en un clic.',
+          feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
+          screen: 'opera',
+          alt: 'Tablero de órdenes con el detalle de una orden abierto',
         },
         {
-          kicker: 'COBERTURA',
-          name: 'Zonas de entrega',
-          tagline: 'Dibuja hasta dónde llegas.',
-          body: 'Dibuja tus zonas de entrega directamente sobre el mapa, como un polígono alrededor de tus colonias. Tu cobertura queda clara para ti y para tu equipo.',
-          features: [
-            { tag: 'MAPA',      text: 'Dibuja cada zona sobre el mapa, vértice por vértice.' },
-            { tag: 'EDICIÓN',   text: 'Nombra, ajusta o elimina zonas cuando tu cobertura cambie.' },
-            { tag: 'COBERTURA', text: 'Decide exactamente en qué colonias recolectas y entregas.' },
-          ],
+          num: '03',
+          name: 'Entrega',
+          body: 'Dibujas tus zonas sobre el mapa y defines qué cobras: gratis desde $300, $12 por kilómetro, o una tarifa fija. Tus repartidores ven la ruta del día en su teléfono, y tu cliente sigue su pedido desde un link.',
+          feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
+          screen: 'entrega-zonas',
+          alt: 'Zonas de entrega dibujadas sobre el mapa junto a las reglas de tarifa',
         },
         {
-          kicker: 'REPARTO',
-          name: 'App de repartidores',
-          tagline: 'Rutas claras, entregas a tiempo.',
-          body: 'Una app móvil para tus repartidores con las recolecciones y entregas del día. Cada repartidor entra con su propia cuenta y tú mantienes el control desde el tablero.',
-          features: [
-            { tag: 'RUTA',   text: 'Las recolecciones y entregas del día, en orden.' },
-            { tag: 'ACCESO', text: 'Cada repartidor con su propia cuenta y solo lo que necesita ver.' },
-            { tag: 'AVANCE', text: 'El avance de cada parada se refleja en el tablero de la tienda.' },
-          ],
+          num: '04',
+          name: 'Retiene',
+          body: 'Membresías, promociones y el historial de cada cliente en un solo lugar — y un asistente al que le preguntas cómo va el negocio en español, sin armar un reporte.',
+          feats: ['Membresías', 'Promociones', 'Reportes', 'Asistente con IA'],
+          screen: 'retiene',
+          alt: 'Ficha de cliente con su membresía activa y su historial de órdenes',
         },
       ],
-      soon: {
-        label: 'PRÓXIMAMENTE',
-        text: 'Pedidos por WhatsApp con tu marca y campañas para recuperar clientes — en desarrollo.',
-      },
     },
 
     /* --- Audience — laundromats & dry cleaners --- */
@@ -221,77 +184,42 @@ window.I18N = {
       trust: 'No long contracts · We set up your operation in the demo',
     },
 
-    how: {
-      eyebrow: 'HOW IT WORKS',
-      h_a: 'One order,',
-      h_accent: ' end to end.',
-      sub: 'From the first message to the customer coming back.',
-      steps: [
-        { num: '01', name: 'The customer orders delivery',     text: 'The order enters the system with its customer, address and services — and its delivery fee is computed automatically.' },
-        { num: '02', name: 'The store works it on the board',   text: 'Every order moves through stages: pickup, processing, delivery and inspection.' },
-        { num: '03', name: 'The driver follows the route',      text: 'The day’s pickups and deliveries in their app, with per-driver access.' },
-        { num: '04', name: 'Everything gets recorded',          text: 'Every transition stores who did it and when — a full history per order.' },
-      ],
-    },
-
-    features: {
-      eyebrow: 'PRODUCT',
-      spotlight: {
-        h_a: 'Four pieces,',
-        h_accent: ' one',
-        h_b: ' system.',
-        body: 'Everything you need to run your laundromat or dry cleaner on delivery — without gluing five separate tools together.',
-      },
-      modules: [
+    /* --- Arc — the four-part product narrative (receive → operate → deliver → retain) --- */
+    arc: {
+      parts: [
         {
-          kicker: 'OPERATIONS',
-          name: 'Board',
-          tagline: 'Your whole operation at a glance.',
-          body: 'A web board for the counter: the day’s summary, every order with its stage and customer, and your service catalog with prices. With one branch or many.',
-          features: [
-            { tag: 'OVERVIEW', text: 'Active orders, daily revenue and new customers at a glance.' },
-            { tag: 'STAGES',   text: 'Every order moves through stages: pickup, processing, delivery, inspection.' },
-            { tag: 'BRANCHES', text: 'Switch branches in one click; each with its own catalog and team.' },
-          ],
+          num: '01',
+          name: 'Receive',
+          body: 'Your customers text the same number they always have. The bot understands what they need, builds the order, and charges it. When something falls outside the script, the conversation hands off to someone on your team — the customer never notices.',
+          feats: ['WhatsApp ordering', 'Automated replies', 'Handoff to a human'],
+          screen: 'recibe',
+          alt: 'Conversation inbox with an order the bot just took',
         },
         {
-          kicker: 'DELIVERY',
-          name: 'Home delivery',
-          tagline: 'Delivery fees on your terms.',
-          body: 'Choose which services you offer for delivery and define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer.',
-          features: [
-            { tag: 'SERVICES',   text: 'Pick which categories and services you offer for delivery, with prices.' },
-            { tag: 'FEES',       text: 'Free, flat, percentage or per-km — in the priority order you define.' },
-            { tag: 'CONDITIONS', text: 'By minimum order value, by distance, or when a route is already active.' },
-          ],
+          num: '02',
+          name: 'Operate',
+          body: 'Every order lands on the board with its customer, its garments, and its stage — pickup, processing, delivery. Your counter rings up orders from the point of sale, and if you run more than one branch, you switch between them in a click.',
+          feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
+          screen: 'opera',
+          alt: 'Order board with an order’s detail panel open',
         },
         {
-          kicker: 'COVERAGE',
-          name: 'Delivery zones',
-          tagline: 'Draw how far you go.',
-          body: 'Draw your delivery zones directly on the map, as polygons around your neighborhoods. Your coverage is clear to you and your team.',
-          features: [
-            { tag: 'MAP',      text: 'Draw each zone on the map, vertex by vertex.' },
-            { tag: 'EDITING',  text: 'Name, adjust or remove zones as your coverage changes.' },
-            { tag: 'COVERAGE', text: 'Decide exactly which neighborhoods you pick up from and deliver to.' },
-          ],
+          num: '03',
+          name: 'Deliver',
+          body: 'You draw your zones on the map and decide what to charge: free above $300, $12/km, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
+          feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
+          screen: 'entrega-zonas',
+          alt: 'Delivery zones drawn on the map next to the fee rules',
         },
         {
-          kicker: 'DELIVERY',
-          name: 'Driver app',
-          tagline: 'Clear routes, on-time deliveries.',
-          body: 'A mobile app for your drivers with the day’s pickups and deliveries. Each driver signs in with their own account while you keep control from the board.',
-          features: [
-            { tag: 'ROUTE',    text: 'The day’s pickups and deliveries, in order.' },
-            { tag: 'ACCESS',   text: 'Each driver gets their own account and only what they need to see.' },
-            { tag: 'PROGRESS', text: 'Every stop’s progress shows up on the store board.' },
-          ],
+          num: '04',
+          name: 'Retain',
+          body: 'Memberships, promotions, and every customer’s history in one place — plus an assistant you can ask, in plain language, how the business is doing. No report to build.',
+          feats: ['Memberships', 'Promotions', 'Reports', 'AI assistant'],
+          screen: 'retiene',
+          alt: 'Customer profile with an active membership and order history',
         },
       ],
-      soon: {
-        label: 'COMING SOON',
-        text: 'WhatsApp ordering under your brand and win-back campaigns — in development.',
-      },
     },
 
     audience: {
