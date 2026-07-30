@@ -42,10 +42,15 @@ Open `../ciclo/apps/web/src/app/globals.css` and read `:root`. The values below 
 The app has one radius, `--radius: 0.625rem` (10px), with an xl at 14px. The landing invented `--radius-button: 8px` and `--radius-tile: 14px` with no counterpart. Replace all three declarations with:
 
 ```css
-  /* Radius — the product app has a single scale: --radius 0.625rem (10px). */
+  /* Radius — matches the product app: --radius 0.625rem (10px),
+     --radius-xl calc(--radius + 4px) (14px). Use the app's names:
+     shadcn's --radius-lg equals the base, so calling 14px "lg" would
+     mean something different here than it does in the app. */
   --radius:    10px;
-  --radius-lg: 14px;
+  --radius-xl: 14px;
 ```
+
+Buttons and cards take `--radius`; large tiles and panels take `--radius-xl`.
 
 - [ ] **Step 3: Replace the shadow ramp**
 
@@ -61,12 +66,14 @@ Delete `--shadow-tile` (its inset white highlight exists nowhere in the app) and
 
 - [ ] **Step 4: Correct the hairline to the app's border color**
 
-The app's `--border` is `oklch(0.87 0.01 258.34)` ≈ `#D6D9DF`. The landing's `rgba(29,41,61,0.14)` is close on cream but drifts visibly over the tint surface, because alpha composites against whatever is behind it.
+The app's `--border` is `oklch(0.87 0.01 258.34)` = **`#D0D4DB`** (verified by running the OKLab→sRGB matrix; the same conversion reproduces `#F8F8F8`, `#008F92` and `#35BABC` from the app's other tokens). The landing's `rgba(29,41,61,0.14)` is close on cream but drifts visibly over the tint surface, because alpha composites against whatever is behind it.
 
 ```css
-  --hairline:      #D6D9DF;
-  --hairline-soft: #E4E7EC;
+  --hairline:      #D0D4DB;
+  --hairline-soft: #E4E6EA;   /* midpoint toward the #F8F8F8 background */
 ```
+
+Do not hand-convert oklch values. Compute them, or copy a hex already verified in this file.
 
 - [ ] **Step 5: Delete the ornament tokens and alternate themes**
 
@@ -184,7 +191,7 @@ Building against placeholders decouples this plan from the capture pipeline.
 
 - [ ] **Step 1: Create a placeholder**
 
-An SVG at `assets/screens/placeholder.svg` — a `#F5F5F5` rectangle with a 1px `#D6D9DF` border and centered mono text reading "SCREEN PENDING". It must be visually obvious so an unswapped placeholder cannot ship unnoticed.
+An SVG at `assets/screens/placeholder.svg` — a `#F5F5F5` rectangle with a 1px `#D0D4DB` border and centered mono text reading "SCREEN PENDING". It must be visually obvious so an unswapped placeholder cannot ship unnoticed.
 
 - [ ] **Step 2: Write the `Screen` component**
 
