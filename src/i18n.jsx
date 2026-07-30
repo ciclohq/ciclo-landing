@@ -17,6 +17,7 @@ window.I18N = {
     nav: {
       product: 'Producto',
       how:     'Cómo funciona',
+      assistant: 'Asistente',
       pricing: 'Precios',
       faq:     'FAQ',
       login:   'Acceder',
@@ -250,7 +251,7 @@ window.I18N = {
       talk: 'Hi, I have a question about Ciclo.',
     },
 
-    nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo', lang_label: 'Language' },
+    nav: { product: 'Product', how: 'How it works', assistant: 'Assistant', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo', lang_label: 'Language' },
 
     hero: {
       badge: 'For laundromats and dry cleaners',

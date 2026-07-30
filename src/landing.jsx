@@ -34,6 +34,7 @@
         <a href="#" aria-label="Ciclo"><Logo /></a>
         <div className="nav-links">
           <a href="#how">{t.nav.how}</a>
+          <a href="#asistente">{t.nav.assistant}</a>
           <a href="#incluye">{t.nav.product}</a>
           <a href="#pricing">{t.nav.pricing}</a>
           <a href="#faq">{t.nav.faq}</a>
