@@ -105,6 +105,23 @@ window.I18N = {
       ],
     },
 
+    /* --- Assistant — its own section, the third and last appearance of
+       Thread (hero, arc part 01, here), which is what turns it into a
+       motif. The exchange must be answerable from what the assistant's
+       tools actually return (get_sales_report: revenue, order count, avg
+       ticket, category mix, new-vs-returning customers) — the model can
+       call it for two ranges and narrate the comparison, but it never
+       forecasts, advises, or acts on the owner's behalf. */
+    assistant: {
+      h: 'Un asistente que ya conoce tu negocio.',
+      sub: 'Vive en tu panel y contesta con tus propios números — ventas, clientes, categorías — sin que armes un reporte.',
+      thread_caption: 'Ejemplo: una pregunta real al asistente',
+      thread: [
+        { from: 'customer', text: '¿Cómo van las ventas esta semana?' },
+        { from: 'ciclo', text: 'Esta semana llevas $18,430 en 61 pedidos (ticket promedio $302).\n14% más que la semana pasada ($16,180).\nLavado por kilo sigue siendo tu categoría con más ingresos, y 9 de esos pedidos son de clientes nuevos.' },
+      ],
+    },
+
     /* --- Included — the spec table; attendance lives here because it sits
        outside the delivery arc. Google reviews is absent by decision. --- */
     included: {
@@ -307,6 +324,16 @@ window.I18N = {
           screen: 'retiene',
           alt: 'Customer profile with an active membership and order history',
         },
+      ],
+    },
+
+    assistant: {
+      h: 'An assistant that already knows your business.',
+      sub: 'It lives in your dashboard and answers with your own numbers — sales, customers, categories — no report to build.',
+      thread_caption: 'Example: a real question to the assistant',
+      thread: [
+        { from: 'customer', text: 'How are sales doing this week?' },
+        { from: 'ciclo', text: 'This week you’re at $18,430 across 61 orders (avg ticket $302).\nUp 14% from last week ($16,180).\nWash-by-the-kilo is still your top category, and 9 of those orders are from new customers.' },
       ],
     },
 

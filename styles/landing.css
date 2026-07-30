@@ -363,6 +363,21 @@
 
 .arc-screen { min-width: 0; }
 
+/* ---------- Assistant — third Thread appearance, centered "moment" ----------
+   A single centered block (heading + framing sentence + Thread), the same
+   recipe as .hero-head, so it reads as a page-level beat rather than a
+   third arc part. Two scoped accommodations for this section's longer,
+   multi-line, figure-heavy answer — neither touches Thread itself, which
+   the hero and arc sections still depend on: a narrower frame so the
+   reply doesn't stretch into overlong lines, and tabular figures so the
+   dollar amounts in the comparison don't jitter against each other. */
+
+.assistant-head { text-align: center; max-width: 640px; margin: 0 auto; }
+.assistant-head .lede { margin-left: auto; margin-right: auto; }
+.assistant-thread { max-width: 640px; margin: clamp(32px, 5vw, 48px) auto 0; text-align: left; }
+.assistant-thread .thread-msg--ciclo .thread-bubble { max-width: 92%; }
+.assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
+
 /* ---------- Included — spec table (dl, not a card grid) ----------
    Two columns at desktop (label / value), stacked at mobile. The `dt` is
    the only surviving uppercase mono label on the page — kept small and

@@ -140,6 +140,30 @@
     </section>
   );
 
+  /* ---------- Assistant — its own section ----------
+     Third and last appearance of Thread (hero, arc part 01, here) — three
+     is what makes it a motif instead of three similar-looking one-offs.
+     Speaker roles are reused for a different exchange than the rest of the
+     page: the owner asks (customer — left, white) and the assistant
+     answers (ciclo — right, brand-filled). The answer is real report data
+     shaped like a genuine tool response (see get_sales_report in
+     apps/api/src/modules/chat/chat-tools.ts) — no forecasting, no advice,
+     no action taken for the owner. */
+
+  const Assistant = ({ t, lang }) => (
+    <section id="asistente" className="section surface-tint-bg assistant" data-bg="tint">
+      <div className="container">
+        <div className="assistant-head">
+          <h2 className="h2">{t.assistant.h}</h2>
+          <p className="lede">{t.assistant.sub}</p>
+        </div>
+        <div className="assistant-thread">
+          <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} />
+        </div>
+      </div>
+    </section>
+  );
+
   /* ---------- Included — the spec table ----------
      A definition list, not a card grid: the point is density. This is the
      one place the uppercase mono label survives (in the `dt`s) — every
@@ -387,6 +411,7 @@
         <main>
           <Hero t={t} lang={lang} />
           <Arc t={t} lang={lang} />
+          <Assistant t={t} lang={lang} />
           <Included t={t} />
           <Audience t={t} />
           <DemoCTA t={t} />
