@@ -14,16 +14,18 @@ window.I18N = {
       faq:     'FAQ',
       login:   'Acceder',
       cta:     'Agenda una demo',
+      lang_label: 'Idioma',
     },
 
     /* --- Hero --- */
     hero: {
       badge: 'Para lavanderías y tintorerías',
       h1: 'Tus clientes piden por WhatsApp. Tú solo entregas.',
-      sub: 'Ciclo recibe el pedido, lo cobra y lo pone en tu tablero. Tú y tu equipo solo lavan, planchan y entregan.',
+      sub: 'Ciclo recibe el pedido, lo agenda y lo pone en tu tablero. Tú y tu equipo solo lavan, planchan y entregan.',
       cta_primary: 'Agenda una demo',
       cta_ghost:   'Ver cómo funciona',
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
+      alt: 'Vista general del panel de Ciclo con las órdenes del día',
     },
 
     /* --- Arc — the four-part product narrative (recibe → opera → entrega → retiene) --- */
@@ -32,7 +34,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Recibe',
-          body: 'Tus clientes escriben al mismo número de siempre. El bot entiende qué necesitan, arma el pedido y lo cobra. Cuando algo se sale del guion, la conversación pasa a una persona de tu equipo sin que el cliente lo note.',
+          body: 'Tus clientes escriben al mismo número de siempre. El bot entiende qué necesitan, arma el pedido y agenda la recolección. Cuando algo se sale del guion, la conversación pasa a una persona de tu equipo sin que el cliente lo note.',
           feats: ['Pedidos por WhatsApp', 'Respuestas automáticas', 'Transferencia a un humano'],
           screen: 'recibe',
           alt: 'Bandeja de conversaciones con un pedido tomado por el bot',
@@ -40,7 +42,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Opera',
-          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. Recolección, proceso, entrega. Tu mostrador levanta órdenes desde el punto de venta y, si tienes varias sucursales, cambias entre ellas en un clic.',
+          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. Recolección, proceso, entrega. En tu mostrador capturas las prendas y los precios desde el punto de venta y, si tienes varias sucursales, cambias entre ellas en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
           screen: 'opera',
           alt: 'Tablero de órdenes con el detalle de una orden abierto',
@@ -125,7 +127,7 @@ window.I18N = {
         },
         {
           q: '¿Mi cliente puede seguir su pedido?',
-          a: 'Sí. Cada pedido a domicilio incluye un link de seguimiento que le compartes a tu cliente, donde ve la etapa de su orden y la ruta del repartidor.',
+          a: 'Sí. Cada pedido a domicilio incluye un link de seguimiento que le compartes a tu cliente, donde ve la etapa de su orden.',
         },
         {
           q: '¿Qué hacen las membresías y las promociones?',
@@ -187,15 +189,16 @@ window.I18N = {
   },
 
   en: {
-    nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo' },
+    nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo', lang_label: 'Language' },
 
     hero: {
       badge: 'For laundromats and dry cleaners',
       h1: 'Your customers order on WhatsApp. You just deliver.',
-      sub: 'Ciclo takes the order, charges it, and puts it on your board. You and your team just wash, iron, and deliver.',
+      sub: 'Ciclo takes the order, schedules it, and puts it on your board. You and your team just wash, iron, and deliver.',
       cta_primary: 'Book a demo',
       cta_ghost:   'See how it works',
       trust: 'No long contracts · We set up your operation in the demo',
+      alt: 'Overview of the Ciclo dashboard with the day’s orders',
     },
 
     /* --- Arc — the four-part product narrative (receive → operate → deliver → retain) --- */
@@ -204,7 +207,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Receive',
-          body: 'Your customers text the same number they always have. The bot understands what they need, builds the order, and charges it. When something falls outside the script, the conversation hands off to someone on your team — the customer never notices.',
+          body: 'Your customers text the same number they always have. The bot understands what they need, builds the order, and schedules the pickup. When something falls outside the script, the conversation hands off to someone on your team — the customer never notices.',
           feats: ['WhatsApp ordering', 'Automated replies', 'Handoff to a human'],
           screen: 'recibe',
           alt: 'Conversation inbox with an order the bot just took',
@@ -212,7 +215,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Operate',
-          body: 'Every order lands on the board with its customer, its garments, and its stage — pickup, processing, delivery. Your counter rings up orders from the point of sale, and if you run more than one branch, you switch between them in a click.',
+          body: 'Every order lands on the board with its customer, its garments, and its stage — pickup, processing, delivery. Your counter captures garments and prices from the point of sale, and if you run more than one branch, you switch between them in a click.',
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           screen: 'opera',
           alt: 'Order board with an order’s detail panel open',
@@ -245,7 +248,7 @@ window.I18N = {
         { k: 'Delivery',  v: 'Zones on the map · fee rules by order amount, distance or kilometer · routes · driver app' },
         { k: 'Customers', v: 'Memberships · promotions and stamp cards · link-based tracking · ratings' },
         { k: 'Staff',     v: 'PIN attendance · branch schedules · daily summary' },
-        { k: 'Reports',   v: 'Sales · customers · feedback · AI assistant' },
+        { k: 'Reports',   v: 'Sales · customers · ratings and comments · AI assistant' },
       ],
     },
 
@@ -278,7 +281,7 @@ window.I18N = {
         { q: 'Can I charge delivery however I want?', a: 'Yes. You define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer — with conditions by distance or active route.' },
         { q: 'Does it work for dry cleaning, not just laundry?', a: 'Yes. The system adapts to per-garment items, delicate services and pressing, just as it does to wash-by-the-pound.' },
         { q: 'What does the bot handle on its own, and when does a person step in?', a: 'The bot reads what your customer is asking for and replies from templates for what it already knows — catalog, prices, scheduling a pickup. The moment the conversation falls outside that script, it hands off to someone on your team in the shared conversation inbox — the customer keeps texting the same number.' },
-        { q: 'Can my customer follow their order?', a: 'Yes. Every delivery order includes a tracking link you share with your customer, where they see the order’s stage and the driver’s route.' },
+        { q: 'Can my customer follow their order?', a: 'Yes. Every delivery order includes a tracking link you share with your customer, where they see the order’s stage.' },
         { q: 'What do memberships and promotions do?', a: 'Memberships, promotions and stamp cards attach to each customer’s profile alongside their order history, so you can recognize and reward the ones who come back.' },
         { q: 'What does attendance cover?', a: 'Your team clocks in and out with a PIN per branch, and you see the schedules and a daily summary of who worked.' },
         { q: 'What do I need to get started?', a: 'Just your service list and prices. We configure branches, zones and delivery fees together during onboarding.' },

@@ -21,7 +21,7 @@
           <a href="#faq">{t.nav.faq}</a>
         </div>
         <div className="nav-cta">
-          <LangToggle lang={lang} setLang={setLang} />
+          <LangToggle lang={lang} setLang={setLang} label={t.nav.lang_label} />
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
           <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
         </div>
@@ -45,10 +45,11 @@
           <p className="hero-trust">{t.hero.trust}</p>
         </div>
         <Screen
-          slug="recibe"
-          alt="Bandeja de conversaciones de WhatsApp en Ciclo, con un pedido entrante"
+          slug="hero"
+          alt={t.hero.alt}
           width={1440}
           height={900}
+          priority
         />
       </div>
     </section>
@@ -221,7 +222,7 @@
         <div className="footer-links">
           {t.footer.cols.map((col, i) => (
             <div key={i} className="footer-col">
-              <h5>{col.h}</h5>
+              <h3>{col.h}</h3>
               {col.links.map((l, j) => (
                 <a key={j} href={l.href} onClick={l.href === '#' ? (e) => e.preventDefault() : undefined}>
                   {l.label}
@@ -232,7 +233,7 @@
         </div>
         {/* Below 768px the nav LangToggle is hidden — this is the only
             reachable one at that width; hidden itself at 768px and up. */}
-        <LangToggle lang={lang} setLang={setLang} />
+        <LangToggle lang={lang} setLang={setLang} label={t.nav.lang_label} />
         <div className="footer-base">
           <span>{t.footer.base_left}</span>
           <span>{t.footer.base_right}</span>
@@ -315,13 +316,15 @@
     return (
       <>
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
-        <Hero t={t} />
-        <Arc t={t} />
-        <Included t={t} />
-        <Audience t={t} />
-        <DemoCTA t={t} />
-        <FAQ t={t} />
-        <CTA t={t} />
+        <main>
+          <Hero t={t} />
+          <Arc t={t} />
+          <Included t={t} />
+          <Audience t={t} />
+          <DemoCTA t={t} />
+          <FAQ t={t} />
+          <CTA t={t} />
+        </main>
         <Footer t={t} lang={lang} setLang={setLang} />
       </>
     );

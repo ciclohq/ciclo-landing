@@ -31,8 +31,8 @@
 
   /* ---------- Language toggle — ES/EN, sits in the nav ---------- */
 
-  const LangToggle = ({ lang, setLang }) => (
-    <div className="lang-toggle" role="group" aria-label="Idioma">
+  const LangToggle = ({ lang, setLang, label }) => (
+    <div className="lang-toggle" role="group" aria-label={label}>
       {['es', 'en'].map((l) => (
         <button
           key={l}
@@ -67,13 +67,21 @@
      rendering any <source> at all, so the <img src> — now the placeholder
      — is what actually gets used. */
 
-  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => {
+  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption, priority = false }) => {
     const [failed, setFailed] = useState(false);
     const hasMobileDims = mobileWidth != null && mobileHeight != null;
     const handleError = () => {
       // Idempotent: once failed, don't set it again — a placeholder that
       // somehow also 404s must not restart the cycle.
       if (!failed) setFailed(true);
+    };
+    // Only warn once the *real* desktop capture has loaded successfully —
+    // `failed` is already updated by the time this fires for the
+    // placeholder fallback, so today's placeholder state stays quiet.
+    const handleLoad = () => {
+      if (!failed && !hasMobileDims) {
+        console.warn(`Screen "${slug}": mobileWidth/mobileHeight not set — mobile layout may shift when the mobile crop loads.`);
+      }
     };
     return (
       <figure className="screen">
@@ -90,9 +98,11 @@
             alt={alt}
             width={width}
             height={height}
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            {...(priority ? { fetchpriority: 'high' } : {})}
             decoding="async"
             onError={handleError}
+            onLoad={handleLoad}
           />
         </picture>
         {caption && <figcaption className="screen-cap">{caption}</figcaption>}
