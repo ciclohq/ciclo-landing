@@ -135,6 +135,10 @@ window.I18N = {
           q: '¿Qué cubre la asistencia?',
           a: 'Tu equipo registra entrada y salida con PIN por sucursal, y tú ves los horarios y un resumen diario de quién trabajó.',
         },
+        {
+          q: '¿Qué necesito para empezar?',
+          a: 'Solo tu lista de servicios y precios. Sucursales, zonas y tarifas de entrega las configuramos juntos durante el onboarding.',
+        },
       ],
     },
 
@@ -155,10 +159,10 @@ window.I18N = {
         {
           h: 'Producto',
           links: [
-            { label: 'Tablero',              href: '#modules' },
-            { label: 'Servicio a domicilio', href: '#modules' },
-            { label: 'Zonas de entrega',     href: '#modules' },
-            { label: 'App de repartidores',  href: '#modules' },
+            { label: 'Tablero',              href: '#how' },
+            { label: 'Servicio a domicilio', href: '#incluye' },
+            { label: 'Zonas de entrega',     href: '#how' },
+            { label: 'App de repartidores',  href: '#incluye' },
           ],
         },
         {
@@ -277,6 +281,7 @@ window.I18N = {
         { q: 'Can my customer follow their order?', a: 'Yes. Every delivery order includes a tracking link you share with your customer, where they see the order’s stage and the driver’s route.' },
         { q: 'What do memberships and promotions do?', a: 'Memberships, promotions and stamp cards attach to each customer’s profile alongside their order history, so you can recognize and reward the ones who come back.' },
         { q: 'What does attendance cover?', a: 'Your team clocks in and out with a PIN per branch, and you see the schedules and a daily summary of who worked.' },
+        { q: 'What do I need to get started?', a: 'Just your service list and prices. We configure branches, zones and delivery fees together during onboarding.' },
       ],
     },
 
@@ -293,10 +298,10 @@ window.I18N = {
       tag_b: '.',
       cols: [
         { h: 'Product', links: [
-          { label: 'Board',          href: '#modules' },
-          { label: 'Home delivery',  href: '#modules' },
-          { label: 'Delivery zones', href: '#modules' },
-          { label: 'Driver app',     href: '#modules' },
+          { label: 'Board',          href: '#how' },
+          { label: 'Home delivery',  href: '#incluye' },
+          { label: 'Delivery zones', href: '#how' },
+          { label: 'Driver app',     href: '#incluye' },
         ] },
         { h: 'Company', links: [
           { label: 'How it works',            href: '#how' },

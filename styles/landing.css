@@ -1,6 +1,6 @@
 /* =============================================================
    Ciclo — Landing-specific styles
-   Section composition: Nav · Hero · HowItWorks · Modules · Audience · DemoCTA · FAQ · CTA · Footer.
+   Section composition: Nav · Hero · Arc · Included · Audience · DemoCTA · FAQ · CTA · Footer.
    Loaded after tokens.css → base.css → components.css.
    ============================================================= */
 
@@ -92,40 +92,15 @@
   padding-bottom: var(--section-y);
   position: relative;
 }
-.section-tight { padding: clamp(48px, 6vw, 80px) 0; }
 
-.surface-off-bg    { background: var(--off-white); }
 .surface-cream-bg  { background: var(--paper-cream); }
-.surface-tint-bg   { background: linear-gradient(180deg, #EDF7F7 0%, var(--pale-cobalt) 55%, #DFF0F0 100%); }
-.surface-tan-bg    { background: var(--pale-cobalt); }   /* alias for compatibility */
-.surface-peach-bg  { background: var(--off-white); }     /* alias for compatibility */
+.surface-tint-bg   { background: var(--pale-cobalt); }
 .surface-white-bg  { background: var(--bright-white); }
-.surface-ink-bg    { background: var(--ink); color: #FFFFFF; }
-.surface-ink-bg .body, .surface-ink-bg p, .surface-ink-bg .lede {
-  color: rgba(255, 255, 255, 0.78);
-}
-.surface-ink-bg .h2, .surface-ink-bg .h1, .surface-ink-bg .h3 { color: #FFFFFF; }
-.surface-ink-bg .eyebrow { color: rgba(255, 255, 255, 0.55); }
-.surface-ink-bg .h2 .lighter { color: var(--brand-soft); }
 
 .container {
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 var(--gutter);
-}
-
-/* ---------- Eyebrow ---------- */
-
-.eyebrow {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--body-muted);
-  display: inline-flex; align-items: center; gap: 10px;
-  margin-bottom: 28px;
-}
-.eyebrow::before {
-  content: '';
-  width: 22px; height: 2px; border-radius: 2px;
-  background: var(--brand);
 }
 
 /* ---------- Display headlines ---------- */
@@ -138,10 +113,6 @@
   max-width: 18ch;
   margin: 0;
 }
-.h1 .lighter {
-  font-weight: 500;
-  color: var(--body-muted);
-}
 
 .h2 {
   font-family: var(--font-display); font-weight: 600;
@@ -150,10 +121,6 @@
   color: var(--ink);
   max-width: 22ch;
   margin: 0;
-}
-.h2 .lighter {
-  font-weight: 500;
-  color: var(--body-muted);
 }
 
 .h3 {
@@ -179,18 +146,6 @@
   padding-bottom: clamp(40px, 5vw, 72px);
   overflow-x: clip;
   position: relative;
-}
-/* Faint blueprint grid behind the hero head — fades out radially */
-.hero::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 620px;
-  background-image:
-    linear-gradient(to right, rgba(24, 24, 27, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(24, 24, 27, 0.06) 1px, transparent 1px);
-  background-size: 54px 54px;
-  -webkit-mask-image: radial-gradient(ellipse 980px 520px at 50% -40px, rgba(0,0,0,0.9), transparent 72%);
-  mask-image: radial-gradient(ellipse 980px 520px at 50% -40px, rgba(0,0,0,0.9), transparent 72%);
-  pointer-events: none;
 }
 .hero .container { position: relative; }
 .hero-head { text-align: center; max-width: 880px; margin: 0 auto; }
@@ -222,17 +177,6 @@
   box-shadow: 0 1px 2px rgba(11, 14, 20, 0.04);
 }
 .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
-
-.wmini { padding: 4px 0; }
-.wmrow { display: flex; align-items: center; gap: 10px; padding: 9px 15px; }
-.wmav { width: 30px; height: 30px; border-radius: 50%; background: #25D366; color: #075E54; display: grid; place-items: center; font-weight: 700; font-family: var(--font-display); font-size: 13px; flex-shrink: 0; }
-.wmbody { flex: 1; min-width: 0; }
-.wmname { font-size: 12.5px; font-weight: 600; }
-.wmmsg { font-size: 11.5px; color: var(--body-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wmun { font-family: var(--font-mono); font-size: 10px; background: #25D366; color: #06371f; border-radius: 999px; padding: 1px 6px; font-weight: 700; }
-.wmfoot { display: flex; align-items: center; gap: 8px; padding: 11px 15px; border-top: 1px solid var(--hairline-soft); background: var(--off-white); }
-.wmpill { flex: 1; background: var(--bright-white); border: 1px solid var(--hairline); border-radius: 999px; padding: 7px 12px; font-size: 11.5px; color: var(--body-muted); }
-.wmsend { width: 30px; height: 30px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; color: #fff; font-size: 12px; flex-shrink: 0; }
 
 /* ---------- Audience — dual block ---------- */
 
@@ -459,16 +403,12 @@
 }
 .faq-item.is-open .q { color: var(--ink); }
 
-/* ---------- CTA closer — soft cream → cobalt-tint glow ---------- */
+/* ---------- CTA closer — flat cream surface, separates from the navy footer ---------- */
 
 .cta-block {
   text-align: center;
   padding: clamp(96px, 11vw, 180px) 0 clamp(64px, 8vw, 120px);
-  background:
-    radial-gradient(ellipse 1200px 700px at 30% 110%, rgba( 12, 144, 224, 0.28), transparent 60%),
-    radial-gradient(ellipse 1100px 800px at 75% 120%, rgba( 10, 111, 176, 0.18), transparent 60%),
-    radial-gradient(ellipse  900px 600px at 50%  20%, rgba(226, 244, 253, 0.80), transparent 70%),
-    var(--paper-cream);
+  background: var(--paper-cream);
   color: var(--ink);
 }
 .cta-block .h1 { margin: 0 auto; max-width: 22ch; color: var(--ink); }
@@ -563,20 +503,6 @@
   text-transform: uppercase;
   color: var(--ink);
 }
-.hairline {
-  border: none;
-  border-top: 1px solid var(--hairline);
-  margin: 0;
-}
-
-/* ---------- Micro-delights inside the product mocks ---------- */
-
-@keyframes ping-wa {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
-  60%      { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
-}
-.wmun { animation: ping-wa 2.6s var(--ease-soft) infinite; }
-
 /* ---------- Scroll reveal — JS adds .reveal-ready on <html>, .is-in per element ----------
    Animation (not transition) on reveal so card hover transitions stay untouched;
    `backwards` fill so styles return to natural values once the rise completes. */
@@ -598,7 +524,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-head .badge, .hero .h1, .hero .lede,
   .hero-actions, .hero-trust,
-  .wmun,
   .reveal-ready [data-reveal].is-in,
   .reveal-ready [data-reveal='stagger'].is-in > * { animation: none; }
   .reveal-ready [data-reveal]:not(.is-in),

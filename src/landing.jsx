@@ -6,7 +6,7 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, Mono, LangToggle, Screen } = window.UI;
+  const { Logo, LangToggle, Screen } = window.UI;
 
   /* ---------- Nav ---------- */
 
@@ -16,7 +16,7 @@
         <a href="#" aria-label="Ciclo"><Logo /></a>
         <div className="nav-links">
           <a href="#how">{t.nav.how}</a>
-          <a href="#modules">{t.nav.product}</a>
+          <a href="#incluye">{t.nav.product}</a>
           <a href="#pricing">{t.nav.pricing}</a>
           <a href="#faq">{t.nav.faq}</a>
         </div>
@@ -252,7 +252,7 @@
     }, [lang]);
 
     /* Neutralize dead-link clicks (href="#") so they don't jump to top.
-       Real anchors (#modules, #pricing, etc.) are unaffected. */
+       Real anchors (#how, #incluye, #pricing, etc.) are unaffected. */
     useEffect(() => {
       const onClick = (e) => {
         const a = e.target.closest && e.target.closest('a[href="#"]');
