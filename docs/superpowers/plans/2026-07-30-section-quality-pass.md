@@ -70,7 +70,7 @@ Refined and dense, not decorated. No new colors, no animation, light mode only, 
 
 **Files:** `src/i18n.jsx`, `styles/landing.css`, `src/landing.jsx`
 
-1. **Pricing** — the owner has chosen a "starting from" price. **Do not invent the figure**; it will be supplied. Fix the stale "included" bullet, which omits WhatsApp, memberships, attendance, reports and the assistant.
+1. **Pricing** — lead with **$499 MXN / month, per branch**, framed as a starting price. Supplied by the owner, who hedged with "i think" — it is flagged for confirmation before launch, so do not bury it in prose that would be expensive to re-edit; keep the figure in one i18n key. Per-branch is the unit: the product is multi-branch and the page already says so, so the wording must make the unit unambiguous rather than implying $499 covers a whole business. Also fix the stale "included" bullet, which omits WhatsApp, memberships, attendance, reports and the assistant.
 2. **Whole-page mobile pass** at 390px: section rhythm and vertical spacing, tap targets ≥44px, no text below the scale, no horizontal overflow, and total scroll length reduced from 12.6 screens where content allows.
 
 ## Verification
