@@ -172,7 +172,7 @@
 
 /* ---------- Hero conversation — Thread + the order it produced ----------
    Stacked at mobile (thread first, then the card it caused), side by
-   side from 760px up — matching .audience-grid's breakpoint rather than
+   side from 760px up — matching .compare's breakpoint rather than
    the nav's unrelated 768px, so this branch doesn't add a second, close-
    but-different breakpoint for the same "tablet and up" two-column
    pattern. Both panels are left-aligned regardless of .hero-head's
@@ -269,45 +269,70 @@
 }
 .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
 
-/* ---------- Audience — dual block ---------- */
+/* ---------- Order models — same order, two pricing units ----------
+   Two hairline-separated spec lists (the #incluye idiom: mono uppercase
+   dt, 16px dd), not cards — no border, no shadow, no stripe. A shared
+   "same order" label sits above both so the "one order, two math" framing
+   reads before either model does. Single column and full-width at mobile
+   so a phone reads one model's four rows, then the other's, without a
+   side-by-side squeeze; a vertical hairline divides the pair from 760px
+   up, matching the breakpoint the old two-up block used. */
 
-.audience-grid {
-  display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px;
-}
-@media (min-width: 760px) { .audience-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
-.audience-card {
-  position: relative;
-  padding: 32px;
-  background: var(--bright-white);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(11, 14, 20, 0.04), 0 10px 24px -18px rgba(11, 14, 20, 0.12);
-  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
-}
-.audience-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--brand), rgba(0, 143, 146, 0.12));
-}
-.audience-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 4px rgba(11, 14, 20, 0.04), 0 20px 40px -20px rgba(0, 107, 109, 0.24);
-}
-.audience-name {
-  font-family: var(--font-display); font-weight: 500;
-  font-size: 26px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 12px;
-}
-.audience-text { font-size: 16px; line-height: 1.55; color: var(--body); margin: 0; max-width: 42ch; }
-.audience-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.audience-chip {
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+.compare-order {
+  margin: 32px 0 0;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brand-deep);
-  background: var(--brand-tint);
-  border: 1px solid rgba(0, 143, 146, 0.16);
-  border-radius: 999px;
-  padding: 5px 11px;
+  color: var(--body-muted);
+}
+.compare {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--hairline-soft);
+}
+@media (min-width: 760px) {
+  .compare { grid-template-columns: 1fr 1fr; column-gap: 56px; }
+}
+.compare-model {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.compare-model:last-child { border-bottom: 0; }
+@media (min-width: 760px) {
+  .compare-model { border-bottom: 0; padding: 40px 0; }
+  .compare-model:first-child { border-right: 1px solid var(--hairline-soft); padding-right: 56px; }
+  .compare-model:last-child { padding-left: 56px; }
+}
+.compare-model-name {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 24px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin: 0;
+}
+.compare-rows { margin: 20px 0 0; }
+.compare-row {
+  display: grid; grid-template-columns: 1fr; gap: 4px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.compare-row:first-child { border-top: 0; }
+.compare-row dt {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: 0;
+}
+.compare-row dd {
+  font-size: 16px; line-height: 1.5; color: var(--body); margin: 2px 0 0;
+}
+.compare-row--total dd {
+  font-size: 22px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.compare-note {
+  margin: 40px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline-soft);
+  max-width: 56ch;
+  font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
 
 /* ---------- Arc — the four-part narrative (recibe → opera → entrega → retiene) ----------

@@ -100,8 +100,8 @@ window.I18N = {
         {
           num: '04',
           name: 'Retiene',
-          body: 'Membresías, promociones y el historial de cada cliente en un solo lugar — y un asistente al que le preguntas cómo va el negocio en español, sin armar un reporte.',
-          feats: ['Membresías', 'Promociones', 'Reportes', 'Asistente con IA'],
+          body: 'Cada cliente en tu base trae su historial: cuántas veces ha pedido y cuándo fue la última vez, así distingues a quién ya te compra seguido de a quién solo probó una vez. Desde su ficha le asignas una membresía o una promoción, para que la próxima vez que necesite tu servicio, te elija a ti primero.',
+          feats: ['Historial por cliente', 'Clientes frecuentes', 'Membresías', 'Promociones'],
           screen: 'retiene',
           alt: 'Ficha de cliente con su membresía activa y su historial de órdenes',
         },
@@ -151,14 +151,42 @@ window.I18N = {
       ],
     },
 
-    /* --- Audience — laundromats & dry cleaners --- */
+    /* --- Order models — the same order, priced two ways. Verified against
+       apps/api/src/schema/category-type.ts (pricing_unit: per_item |
+       per_kilo, CHECK-constrained, set per category), apps/api/src/common/
+       order-items.ts (lineTotal = price * weight for per_kilo, price *
+       quantity for per_item; assertItemsWeighed requires a weight on
+       per_kilo lines before it can save) and apps/api/src/modules/
+       promotion/promotion.service.ts (~line 419: buy_n_get_free rejects
+       any category whose pricing_unit isn't per_item). The peso/prenda
+       figures in each example line are illustrative, not real pricing. --- */
     audience: {
-      h: 'Hecho para lavanderías y tintorerías.',
-      sub: 'El mismo sistema, adaptado a cómo trabaja cada negocio.',
-      cols: [
-        { name: 'Lavanderías', text: 'Cargas por kilo, autoservicio o encargo y recolección a domicilio — todo por el mismo número.', chips: ['Por kilo', 'Autoservicio', 'Encargo', 'Recolección a domicilio'] },
-        { name: 'Tintorerías', text: 'Prendas por pieza, servicios delicados y planchado, con seguimiento orden por orden.', chips: ['Por pieza', 'Delicados', 'Planchado', 'Orden por orden'] },
+      h: 'La misma orden, dos formas de cobrarla.',
+      sub: 'Cada categoría de tu catálogo cobra por kilo o por pieza. Ciclo captura la orden distinto según cuál sea.',
+      order_label: 'Misma orden · folio #5104',
+      labels: {
+        unit: 'Unidad de cobro',
+        capture: 'Qué se captura en mostrador',
+        example: 'Ejemplo de la línea',
+        total: 'Total',
+      },
+      models: [
+        {
+          name: 'Lavandería',
+          unit: 'Por kilo',
+          capture: 'El peso de la carga, en kilos',
+          example: '5.4 kg × $32.00/kg',
+          total: '$172.80',
+        },
+        {
+          name: 'Tintorería',
+          unit: 'Por pieza',
+          capture: 'La cantidad de cada prenda',
+          example: '2 camisas + 1 pantalón, precio por prenda',
+          total: '$150.00',
+        },
       ],
+      note: 'Las promociones de "compra y llévate una gratis" solo aplican a piezas — una carga por kilo no califica.',
     },
 
     /* --- Demo / pricing CTA --- */
@@ -331,8 +359,8 @@ window.I18N = {
         {
           num: '04',
           name: 'Retain',
-          body: 'Memberships, promotions, and every customer’s history in one place — plus an assistant you can ask, in plain language, how the business is doing. No report to build.',
-          feats: ['Memberships', 'Promotions', 'Reports', 'AI assistant'],
+          body: 'Every customer in your base carries their history — how many times they’ve ordered and when they last came in — so you can tell who already orders from you regularly from who only tried you once. From their profile you attach a membership or a promotion, so the next time they need your service, they think of you first.',
+          feats: ['Customer history', 'Repeat customers', 'Memberships', 'Promotions'],
           screen: 'retiene',
           alt: 'Customer profile with an active membership and order history',
         },
@@ -364,12 +392,32 @@ window.I18N = {
     },
 
     audience: {
-      h: 'Built for laundromats and dry cleaners.',
-      sub: 'The same system, adapted to how each business works.',
-      cols: [
-        { name: 'Laundromats',  text: 'Wash by the pound, self-service or drop-off, and home pickup — all through one number.', chips: ['By the pound', 'Self-service', 'Drop-off', 'Home pickup'] },
-        { name: 'Dry cleaners', text: 'Per-garment items, delicate care and pressing, tracked order by order.', chips: ['Per garment', 'Delicates', 'Pressing', 'Order by order'] },
+      h: 'The same order, priced two ways.',
+      sub: 'Every category in your catalog bills by the kilo or by the garment. Ciclo captures the order differently depending on which.',
+      order_label: 'Same order · folio #5104',
+      labels: {
+        unit: 'Pricing unit',
+        capture: 'What gets captured at the counter',
+        example: 'Example line',
+        total: 'Total',
+      },
+      models: [
+        {
+          name: 'Laundromat',
+          unit: 'By the kilo',
+          capture: 'The load’s weight, in kilos',
+          example: '5.4 kg × $32.00/kg',
+          total: '$172.80',
+        },
+        {
+          name: 'Dry cleaner',
+          unit: 'By the garment',
+          capture: 'The quantity of each garment',
+          example: '2 shirts + 1 pair of pants, priced per garment',
+          total: '$150.00',
+        },
       ],
+      note: 'Buy-one-get-one promotions only apply to garments — a per-kilo load doesn’t qualify.',
     },
 
     demo: {

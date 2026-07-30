@@ -203,26 +203,59 @@
     </section>
   );
 
-  /* ---------- Audience — laundromats & dry cleaners ---------- */
+  /* ---------- Order models — the same order, priced two ways ----------
+     Replaces the two-card "audience" pattern (identical bordered cards,
+     gradient stripe, pill cloud) that said nothing a shop owner couldn't
+     have guessed. Every category in the catalog carries a pricing_unit of
+     either per_kilo or per_item (apps/api/src/schema/category-type.ts, a
+     DB CHECK constraint — there are only ever these two). That single field
+     changes what a counter line captures and how its total is computed:
+     loadOrderItems in apps/api/src/common/order-items.ts derives lineTotal
+     as `price * weight` for a per_kilo line and `price * quantity` for a
+     per_item line, and assertItemsWeighed in the same file rejects a
+     per_kilo line with no weight recorded. The promotion note is real too:
+     promotion.service.ts (~line 419) rejects a buy_n_get_free rule against
+     any category whose pricing_unit isn't per_item — a laundromat's
+     per-kilo loads can't run that promotion, a dry cleaner's per-garment
+     lines can. Same section slot as the old cards (id="audience"); no
+     cards, no stripes, no pill cloud — one shared "same order" label, then
+     two hairline-separated spec lists in the #incluye idiom (mono dt,
+     16px dd), stacked at mobile so one model reads fully before the other.
+     The peso/prenda figures in each example line are illustrative, not
+     real Ciclo pricing. */
 
-  const Audience = ({ t }) => (
+  const OrderModels = ({ t }) => (
     <section id="audience" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
         <h2 className="h2">{t.audience.h}</h2>
         <p className="lede">{t.audience.sub}</p>
-        <div className="audience-grid" data-reveal="stagger">
-          {t.audience.cols.map((c, i) => (
-            <div key={i} className="audience-card">
-              <h3 className="audience-name">{c.name}</h3>
-              <p className="audience-text">{c.text}</p>
-              {c.chips && (
-                <div className="audience-chips">
-                  {c.chips.map((ch, j) => <span key={j} className="audience-chip">{ch}</span>)}
+        <p className="compare-order">{t.audience.order_label}</p>
+        <div className="compare">
+          {t.audience.models.map((m, i) => (
+            <div key={i} className="compare-model">
+              <h3 className="compare-model-name">{m.name}</h3>
+              <dl className="compare-rows">
+                <div className="compare-row">
+                  <dt>{t.audience.labels.unit}</dt>
+                  <dd>{m.unit}</dd>
                 </div>
-              )}
+                <div className="compare-row">
+                  <dt>{t.audience.labels.capture}</dt>
+                  <dd>{m.capture}</dd>
+                </div>
+                <div className="compare-row">
+                  <dt>{t.audience.labels.example}</dt>
+                  <dd>{m.example}</dd>
+                </div>
+                <div className="compare-row compare-row--total">
+                  <dt>{t.audience.labels.total}</dt>
+                  <dd>{m.total}</dd>
+                </div>
+              </dl>
             </div>
           ))}
         </div>
+        <p className="compare-note">{t.audience.note}</p>
       </div>
     </section>
   );
@@ -430,7 +463,7 @@
           <Arc t={t} lang={lang} />
           <Assistant t={t} lang={lang} />
           <Included t={t} />
-          <Audience t={t} />
+          <OrderModels t={t} />
           <DemoCTA t={t} />
           <FAQ t={t} />
           <CTA t={t} />
