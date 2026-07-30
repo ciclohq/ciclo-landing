@@ -228,7 +228,11 @@ Explicit `width`/`height` prevent layout shift as images load. `<picture>` swaps
   );
 ```
 
-The `onError` fallback means a missing capture degrades to a visible placeholder rather than a broken-image icon.
+**The `onError` fallback must not mutate `src`.** In a `<picture>`, the matching `<source>` selects the resource — the `<img>`'s `src` is only used when no source matches. Assigning to `src` from `onError` therefore re-runs source selection, re-picks the same failing `<source>`, and errors again: an unbounded request loop. Measured at 10,246 requests in 5 seconds at 390px, while looking completely fine at 1440px where no source matches.
+
+Instead, track failure in React state and, once failed, render a bare `<img>` at the placeholder with **no `<source>` children**. Make the handler idempotent so a failing placeholder cannot restart the cycle.
+
+Anything inside a `<picture>` must be verified at a width where the `<source>` media query actually matches. Desktop-only checks will not see this class of bug.
 
 - [ ] **Step 3: Style it as product chrome, not a marketing mockup**
 
