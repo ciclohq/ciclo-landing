@@ -89,3 +89,109 @@
   font: 400 13px/1.5 var(--font-body);
   color: var(--body-muted);
 }
+
+/* ---------- sr-only — visually-hidden but screen-reader-legible ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Thread — the conversation-as-UI primitive ----------
+   The recurring visual form of the page: hero, arc, AI-assistant section.
+   Own palette only — no WhatsApp green, no bubble tails, no device chrome.
+   Type sizes are fixed px (not viewport-relative) so a single component
+   reads cleanly whether it sits in a 390px mobile column or the arc's
+   ~570px desktop screenshot slot. */
+
+.thread-frame {
+  background: var(--off-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(16px, 4vw, 28px);
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.thread-msg { display: flex; }
+.thread-msg--customer { justify-content: flex-start; }
+.thread-msg--ciclo,
+.thread-msg--staff { justify-content: flex-end; }
+
+.thread-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.thread-text { white-space: pre-wrap; }
+
+.thread-msg--customer .thread-bubble {
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+}
+
+.thread-msg--ciclo .thread-bubble {
+  background: var(--brand);
+  color: var(--bright-white);
+}
+
+.thread-msg--staff .thread-bubble {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.thread-time {
+  align-self: flex-end;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+/* On the brand-filled bubble, --body-muted (a mid grey) loses contrast
+   against --brand teal — swap to the existing on-dark muted token
+   instead of inventing a new color. */
+.thread-msg--ciclo .thread-time { color: var(--body-on-dark-muted); }
+
+.thread-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0;
+}
+.thread-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+.thread-divider-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  white-space: nowrap;
+}

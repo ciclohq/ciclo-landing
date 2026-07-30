@@ -110,7 +110,66 @@
     );
   };
 
+  /* ---------- Thread — the conversation-as-UI primitive ----------
+     Renders a WhatsApp-shaped exchange without cloning WhatsApp: no
+     WhatsApp green, no bubble tails/tick marks, no header bar or OS
+     chrome. Built entirely from Ciclo tokens so it reads as "a
+     conversation happened here" while looking unmistakably like Ciclo.
+
+     Three speaker roles because the handoff is the story: a sceptical
+     owner needs to see the bot handle routine questions and a real
+     person pick up anything unusual, without reading a word.
+       - customer: inbound, left, bright-white bubble on a hairline.
+       - ciclo:    the bot, right, filled --brand, white text.
+       - staff:    a human teammate, right, --accent-soft — same side
+                   as the bot but a different fill, so the transfer is
+                   legible at a glance.
+     A `{ divider: 'text' }` entry marks the instant the bot hands off
+     to a person: a hairline rule with small centered text.
+
+     Semantics: an <ol role="list"> (role="list" defends against the
+     old Safari/VoiceOver bug where `list-style: none` — set globally
+     in base.css — strips list semantics). Each message carries a
+     visually-hidden speaker label ahead of its text so a screen
+     reader doesn't hit an undifferentiated wall of bubbles. `caption`
+     becomes the list's accessible name. */
+
+  const THREAD_SPEAKER_LABELS = {
+    es: { customer: 'Cliente', ciclo: 'Ciclo (bot)', staff: 'Alguien del equipo' },
+    en: { customer: 'Customer', ciclo: 'Ciclo (bot)', staff: 'Team member' },
+  };
+
+  const Thread = ({ messages = [], caption, lang = 'es' }) => {
+    const labels = THREAD_SPEAKER_LABELS[lang] || THREAD_SPEAKER_LABELS.es;
+    return (
+      <div className="thread-frame">
+        <ol className="thread" role="list" aria-label={caption || undefined}>
+          {messages.map((m, i) => {
+            if (m.divider) {
+              return (
+                <li key={i} className="thread-divider">
+                  <span className="thread-divider-line" aria-hidden="true" />
+                  <span className="thread-divider-text">{m.divider}</span>
+                  <span className="thread-divider-line" aria-hidden="true" />
+                </li>
+              );
+            }
+            return (
+              <li key={i} className={`thread-msg thread-msg--${m.from}`}>
+                <span className="thread-bubble">
+                  <span className="sr-only">{(labels[m.from] || m.from) + ': '}</span>
+                  <span className="thread-text">{m.text}</span>
+                  {m.time && <span className="thread-time">{m.time}</span>}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    );
+  };
+
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, LangToggle, Screen };
+  window.UI = { Logo, Mono, LangToggle, Screen, Thread };
 })();
