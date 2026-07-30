@@ -102,8 +102,40 @@ window.I18N = {
           name: 'Retiene',
           body: 'Cada cliente en tu base trae su historial: cuántas veces ha pedido y cuándo fue la última vez, así distingues a quién ya te compra seguido de a quién solo probó una vez. Desde su ficha le asignas una membresía o una promoción, para que la próxima vez que necesite tu servicio, te elija a ti primero.',
           feats: ['Historial por cliente', 'Clientes frecuentes', 'Membresías', 'Promociones'],
-          screen: 'retiene',
-          alt: 'Ficha de cliente con su membresía activa y su historial de órdenes',
+          /* Product-shaped visual, not a screenshot — verified against
+             apps/api/src/modules/promotion/promotion-engine.ts (buy_n_get_free,
+             countingWindow: 'customer_history': a stamp accumulates once per
+             completed qualifying order — countDistinct(order.id) in
+             src/common/loyalty-progress.ts punchCountsFor — and once punchCount
+             reaches buyQuantity, the redeeming order's freeQuantity cheapest
+             matching units go free, per countableUnitPrices' ascending sort in
+             promotion-engine.ts) and membership-benefits.ts membershipSummaryFor
+             (status: active/expired/pending derived from paidUntil/cancelledAt;
+             percentOff, freeDelivery and allowanceAmount are independent,
+             combinable plan fields per save-membership-plan.dto.ts — no
+             exclusivity rule). The 7/10 progress, plan name and dates are an
+             illustrative example, like the hero's order card — not a real
+             customer. */
+          retention: {
+            stamp: {
+              label: 'Sellos · Camisas',
+              chip: 'En progreso',
+              progress: 7,
+              target: 10,
+              progress_sr: '7 de 10 sellos',
+              note: 'Cada orden con camisas suma un sello. Al llegar a 10, la prenda más barata de tu siguiente orden con camisas sale gratis.',
+            },
+            membership: {
+              label: 'Membresía',
+              status: 'Activa',
+              plan_label: 'Plan',
+              plan: 'Plan Frecuente',
+              benefit_label: 'Beneficio',
+              benefit: '15% de descuento + entrega gratis',
+              renews_label: 'Vigente hasta',
+              renews: '18 de agosto',
+            },
+          },
         },
       ],
     },
@@ -149,6 +181,27 @@ window.I18N = {
         { k: 'Personal',    items: ['Asistencia con PIN', 'Horarios por sucursal', 'Resumen diario'] },
         { k: 'Reportes',    items: ['Ventas', 'Clientes', 'Comentarios', 'Asistente con IA'] },
       ],
+    },
+
+    /* --- Attendance — its own compact section (not an Included row alone).
+       Verified against apps/api/src/modules/attendance/: pin.util.ts (PIN
+       hashing/verification), dto/punch.dto.ts (branchId + 4-digit PIN + type
+       required per punch — the clock happens at a branch, not the PIN
+       itself), schedule-resolution.ts (resolveSchedule: per-branch days,
+       per-employee overrides, DEFAULT_TOLERANCE_MINUTES = 15, overridable per
+       day) and daily-summary.ts (buildDailySummaries: 'late' when firstIn is
+       after scheduledStart + tolerance, 'absent' when there are no punches by
+       then, hours = lastOut − firstIn). Names and times are an illustrative
+       example roster, like the hero's order card — not real employees. --- */
+    attendance: {
+      h: 'Entradas y salidas, sucursal por sucursal.',
+      sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
+      rows: [
+        { name: 'Marisol G.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 08:57 · Salida 18:04', flag: 'Puntual', flag_kind: 'done' },
+        { name: 'Iván R.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 09:22 · Salida 18:10', flag: 'Tarde', flag_kind: 'proc' },
+        { name: 'Paola T.', meta: 'Sucursal Del Valle · 10:00–19:00', times: 'Sin registro', flag: 'Ausente', flag_kind: 'new' },
+      ],
+      note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si nunca marca entrada.',
     },
 
     /* --- Order models — the same order, priced two ways. Verified against
@@ -212,28 +265,12 @@ window.I18N = {
           a: 'Puedes usar a tus propios repartidores con la app o coordinar con quien ya trabajas. Ciclo organiza las rutas; tú decides quién las maneja.',
         },
         {
-          q: '¿Puedo cobrar el envío como yo quiera?',
-          a: 'Sí. Defines reglas de tarifa con prioridad: entrega gratis a partir de cierto monto, cobro fijo, porcentaje del pedido o por kilómetro — y condiciones por distancia o ruta activa.',
-        },
-        {
           q: '¿Funciona para tintorería y no solo para lavandería?',
           a: 'Sí. El sistema se adapta a prendas por pieza, servicios delicados y planchado, igual que a cargas por kilo.',
         },
         {
-          q: '¿Qué hace el bot solo y cuándo entra una persona?',
-          a: 'El bot identifica lo que pide tu cliente y responde con plantillas para lo que ya conoce: catálogo, precios, agendar la recolección. En cuanto la conversación sale de ese guion, pasa a alguien de tu equipo en la bandeja de conversaciones — tu cliente sigue escribiendo al mismo número.',
-        },
-        {
-          q: '¿Mi cliente puede seguir su pedido?',
-          a: 'Sí. Cada pedido a domicilio incluye un link de seguimiento que le compartes a tu cliente, donde ve la etapa de su orden.',
-        },
-        {
-          q: '¿Qué hacen las membresías y las promociones?',
-          a: 'Las membresías, las promociones y las tarjetas de sellos quedan ligadas al perfil de cada cliente junto con su historial de órdenes, para que reconozcas y premies a quien vuelve.',
-        },
-        {
-          q: '¿Qué cubre la asistencia?',
-          a: 'Tu equipo registra entrada y salida con PIN por sucursal, y tú ves los horarios y un resumen diario de quién trabajó.',
+          q: '¿Puedo cobrar el envío como yo quiera?',
+          a: 'Sí. Defines reglas de tarifa con prioridad: entrega gratis a partir de cierto monto, cobro fijo, porcentaje del pedido o por kilómetro — y condiciones por distancia o ruta activa.',
         },
         {
           q: '¿Qué necesito para empezar?',
@@ -361,8 +398,26 @@ window.I18N = {
           name: 'Retain',
           body: 'Every customer in your base carries their history — how many times they’ve ordered and when they last came in — so you can tell who already orders from you regularly from who only tried you once. From their profile you attach a membership or a promotion, so the next time they need your service, they think of you first.',
           feats: ['Customer history', 'Repeat customers', 'Memberships', 'Promotions'],
-          screen: 'retiene',
-          alt: 'Customer profile with an active membership and order history',
+          retention: {
+            stamp: {
+              label: 'Stamps · Shirts',
+              chip: 'In progress',
+              progress: 7,
+              target: 10,
+              progress_sr: '7 of 10 stamps',
+              note: 'Every order with shirts adds a stamp. At 10, the lowest-priced shirt in your next shirt order is free.',
+            },
+            membership: {
+              label: 'Membership',
+              status: 'Active',
+              plan_label: 'Plan',
+              plan: 'Frequent Plan',
+              benefit_label: 'Benefit',
+              benefit: '15% off + free delivery',
+              renews_label: 'Active through',
+              renews: 'August 18',
+            },
+          },
         },
       ],
     },
@@ -389,6 +444,17 @@ window.I18N = {
         { k: 'Staff',     items: ['PIN attendance', 'Branch schedules', 'Daily summary'] },
         { k: 'Reports',   items: ['Sales', 'Customers', 'Ratings and comments', 'AI assistant'] },
       ],
+    },
+
+    attendance: {
+      h: 'Clock-ins and clock-outs, branch by branch.',
+      sub: 'Your team clocks in and out with a 4-digit PIN at each branch. You see everyone’s schedule and a daily summary.',
+      rows: [
+        { name: 'Marisol G.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 8:57am · Out 6:04pm', flag: 'On time', flag_kind: 'done' },
+        { name: 'Iván R.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 9:22am · Out 6:10pm', flag: 'Late', flag_kind: 'proc' },
+        { name: 'Paola T.', meta: 'Del Valle Branch · 10:00am–7:00pm', times: 'No punch', flag: 'Absent', flag_kind: 'new' },
+      ],
+      note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they never clock in.',
     },
 
     audience: {
@@ -437,12 +503,8 @@ window.I18N = {
       side: 'Have another question? Write to hola@ciclo.mx and we’ll cover it in the demo.',
       items: [
         { q: 'Do I need my own drivers?', a: 'You can use your own drivers with the app, or coordinate with whoever you already work with. Ciclo organizes the routes; you decide who runs them.' },
-        { q: 'Can I charge delivery however I want?', a: 'Yes. You define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer — with conditions by distance or active route.' },
         { q: 'Does it work for dry cleaning, not just laundry?', a: 'Yes. The system adapts to per-garment items, delicate services and pressing, just as it does to wash-by-the-pound.' },
-        { q: 'What does the bot handle on its own, and when does a person step in?', a: 'The bot reads what your customer is asking for and replies from templates for what it already knows — catalog, prices, scheduling a pickup. The moment the conversation falls outside that script, it hands off to someone on your team in the shared conversation inbox — the customer keeps texting the same number.' },
-        { q: 'Can my customer follow their order?', a: 'Yes. Every delivery order includes a tracking link you share with your customer, where they see the order’s stage.' },
-        { q: 'What do memberships and promotions do?', a: 'Memberships, promotions and stamp cards attach to each customer’s profile alongside their order history, so you can recognize and reward the ones who come back.' },
-        { q: 'What does attendance cover?', a: 'Your team clocks in and out with a PIN per branch, and you see the schedules and a daily summary of who worked.' },
+        { q: 'Can I charge delivery however I want?', a: 'Yes. You define prioritized fee rules: free delivery above a threshold, a flat fee, a percentage of the order, or per kilometer — with conditions by distance or active route.' },
         { q: 'What do I need to get started?', a: 'Just your service list and prices. We configure branches, zones and delivery fees together during onboarding.' },
       ],
     },

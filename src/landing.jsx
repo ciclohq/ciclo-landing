@@ -108,15 +108,70 @@
     </section>
   );
 
+  /* ---------- Retention panel — arc part 04's visual ----------
+     A stamp card mid-progress plus a membership state on a customer, in
+     the order-card idiom (bright-white panel, hairline, mono dt / 16px dd,
+     a chip for status) rather than a screenshot — there was never a real
+     'retiene' capture to begin with (Screen would have silently fallen
+     back to the placeholder). Verified against apps/api/src/modules/
+     promotion/promotion-engine.ts (buy_n_get_free + countingWindow:
+     'customer_history': one stamp per completed qualifying order, and once
+     the punch count reaches buyQuantity, the redeeming order's cheapest
+     freeQuantity units go free — countableUnitPrices sorts ascending) and
+     membership-benefits.ts membershipSummaryFor (status is derived, never
+     stored; percentOff/freeDelivery/allowanceAmount are independent,
+     combinable plan fields). The stamp dots are aria-hidden; the count is
+     also rendered as text so it isn't screen-reader-invisible. */
+
+  const RetentionPanel = ({ t }) => (
+    <div className="retain-panel">
+      <div className="retain-card">
+        <div className="retain-card-head">
+          <span className="retain-card-label">{t.stamp.label}</span>
+          <span className="retain-card-chip">{t.stamp.chip}</span>
+        </div>
+        <div className="retain-stamps" aria-hidden="true">
+          {Array.from({ length: t.stamp.target }).map((_, i) => (
+            <span key={i} className={`retain-stamp ${i < t.stamp.progress ? 'is-filled' : ''}`} />
+          ))}
+        </div>
+        <p className="sr-only">{t.stamp.progress_sr}</p>
+        <p className="retain-card-note">{t.stamp.note}</p>
+      </div>
+      <div className="retain-card">
+        <div className="retain-card-head">
+          <span className="retain-card-label">{t.membership.label}</span>
+          <span className="retain-card-chip retain-card-chip--done">{t.membership.status}</span>
+        </div>
+        <dl className="retain-fields">
+          <div>
+            <dt>{t.membership.plan_label}</dt>
+            <dd>{t.membership.plan}</dd>
+          </div>
+          <div>
+            <dt>{t.membership.benefit_label}</dt>
+            <dd>{t.membership.benefit}</dd>
+          </div>
+          <div>
+            <dt>{t.membership.renews_label}</dt>
+            <dd>{t.membership.renews}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  );
+
   /* ---------- Arc — the four-part product narrative ----------
      Replaces HowItWorks + Modules: one story (receive → operate → deliver →
      retain), each part pairing prose with a visual. Part 01 renders a
      Thread — the handoff the hero deliberately doesn't show: an
      out-of-scope question, a divider marking the transfer, a person
-     answering. Parts 02–04 keep real product screenshots. The check is
-     "does this part supply thread data," not "is this index 0" — a later
-     part can adopt a Thread the same way. The 01–04 numbering survives
-     here and only here, where sequence carries real meaning. */
+     answering. Part 04 renders RetentionPanel — a stamp card and a
+     membership state, the same "adopt a different visual" allowance the
+     01/Thread precedent set. Parts 02–03 keep real product screenshots.
+     The check is "does this part supply thread/retention data," not "is
+     this index 0." The 01–04 numbering survives here and only here, where
+     sequence carries real meaning. */
 
   const Arc = ({ t, lang }) => (
     <section id="how" className="section surface-cream-bg" data-bg="cream">
@@ -132,7 +187,9 @@
               </ul>
             </div>
             <div className="arc-screen">
-              {p.thread ? (
+              {p.retention ? (
+                <RetentionPanel t={p.retention} />
+              ) : p.thread ? (
                 <Thread messages={p.thread} caption={p.thread_caption} lang={lang} />
               ) : (
                 <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
@@ -199,6 +256,42 @@
             </div>
           ))}
         </dl>
+      </div>
+    </section>
+  );
+
+  /* ---------- Attendance — staff clock-in, its own compact home ----------
+     Sits outside the recibe/opera/entrega/retiene arc on purpose (staff
+     attendance isn't part of the customer-facing delivery story), so it
+     doesn't interrupt the arc's flow — placed right after #incluye instead,
+     next to the "Personal" spec row it elaborates on, the same way
+     OrderModels elaborates on the pricing-unit row directly below it. Kept
+     to a compact three-row roster (the hairline idiom, no cards) rather
+     than a full-height section: a real daily-summary shape, not a second
+     scroll-length section. Verified against apps/api/src/modules/
+     attendance/pin.util.ts, dto/punch.dto.ts (branchId + 4-digit PIN per
+     punch), schedule-resolution.ts (per-branch/per-employee schedules,
+     DEFAULT_TOLERANCE_MINUTES = 15) and daily-summary.ts (late/absent
+     flags, hours from firstIn/lastOut). */
+
+  const Attendance = ({ t }) => (
+    <section id="personal" className="section surface-white-bg" data-bg="off">
+      <div className="container">
+        <h2 className="h2">{t.attendance.h}</h2>
+        <p className="lede">{t.attendance.sub}</p>
+        <div className="roster">
+          {t.attendance.rows.map((r, i) => (
+            <div key={i} className="roster-row">
+              <div className="roster-who">
+                <span className="roster-name">{r.name}</span>
+                <span className="roster-meta">{r.meta}</span>
+              </div>
+              <span className="roster-times">{r.times}</span>
+              <span className={`roster-flag roster-flag--${r.flag_kind}`}>{r.flag}</span>
+            </div>
+          ))}
+        </div>
+        <p className="roster-note">{t.attendance.note}</p>
       </div>
     </section>
   );
@@ -463,6 +556,7 @@
           <Arc t={t} lang={lang} />
           <Assistant t={t} lang={lang} />
           <Included t={t} />
+          <Attendance t={t} />
           <OrderModels t={t} />
           <DemoCTA t={t} />
           <FAQ t={t} />

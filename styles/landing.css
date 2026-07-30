@@ -1,6 +1,6 @@
 /* =============================================================
    Ciclo — Landing-specific styles
-   Section composition: Nav · Hero · Arc · Included · Audience · DemoCTA · FAQ · CTA · Footer.
+   Section composition: Nav · Hero · Arc · Assistant · Included · Personal (attendance) · Audience · DemoCTA · FAQ · CTA · Footer.
    Loaded after tokens.css → base.css → components.css.
    ============================================================= */
 
@@ -396,6 +396,60 @@
 
 .arc-screen { min-width: 0; }
 
+/* ---------- Retention panel — arc part 04's visual ----------
+   Two stacked panels in the order-card idiom: bright-white surface,
+   hairline border, shadow-md, mono uppercase dt / 16px dd, a chip for
+   status. No new colors — the chip reuses the same --chip-route and
+   --chip-done tokens order-card-chip and the roster below it already use. */
+
+.retain-panel { display: flex; flex-direction: column; gap: 16px; }
+.retain-card {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.retain-card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.retain-card-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.retain-card-chip {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--chip-route-f); background: var(--chip-route-b);
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+.retain-card-chip--done { color: var(--chip-done-f); background: var(--chip-done-b); }
+.retain-stamps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.retain-stamp {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--hairline);
+}
+.retain-stamp.is-filled { background: var(--brand); border-color: var(--brand); }
+.retain-card-note {
+  margin: 16px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 16px; line-height: 1.5; color: var(--body-muted);
+}
+.retain-fields { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0 0; }
+.retain-fields dt {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted); margin: 0;
+}
+.retain-fields dd { font-size: 16px; font-weight: 500; color: var(--ink); margin: 4px 0 0; }
+@media (min-width: 460px) {
+  .retain-fields { grid-template-columns: 1fr 1fr; }
+}
+
 /* ---------- Assistant — third Thread appearance, centered "moment" ----------
    A single centered block (heading + framing sentence + Thread), the same
    recipe as .hero-head, so it reads as a page-level beat rather than a
@@ -462,6 +516,53 @@
     align-items: start;
   }
   .spec-row dt { padding-top: 2px; }
+}
+
+/* ---------- Roster — attendance's daily-summary rows ----------
+   Three hairline-separated rows (name + branch/schedule, actual times, a
+   status chip), the same idiom as .spec — no cards. Stacked at mobile
+   (name/meta, then times, then the flag on its own line) so nothing
+   truncates at 390px; a three-column row from 640px up. Flag colors reuse
+   the existing status-chip tokens (done/proc/new) — no new colors, and
+   'new' (muted gray) stands in for "absent" since there's no error/red
+   chip token in styles/tokens.css. */
+
+.roster { margin-top: 32px; border-top: 1px solid var(--hairline-soft); }
+.roster-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--hairline-soft);
+  align-items: center;
+}
+.roster-who { display: flex; flex-direction: column; gap: 3px; }
+.roster-name { font-size: 16px; font-weight: 500; color: var(--ink); }
+.roster-meta {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--body-muted);
+}
+.roster-times { font-size: 16px; line-height: 1.5; color: var(--body); }
+.roster-flag {
+  justify-self: start;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+  color: var(--chip-new-f); background: var(--chip-new-b);
+}
+.roster-flag--done { color: var(--chip-done-f); background: var(--chip-done-b); }
+.roster-flag--proc { color: var(--chip-proc-f); background: var(--chip-proc-b); }
+@media (min-width: 640px) {
+  .roster-row {
+    grid-template-columns: 1.3fr 1.3fr auto;
+    gap: 20px;
+  }
+  .roster-flag { justify-self: end; }
+}
+.roster-note {
+  margin: 24px 0 0;
+  max-width: 60ch;
+  font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
 
 /* ---------- Demo / pricing CTA ---------- */
@@ -539,7 +640,7 @@
   padding: 0 0 22px;
   margin: 0;
   max-width: 64ch;
-  color: var(--body); font-size: 15px; line-height: 1.6;
+  color: var(--body); font-size: 16px; line-height: 1.6;
   animation: faq-fade 240ms var(--ease-out);
 }
 @keyframes faq-fade {
