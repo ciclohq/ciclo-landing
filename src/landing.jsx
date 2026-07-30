@@ -8,6 +8,24 @@
   const { useState, useEffect } = React;
   const { Logo, LangToggle, Screen } = window.UI;
 
+  /* ---------- Contact ----------
+     Every "Agenda una demo" CTA opens WhatsApp with a prefilled message.
+     The number lives here once; the message text comes from i18n so each
+     locale opens the thread in its own language. E.164 with no + or
+     spaces — the format wa.me expects. */
+
+  const WHATSAPP_NUMBER = '13322073372';
+  const waLink = (message) =>
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+  /* Opens the WhatsApp app (or web.whatsapp.com) in a new tab, so the
+     visitor keeps the landing page behind them. */
+  const waProps = (message) => ({
+    href: waLink(message),
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  });
+
   /* ---------- Nav ---------- */
 
   const Nav = ({ t, navBg, lang, setLang }) => (
@@ -23,7 +41,7 @@
         <div className="nav-cta">
           <LangToggle lang={lang} setLang={setLang} label={t.nav.lang_label} />
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
-          <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
+          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
         </div>
       </div>
     </nav>
@@ -39,7 +57,7 @@
           <h1 className="h1">{t.hero.h1}</h1>
           <p className="lede">{t.hero.sub}</p>
           <div className="hero-actions">
-            <a href="#pricing" className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
+            <a {...waProps(t.wa.demo)} className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
             <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost} →</a>
           </div>
           <p className="hero-trust">{t.hero.trust}</p>
@@ -144,7 +162,7 @@
           </div>
           <div className="demo-block-cta">
             <a
-              href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo"
+              {...waProps(t.wa.demo)}
               className="btn btn-brand btn-arrow"
               style={{ width: '100%', justifyContent: 'center' }}
             >
@@ -204,8 +222,8 @@
         <h2 className="h1">{t.cta_block.h}</h2>
         <p className="lede">{t.cta_block.sub}</p>
         <div className="actions">
-          <a href="#pricing" className="btn btn-ink btn-arrow">{t.cta_block.primary}</a>
-          <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ghost">{t.cta_block.ghost}</a>
+          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow">{t.cta_block.primary}</a>
+          <a {...waProps(t.wa.talk)} className="btn btn-ghost">{t.cta_block.ghost}</a>
         </div>
       </div>
     </section>
@@ -224,7 +242,18 @@
             <div key={i} className="footer-col">
               <h3>{col.h}</h3>
               {col.links.map((l, j) => (
-                <a key={j} href={l.href} onClick={l.href === '#' ? (e) => e.preventDefault() : undefined}>
+                /* `wa: '<key>'` resolves to a WhatsApp link with that
+                   locale's prefilled message, so the number stays in
+                   one place. Everything else is a plain href. */
+                <a
+                  key={j}
+                  {...(l.wa
+                    ? waProps(t.wa[l.wa])
+                    : {
+                        href: l.href,
+                        onClick: l.href === '#' ? (e) => e.preventDefault() : undefined,
+                      })}
+                >
                   {l.label}
                 </a>
               ))}

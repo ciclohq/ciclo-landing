@@ -6,6 +6,13 @@
 
 window.I18N = {
   es: {
+    /* --- WhatsApp — prefilled text for the demo CTAs.
+           The number itself lives once, in landing.jsx. --- */
+    wa: {
+      demo: 'Hola, tengo una lavandería y me interesa una demo de Ciclo.',
+      talk: 'Hola, tengo una duda sobre Ciclo.',
+    },
+
     /* --- Nav --- */
     nav: {
       product: 'Producto',
@@ -171,7 +178,7 @@ window.I18N = {
           h: 'Empresa',
           links: [
             { label: 'Cómo funciona',            href: '#how' },
-            { label: 'Agenda una demo',          href: 'mailto:hola@ciclo.mx?subject=Demo%20Ciclo' },
+            { label: 'Agenda una demo',          wa: 'demo' },
             { label: 'Contacto · hola@ciclo.mx', href: 'mailto:hola@ciclo.mx' },
           ],
         },
@@ -189,6 +196,11 @@ window.I18N = {
   },
 
   en: {
+    wa: {
+      demo: 'Hi, I run a laundry business and I’d like a demo of Ciclo.',
+      talk: 'Hi, I have a question about Ciclo.',
+    },
+
     nav: { product: 'Product', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', login: 'Sign in', cta: 'Book a demo', lang_label: 'Language' },
 
     hero: {
@@ -308,7 +320,7 @@ window.I18N = {
         ] },
         { h: 'Company', links: [
           { label: 'How it works',            href: '#how' },
-          { label: 'Book a demo',             href: 'mailto:hola@ciclo.mx?subject=Demo%20Ciclo' },
+          { label: 'Book a demo',             wa: 'demo' },
           { label: 'Contact · hola@ciclo.mx', href: 'mailto:hola@ciclo.mx' },
         ] },
         { h: 'Legal', links: [
