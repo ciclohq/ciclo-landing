@@ -73,3 +73,19 @@
   transition: transform 160ms var(--ease-out);
 }
 .btn-arrow:hover::after { transform: translate(2px, -2px); }
+
+/* ---------- Screen — real product screenshot, framed as evidence ---------- */
+
+.screen { margin: 0; }
+.screen img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  background: var(--bright-white);
+}
+.screen-cap {
+  margin-top: 12px;
+  font: 400 13px/1.5 var(--font-body);
+  color: var(--body-muted);
+}

@@ -44,7 +44,30 @@
     </div>
   );
 
+  /* ---------- Screen — a real product screenshot, framed ---------- */
+
+  const Screen = ({ slug, alt, width, height, caption }) => (
+    <figure className="screen">
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          srcSet={`assets/screens/${slug}-mobile.webp`}
+        />
+        <img
+          src={`assets/screens/${slug}.webp`}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => { e.currentTarget.src = 'assets/screens/placeholder.svg'; }}
+        />
+      </picture>
+      {caption && <figcaption className="screen-cap">{caption}</figcaption>}
+    </figure>
+  );
+
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, LangToggle };
+  window.UI = { Logo, Mono, LangToggle, Screen };
 })();

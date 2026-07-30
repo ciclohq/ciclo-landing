@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="img" aria-label="Screenshot pending">
+  <rect x="0.5" y="0.5" width="1439" height="899" fill="#F5F5F5" stroke="#D0D4DB" stroke-width="1"/>
+  <text x="720" y="450" text-anchor="middle" dominant-baseline="middle"
+        font-family="'JetBrains Mono', 'Geist Mono', ui-monospace, SFMono-Regular, monospace"
+        font-size="20" letter-spacing="4" fill="#6C727E">SCREEN PENDING</text>
+</svg>
