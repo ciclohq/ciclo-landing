@@ -67,7 +67,7 @@
      rendering any <source> at all, so the <img src> — now the placeholder
      — is what actually gets used. */
 
-  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption, priority = false }) => {
+  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => {
     const [failed, setFailed] = useState(false);
     const hasMobileDims = mobileWidth != null && mobileHeight != null;
     const handleError = () => {
@@ -98,8 +98,7 @@
             alt={alt}
             width={width}
             height={height}
-            loading={priority ? 'eager' : 'lazy'}
-            {...(priority ? { fetchpriority: 'high' } : {})}
+            loading="lazy"
             decoding="async"
             onError={handleError}
             onLoad={handleLoad}
@@ -110,7 +109,76 @@
     );
   };
 
+  /* ---------- Thread — the conversation-as-UI primitive ----------
+     Renders a WhatsApp-shaped exchange without cloning WhatsApp: no
+     WhatsApp green, no bubble tails/tick marks, no header bar or OS
+     chrome. Built entirely from Ciclo tokens so it reads as "a
+     conversation happened here" while looking unmistakably like Ciclo.
+
+     Two speaker roles:
+       - customer: inbound, left, bright-white bubble on a hairline.
+       - ciclo:    the bot, right, filled --brand, white text.
+     A `{ divider: 'text' }` entry marks the instant the bot hands off to
+     a person — a hairline rule with small centered text, no reply bubble
+     of its own. There is deliberately no third "staff" role: Ciclo has no
+     way to put a staff reply in a customer's WhatsApp thread that is both
+     attributable (the `messages` table carries no sender identity) and
+     honestly NOT implied to have been composed inside Ciclo (staff can
+     only reply from WhatsApp directly — see thread-view.tsx's "Responde
+     desde WhatsApp"). A previous version had a `staff` role for exactly
+     one thread; it's gone along with that thread now that the divider
+     alone carries the point. Re-add it only once a caller has a bubble
+     that can be honestly attributed.
+
+     Semantics: an <ol role="list"> (role="list" defends against the
+     old Safari/VoiceOver bug where `list-style: none` — set globally
+     in base.css — strips list semantics). Each message carries a
+     visually-hidden speaker label ahead of its text so a screen
+     reader doesn't hit an undifferentiated wall of bubbles. `caption`
+     becomes the list's accessible name.
+
+     `speakerLabels` lets one call site override the announced label for
+     a role (e.g. the assistant section's 'customer' role is the business
+     owner, not a WhatsApp customer) without touching the `from` role
+     names themselves — the hero and arc sections still key off
+     'customer'/'ciclo' and don't pass this prop, so they keep the
+     default labels unchanged. */
+
+  const THREAD_SPEAKER_LABELS = {
+    es: { customer: 'Cliente', ciclo: 'Ciclo (bot)' },
+    en: { customer: 'Customer', ciclo: 'Ciclo (bot)' },
+  };
+
+  const Thread = ({ messages = [], caption, lang = 'es', speakerLabels }) => {
+    const labels = { ...(THREAD_SPEAKER_LABELS[lang] || THREAD_SPEAKER_LABELS.es), ...(speakerLabels || {}) };
+    return (
+      <div className="thread-frame">
+        <ol className="thread" role="list" aria-label={caption || undefined}>
+          {messages.map((m, i) => {
+            if (m.divider) {
+              return (
+                <li key={i} className="thread-divider">
+                  <span className="thread-divider-line" aria-hidden="true" />
+                  <span className="thread-divider-text">{m.divider}</span>
+                  <span className="thread-divider-line" aria-hidden="true" />
+                </li>
+              );
+            }
+            return (
+              <li key={i} className={`thread-msg thread-msg--${m.from}`}>
+                <span className="thread-bubble">
+                  <span className="sr-only">{(labels[m.from] || m.from) + ': '}</span>
+                  <span className="thread-text">{m.text}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    );
+  };
+
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, LangToggle, Screen };
+  window.UI = { Logo, Mono, LangToggle, Screen, Thread };
 })();

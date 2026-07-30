@@ -6,7 +6,25 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, LangToggle, Screen } = window.UI;
+  const { Logo, LangToggle, Screen, Thread } = window.UI;
+
+  /* ---------- Contact ----------
+     Every "Agenda una demo" CTA opens WhatsApp with a prefilled message.
+     The number lives here once; the message text comes from i18n so each
+     locale opens the thread in its own language. E.164 with no + or
+     spaces — the format wa.me expects. */
+
+  const WHATSAPP_NUMBER = '13322073372';
+  const waLink = (message) =>
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+  /* Opens the WhatsApp app (or web.whatsapp.com) in a new tab, so the
+     visitor keeps the landing page behind them. */
+  const waProps = (message) => ({
+    href: waLink(message),
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  });
 
   /* ---------- Nav ---------- */
 
@@ -16,6 +34,7 @@
         <a href="#" aria-label="Ciclo"><Logo /></a>
         <div className="nav-links">
           <a href="#how">{t.nav.how}</a>
+          <a href="#asistente">{t.nav.assistant}</a>
           <a href="#incluye">{t.nav.product}</a>
           <a href="#pricing">{t.nav.pricing}</a>
           <a href="#faq">{t.nav.faq}</a>
@@ -23,15 +42,52 @@
         <div className="nav-cta">
           <LangToggle lang={lang} setLang={setLang} label={t.nav.lang_label} />
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
-          <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
+          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
         </div>
       </div>
     </nav>
   );
 
-  /* ---------- Hero ---------- */
+  /* ---------- Hero — conversation, and the order it produced ----------
+     Replaces the old hero screenshot. Left: a real-shaped WhatsApp
+     exchange (Thread). Right: a static order card built from the same
+     tokens, sharing the customer, branch and pickup slot the thread just
+     agreed on — the correspondence between the two panels is the pitch,
+     not decoration around it. No service/items field: the bot never asks
+     what the customer is washing, so the conversation never establishes
+     one (a person records items at the branch). The handoff moment is
+     deliberately absent here; it gets its own dedicated thread in the
+     arc. */
 
-  const Hero = ({ t }) => (
+  const OrderCard = ({ o }) => (
+    <div className="order-card">
+      <div className="order-card-head">
+        <span className="order-card-folio">{o.folio}</span>
+        <span className="order-card-chip">{o.stage}</span>
+      </div>
+      <dl className="order-card-fields">
+        <div>
+          <dt>{o.customer_label}</dt>
+          <dd>{o.customer}</dd>
+        </div>
+        <div>
+          <dt>{o.address_label}</dt>
+          <dd>{o.address}</dd>
+        </div>
+        <div>
+          <dt>{o.branch_label}</dt>
+          <dd>{o.branch}</dd>
+        </div>
+        <div>
+          <dt>{o.window_label}</dt>
+          <dd>{o.window}</dd>
+        </div>
+      </dl>
+      <p className="order-card-note">{o.note}</p>
+    </div>
+  );
+
+  const Hero = ({ t, lang }) => (
     <section className="hero" data-bg="cream">
       <div className="container">
         <div className="hero-head">
@@ -39,29 +95,30 @@
           <h1 className="h1">{t.hero.h1}</h1>
           <p className="lede">{t.hero.sub}</p>
           <div className="hero-actions">
-            <a href="#pricing" className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
+            <a {...waProps(t.wa.demo)} className="btn btn-brand btn-arrow">{t.hero.cta_primary}</a>
             <a href="#how" className="btn btn-ghost">{t.hero.cta_ghost} →</a>
           </div>
           <p className="hero-trust">{t.hero.trust}</p>
         </div>
-        <Screen
-          slug="hero"
-          alt={t.hero.alt}
-          width={1440}
-          height={900}
-          priority
-        />
+        <div className="hero-convo">
+          <Thread messages={t.hero.thread} caption={t.hero.thread_caption} lang={lang} />
+          <OrderCard o={t.hero.order} />
+        </div>
       </div>
     </section>
   );
 
   /* ---------- Arc — the four-part product narrative ----------
      Replaces HowItWorks + Modules: one story (receive → operate → deliver →
-     retain), each part pairing prose with a real product screenshot. The
-     01–04 numbering survives here and only here, where sequence carries
-     real meaning. */
+     retain), each part pairing prose with a visual. Part 01 renders a
+     Thread — the handoff the hero deliberately doesn't show: an
+     out-of-scope question, a divider marking the transfer, a person
+     answering. Parts 02–04 keep real product screenshots. The check is
+     "does this part supply thread data," not "is this index 0" — a later
+     part can adopt a Thread the same way. The 01–04 numbering survives
+     here and only here, where sequence carries real meaning. */
 
-  const Arc = ({ t }) => (
+  const Arc = ({ t, lang }) => (
     <section id="how" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
         {t.arc.parts.map((p, i) => (
@@ -75,10 +132,41 @@
               </ul>
             </div>
             <div className="arc-screen">
-              <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
+              {p.thread ? (
+                <Thread messages={p.thread} caption={p.thread_caption} lang={lang} />
+              ) : (
+                <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
+              )}
             </div>
           </article>
         ))}
+      </div>
+    </section>
+  );
+
+  /* ---------- Assistant — its own section ----------
+     Third and last appearance of Thread (hero, arc part 01, here) — three
+     is what makes it a motif instead of three similar-looking one-offs.
+     Speaker roles are reused for a different exchange than the rest of the
+     page: the owner asks (customer — left, white) and the assistant
+     answers (ciclo — right, brand-filled). `t.assistant.speakers`
+     overrides the announced screen-reader labels for those two roles —
+     the default "Cliente"/"Ciclo (bot)" labels are wrong here, since this
+     is the owner asking about their own sales, not a WhatsApp customer.
+     The answer is real report data shaped like a genuine tool response
+     (see get_sales_report in apps/api/src/modules/chat/chat-tools.ts) —
+     no forecasting, no advice, no action taken for the owner. */
+
+  const Assistant = ({ t, lang }) => (
+    <section id="asistente" className="section surface-tint-bg" data-bg="tint">
+      <div className="container">
+        <div className="assistant-head">
+          <h2 className="h2">{t.assistant.h}</h2>
+          <p className="lede">{t.assistant.sub}</p>
+        </div>
+        <div className="assistant-thread">
+          <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} speakerLabels={t.assistant.speakers} />
+        </div>
       </div>
     </section>
   );
@@ -144,7 +232,7 @@
           </div>
           <div className="demo-block-cta">
             <a
-              href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo"
+              {...waProps(t.wa.demo)}
               className="btn btn-brand btn-arrow"
               style={{ width: '100%', justifyContent: 'center' }}
             >
@@ -204,8 +292,8 @@
         <h2 className="h1">{t.cta_block.h}</h2>
         <p className="lede">{t.cta_block.sub}</p>
         <div className="actions">
-          <a href="#pricing" className="btn btn-ink btn-arrow">{t.cta_block.primary}</a>
-          <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ghost">{t.cta_block.ghost}</a>
+          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow">{t.cta_block.primary}</a>
+          <a {...waProps(t.wa.talk)} className="btn btn-ghost">{t.cta_block.ghost}</a>
         </div>
       </div>
     </section>
@@ -224,7 +312,18 @@
             <div key={i} className="footer-col">
               <h3>{col.h}</h3>
               {col.links.map((l, j) => (
-                <a key={j} href={l.href} onClick={l.href === '#' ? (e) => e.preventDefault() : undefined}>
+                /* `wa: '<key>'` resolves to a WhatsApp link with that
+                   locale's prefilled message, so the number stays in
+                   one place. Everything else is a plain href. */
+                <a
+                  key={j}
+                  {...(l.wa
+                    ? waProps(t.wa[l.wa])
+                    : {
+                        href: l.href,
+                        onClick: l.href === '#' ? (e) => e.preventDefault() : undefined,
+                      })}
+                >
                   {l.label}
                 </a>
               ))}
@@ -317,8 +416,9 @@
       <>
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <main>
-          <Hero t={t} />
-          <Arc t={t} />
+          <Hero t={t} lang={lang} />
+          <Arc t={t} lang={lang} />
+          <Assistant t={t} lang={lang} />
           <Included t={t} />
           <Audience t={t} />
           <DemoCTA t={t} />
