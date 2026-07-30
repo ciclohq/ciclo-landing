@@ -72,7 +72,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Recibe',
-          body: 'Tus clientes le escriben al mismo número de siempre — no instalan nada, no aprenden nada nuevo. El bot clasifica lo que te están pidiendo y responde desde una plantilla: catálogo, precios, disponibilidad, agenda la recolección. En cuanto la pregunta se sale de ese guion — una prenda fuera de catálogo, o de plano prefiere hablar con una persona — la conversación pasa a alguien de tu equipo en una bandeja de conversaciones compartida, sin que tu cliente tenga que escribir a otro número.',
+          body: 'Tus clientes escriben al mismo número de siempre. El bot responde por plantilla — catálogo, precios, disponibilidad, agenda — y en cuanto la pregunta se sale del guion, la pasa a tu equipo sin que el cliente tenga que escribir a otro número.',
           feats: ['Clasificación de intención', 'Respuestas por plantilla', 'Transferencia a una persona', 'Bandeja de conversaciones compartida'],
           thread_caption: 'Ejemplo: el bot transfiere una pregunta fuera de guion',
           thread: [
@@ -84,7 +84,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Opera',
-          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. Recolección, proceso, entrega. En tu mostrador capturas las prendas y los precios desde el punto de venta y, si tienes varias sucursales, cambias entre ellas en un clic.',
+          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas prendas y precios desde el punto de venta, y cambias de sucursal en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
           /* Product-shaped visual, not a screenshot — see BoardPanel's
              comment in landing.jsx for the full source citation. Folio
@@ -104,7 +104,7 @@ window.I18N = {
         {
           num: '03',
           name: 'Entrega',
-          body: 'Dibujas tus zonas sobre el mapa y defines qué cobras: gratis desde $300, $12 por kilómetro, o una tarifa fija. Tus repartidores ven la ruta del día en su teléfono, y tu cliente sigue su pedido desde un link.',
+          body: 'Dibujas tus zonas en el mapa y defines qué cobras: gratis desde $300, por kilómetro o tarifa fija. Tus repartidores ven la ruta del día en su teléfono y tu cliente sigue el pedido desde un link.',
           feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
           /* Product-shaped visual, not a screenshot — see FeeRulesPanel's
              comment in landing.jsx for the full source citation. Numbers
@@ -123,7 +123,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retiene',
-          body: 'Cada cliente en tu base trae su historial: cuántas veces ha pedido y cuándo fue la última vez, así distingues a quién ya te compra seguido de a quién solo probó una vez. Desde su ficha le asignas una membresía o una promoción, para que la próxima vez que necesite tu servicio, te elija a ti primero.',
+          body: 'Cada cliente trae su historial: cuántas veces ha pedido y cuándo fue la última. Desde su ficha le asignas una membresía o una promoción, para que la próxima vez te elija a ti primero.',
           feats: ['Historial por cliente', 'Clientes frecuentes', 'Membresías', 'Promociones'],
           /* Product-shaped visual, not a screenshot — verified against
              apps/api/src/modules/promotion/promotion-engine.ts (buy_n_get_free,
@@ -265,12 +265,22 @@ window.I18N = {
       note: 'Las promociones de "compra y llévate una gratis" solo aplican a piezas — una carga por kilo no califica.',
     },
 
-    /* --- Demo / pricing CTA --- */
+    /* --- Demo / pricing CTA ---
+       `price` is the one editable figure — the owner supplied $499 MXN
+       "i think" and flagged it for confirmation before launch, so a
+       correction should touch exactly this key (plus its EN twin) and
+       nothing else. `price_unit` carries the per-branch framing right
+       next to the number — the product sells multi-branch as a feature,
+       so a bare "$499 al mes" would misread as covering the whole
+       operation. */
     demo: {
       h: 'Precio a la medida de tu operación.',
+      price_eyebrow: 'Precio de entrada',
+      price: '$499 MXN',
+      price_unit: 'por sucursal, al mes',
       sub: 'Cuéntanos cuántas órdenes manejas y armamos un plan. Sin instalación y sin contratos largos.',
       points: [
-        'Tablero, domicilio, zonas y app de repartidores incluidos',
+        'WhatsApp, tablero, domicilio, membresías y reportes incluidos',
         'Configuramos tus zonas y tarifas contigo',
         'Onboarding y soporte en español',
       ],
@@ -391,7 +401,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Receive',
-          body: 'Your customers text the same number they always have — nothing to install, nothing new to learn. The bot classifies what they’re asking for and answers from a template: catalog, prices, availability, scheduling the pickup. The moment a question falls outside that script — a garment outside the catalog, or the customer would simply rather talk to a person — the conversation hands off to someone on your team inside a shared conversation inbox, without your customer ever writing to a different number.',
+          body: 'Your customers text the same number they always have. The bot replies from a template — catalog, prices, availability, scheduling — and the moment a question falls outside the script, it hands off to your team, with no need for the customer to write to a different number.',
           feats: ['Intent classification', 'Templated replies', 'Handoff to a person', 'Shared conversation inbox'],
           thread_caption: 'Example: the bot hands off a question outside the script',
           thread: [
@@ -403,7 +413,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Operate',
-          body: 'Every order lands on the board with its customer, its garments, and its stage — pickup, processing, delivery. Your counter captures garments and prices from the point of sale, and if you run more than one branch, you switch between them in a click.',
+          body: 'Every order lands on the board with its customer, garments and stage. Your counter captures garments and prices from the point of sale, and you switch branches in a click.',
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           board: {
             label: 'Board · Roma Norte Branch',
@@ -419,7 +429,7 @@ window.I18N = {
         {
           num: '03',
           name: 'Deliver',
-          body: 'You draw your zones on the map and decide what to charge: free above $300, $12/km, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
+          body: 'You draw your zones on the map and decide what to charge: free above $300, per kilometer, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
           feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
           feeRules: {
             label: 'Fee rules',
@@ -434,7 +444,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retain',
-          body: 'Every customer in your base carries their history — how many times they’ve ordered and when they last came in — so you can tell who already orders from you regularly from who only tried you once. From their profile you attach a membership or a promotion, so the next time they need your service, they think of you first.',
+          body: 'Every customer carries their history — how many times they’ve ordered and when they last came in. From their profile you attach a membership or a promotion, so next time they think of you first.',
           feats: ['Customer history', 'Repeat customers', 'Memberships', 'Promotions'],
           retention: {
             stamp: {
@@ -526,9 +536,12 @@ window.I18N = {
 
     demo: {
       h: 'Pricing that fits your operation.',
+      price_eyebrow: 'Starting price',
+      price: '$499 MXN',
+      price_unit: 'per branch, per month',
       sub: 'Tell us how many orders you handle and we’ll build a plan. No install, no long contracts.',
       points: [
-        'Board, delivery, zones and driver app included',
+        'WhatsApp, board, delivery, memberships and reports included',
         'We set up your zones and fees with you',
         'Onboarding and support in Spanish',
       ],

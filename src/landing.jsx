@@ -41,8 +41,10 @@
         </div>
         <div className="nav-cta">
           <LangToggle lang={lang} setLang={setLang} label={t.nav.lang_label} />
-          <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
-          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
+          {/* height:44 — the tap-target floor; padding/fontSize stay smaller
+              than the default .btn so the nav row still reads compact. */}
+          <a href="#" className="btn btn-ghost" style={{ height: 44, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
+          <a {...waProps(t.wa.demo)} className="btn btn-ink btn-arrow" style={{ height: 44, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
         </div>
       </div>
     </nav>
@@ -473,7 +475,12 @@
     </section>
   );
 
-  /* ---------- Demo / pricing CTA ---------- */
+  /* ---------- Demo / pricing CTA ----------
+     `price` + `price_unit` are the only price signal on the page — see
+     i18n.jsx's comment on `demo`. `price_unit` renders at the same visual
+     weight as the number, right beside it (not a muted caption), because
+     the product sells multi-branch as a feature and a bare "$499 al mes"
+     would misread as covering the whole operation. */
 
   const DemoCTA = ({ t }) => (
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
@@ -481,6 +488,13 @@
         <div className="demo-block" data-reveal="">
           <div className="demo-block-text">
             <h2 className="h2">{t.demo.h}</h2>
+            <div className="price-block">
+              <p className="price-eyebrow">{t.demo.price_eyebrow}</p>
+              <p className="price-tag">
+                <span className="price-amount">{t.demo.price}</span>
+                <span className="price-unit">{t.demo.price_unit}</span>
+              </p>
+            </div>
             <p className="lede">{t.demo.sub}</p>
             <ul className="demo-points">
               {t.demo.points.map((p, i) => <li key={i}>{p}</li>)}
