@@ -85,6 +85,11 @@
 .nav-cta .lang-toggle { display: none; }
 @media (min-width: 768px) { .nav-cta .lang-toggle { display: inline-flex; } }
 
+/* Anchor-scroll offset — every section the nav links to (or that
+   carries its own id) needs to clear the sticky nav, or its heading
+   lands underneath the bar. Nav row is 64px + its 1px border. */
+.section[id] { scroll-margin-top: 65px; }
+
 /* ---------- Section primitives ---------- */
 
 .section {
@@ -213,7 +218,7 @@
 }
 .order-card-chip {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -234,7 +239,7 @@
 }
 .order-card-fields dt {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--body-muted);
@@ -355,7 +360,7 @@
   margin: 28px 0 0; padding: 0; list-style: none;
 }
 .arc-feats li {
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--brand-deep);
   background: var(--brand-tint);
@@ -382,9 +387,13 @@
 .assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
 
 /* ---------- Included — spec table (dl, not a card grid) ----------
-   Two columns at desktop (label / value), stacked at mobile. The `dt` is
-   the only surviving uppercase mono label on the page — kept small and
-   muted so it reads as a spec-sheet field name, not a heading. */
+   Two columns at desktop (label / stacked capability list), stacked at
+   mobile. The `dt` is the only surviving uppercase mono label on the
+   page — kept small and muted so it reads as a spec-sheet field name,
+   not a heading. Each group's `dd` holds a `spec-items` list — one
+   capability per line, hairline-separated — instead of a middot-joined
+   string, so a phone user can scan a single capability at a time rather
+   than parse a run-on paragraph. */
 
 .spec {
   margin: 48px 0 0;
@@ -394,8 +403,8 @@
 .spec-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6px;
-  padding: 22px 0;
+  gap: 4px;
+  padding: 20px 0;
   border-bottom: 1px solid var(--hairline-soft);
 }
 .spec-row dt,
@@ -403,21 +412,31 @@
   margin: 0;
 }
 .spec-row dt {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--body-muted);
   font-weight: 500;
+  padding-bottom: 4px;
 }
-.spec-row dd {
-  font-size: 15.5px; line-height: 1.6;
+.spec-items {
+  display: flex;
+  flex-direction: column;
+}
+.spec-items li {
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--body);
+  padding: 11px 0;
+  border-top: 1px solid var(--hairline-soft);
 }
+.spec-items li:first-child { border-top: 0; }
 @media (min-width: 640px) {
   .spec-row {
     grid-template-columns: 180px 1fr;
     gap: 24px;
-    align-items: baseline;
+    align-items: start;
   }
+  .spec-row dt { padding-top: 2px; }
 }
 
 /* ---------- Demo / pricing CTA ---------- */
@@ -543,7 +562,7 @@
 }
 @media (min-width: 760px) { .footer-links { grid-template-columns: repeat(4, 1fr); } }
 .footer-col h3 {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
   margin: 0 0 14px;
@@ -560,7 +579,7 @@
   margin-top: 44px; padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.10em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
 }

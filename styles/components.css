@@ -138,7 +138,7 @@
   padding: 10px 14px;
   border-radius: var(--radius-xl);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.45;
 }
 
@@ -168,7 +168,7 @@
 }
 .thread-divider-text {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: var(--tracking-mono);
   text-transform: uppercase;

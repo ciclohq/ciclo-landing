@@ -174,7 +174,13 @@
   /* ---------- Included — the spec table ----------
      A definition list, not a card grid: the point is density. This is the
      one place the uppercase mono label survives (in the `dt`s) — every
-     section eyebrow was removed elsewhere because it read as templated. */
+     section eyebrow was removed elsewhere because it read as templated.
+
+     Each group's capabilities render as their own line items (`spec-items`
+     li), not a middot-joined string in a single `dd` — the old shape wrapped
+     into an unscannable run-on paragraph at 390px. Structurally this stays
+     a two-column spec sheet at desktop (label | stacked list) and a single
+     stacked column on mobile — never cards, density is the point. */
 
   const Included = ({ t }) => (
     <section id="incluye" className="section surface-white-bg" data-bg="off">
@@ -185,7 +191,11 @@
           {t.included.rows.map((r, i) => (
             <div key={i} className="spec-row">
               <dt>{r.k}</dt>
-              <dd>{r.v}</dd>
+              <dd>
+                <ul className="spec-items">
+                  {r.items.map((it, j) => <li key={j}>{it}</li>)}
+                </ul>
+              </dd>
             </div>
           ))}
         </dl>

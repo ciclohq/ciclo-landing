@@ -134,17 +134,20 @@ window.I18N = {
     },
 
     /* --- Included — the spec table; attendance lives here because it sits
-       outside the delivery arc. Google reviews is absent by decision. --- */
+       outside the delivery arc. Google reviews is absent by decision.
+       Each row's capabilities are a list, not a middot-joined string — a
+       phone user scans one item per line instead of parsing a run-on
+       sentence. */
     included: {
       h: 'Todo lo que incluye',
       sub: 'Sin módulos que se cobran aparte.',
       rows: [
-        { k: 'Órdenes',    v: 'Tablero por etapas · punto de venta · multi-sucursal · catálogo y precios · historial por orden' },
-        { k: 'WhatsApp',   v: 'Pedidos automáticos · respuestas por plantilla · transferencia a un humano · bandeja de conversaciones' },
-        { k: 'A domicilio',v: 'Zonas en el mapa · reglas de tarifa por monto, distancia o kilómetro · rutas · app de repartidores' },
-        { k: 'Clientes',   v: 'Membresías · promociones y tarjetas de sellos · seguimiento por link · calificaciones' },
-        { k: 'Personal',   v: 'Asistencia con PIN · horarios por sucursal · resumen diario' },
-        { k: 'Reportes',   v: 'Ventas · clientes · comentarios · asistente con IA' },
+        { k: 'Órdenes',     items: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios', 'Historial por orden'] },
+        { k: 'WhatsApp',    items: ['Pedidos automáticos', 'Respuestas por plantilla', 'Transferencia a un humano', 'Bandeja de conversaciones'] },
+        { k: 'A domicilio', items: ['Zonas en el mapa', 'Reglas de tarifa por monto, distancia o kilómetro', 'Rutas', 'App de repartidores'] },
+        { k: 'Clientes',    items: ['Membresías', 'Promociones y tarjetas de sellos', 'Seguimiento por link', 'Calificaciones'] },
+        { k: 'Personal',    items: ['Asistencia con PIN', 'Horarios por sucursal', 'Resumen diario'] },
+        { k: 'Reportes',    items: ['Ventas', 'Clientes', 'Comentarios', 'Asistente con IA'] },
       ],
     },
 
@@ -351,12 +354,12 @@ window.I18N = {
       h: 'Everything included',
       sub: 'Nothing billed as a separate add-on.',
       rows: [
-        { k: 'Orders',    v: 'Board by stage · point of sale · multi-branch · catalog and pricing · order history' },
-        { k: 'WhatsApp',  v: 'Automated ordering · template-based replies · handoff to a human · conversation inbox' },
-        { k: 'Delivery',  v: 'Zones on the map · fee rules by order amount, distance or kilometer · routes · driver app' },
-        { k: 'Customers', v: 'Memberships · promotions and stamp cards · link-based tracking · ratings' },
-        { k: 'Staff',     v: 'PIN attendance · branch schedules · daily summary' },
-        { k: 'Reports',   v: 'Sales · customers · ratings and comments · AI assistant' },
+        { k: 'Orders',    items: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing', 'Order history'] },
+        { k: 'WhatsApp',  items: ['Automated ordering', 'Template-based replies', 'Handoff to a human', 'Conversation inbox'] },
+        { k: 'Delivery',  items: ['Zones on the map', 'Fee rules by order amount, distance or kilometer', 'Routes', 'Driver app'] },
+        { k: 'Customers', items: ['Memberships', 'Promotions and stamp cards', 'Link-based tracking', 'Ratings'] },
+        { k: 'Staff',     items: ['PIN attendance', 'Branch schedules', 'Daily summary'] },
+        { k: 'Reports',   items: ['Sales', 'Customers', 'Ratings and comments', 'AI assistant'] },
       ],
     },
 
