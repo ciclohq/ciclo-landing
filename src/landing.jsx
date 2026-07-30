@@ -51,10 +51,13 @@
   /* ---------- Hero — conversation, and the order it produced ----------
      Replaces the old hero screenshot. Left: a real-shaped WhatsApp
      exchange (Thread). Right: a static order card built from the same
-     tokens, sharing the customer, service and time the thread just
+     tokens, sharing the customer, branch and pickup slot the thread just
      agreed on — the correspondence between the two panels is the pitch,
-     not decoration around it. The handoff moment is deliberately absent
-     here; it gets its own dedicated thread in the arc. */
+     not decoration around it. No service/items field: the bot never asks
+     what the customer is washing, so the conversation never establishes
+     one (a person records items at the branch). The handoff moment is
+     deliberately absent here; it gets its own dedicated thread in the
+     arc. */
 
   const OrderCard = ({ o }) => (
     <div className="order-card">
@@ -68,12 +71,12 @@
           <dd>{o.customer}</dd>
         </div>
         <div>
-          <dt>{o.zone_label}</dt>
-          <dd>{o.zone}</dd>
+          <dt>{o.address_label}</dt>
+          <dd>{o.address}</dd>
         </div>
         <div>
-          <dt>{o.service_label}</dt>
-          <dd>{o.service}</dd>
+          <dt>{o.branch_label}</dt>
+          <dd>{o.branch}</dd>
         </div>
         <div>
           <dt>{o.window_label}</dt>
@@ -146,20 +149,23 @@
      is what makes it a motif instead of three similar-looking one-offs.
      Speaker roles are reused for a different exchange than the rest of the
      page: the owner asks (customer — left, white) and the assistant
-     answers (ciclo — right, brand-filled). The answer is real report data
-     shaped like a genuine tool response (see get_sales_report in
-     apps/api/src/modules/chat/chat-tools.ts) — no forecasting, no advice,
-     no action taken for the owner. */
+     answers (ciclo — right, brand-filled). `t.assistant.speakers`
+     overrides the announced screen-reader labels for those two roles —
+     the default "Cliente"/"Ciclo (bot)" labels are wrong here, since this
+     is the owner asking about their own sales, not a WhatsApp customer.
+     The answer is real report data shaped like a genuine tool response
+     (see get_sales_report in apps/api/src/modules/chat/chat-tools.ts) —
+     no forecasting, no advice, no action taken for the owner. */
 
   const Assistant = ({ t, lang }) => (
-    <section id="asistente" className="section surface-tint-bg assistant" data-bg="tint">
+    <section id="asistente" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
         <div className="assistant-head">
           <h2 className="h2">{t.assistant.h}</h2>
           <p className="lede">{t.assistant.sub}</p>
         </div>
         <div className="assistant-thread">
-          <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} />
+          <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} speakerLabels={t.assistant.speakers} />
         </div>
       </div>
     </section>

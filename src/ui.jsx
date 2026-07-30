@@ -67,7 +67,7 @@
      rendering any <source> at all, so the <img src> — now the placeholder
      — is what actually gets used. */
 
-  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption, priority = false }) => {
+  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => {
     const [failed, setFailed] = useState(false);
     const hasMobileDims = mobileWidth != null && mobileHeight != null;
     const handleError = () => {
@@ -98,8 +98,7 @@
             alt={alt}
             width={width}
             height={height}
-            loading={priority ? 'eager' : 'lazy'}
-            {...(priority ? { fetchpriority: 'high' } : {})}
+            loading="lazy"
             decoding="async"
             onError={handleError}
             onLoad={handleLoad}
@@ -132,15 +131,22 @@
      in base.css — strips list semantics). Each message carries a
      visually-hidden speaker label ahead of its text so a screen
      reader doesn't hit an undifferentiated wall of bubbles. `caption`
-     becomes the list's accessible name. */
+     becomes the list's accessible name.
+
+     `speakerLabels` lets one call site override the announced label for
+     a role (e.g. the assistant section's 'customer' role is the business
+     owner, not a WhatsApp customer) without touching the `from` role
+     names themselves — the hero and arc sections still key off
+     'customer'/'ciclo'/'staff' and don't pass this prop, so they keep the
+     default labels unchanged. */
 
   const THREAD_SPEAKER_LABELS = {
     es: { customer: 'Cliente', ciclo: 'Ciclo (bot)', staff: 'Alguien del equipo' },
     en: { customer: 'Customer', ciclo: 'Ciclo (bot)', staff: 'Team member' },
   };
 
-  const Thread = ({ messages = [], caption, lang = 'es' }) => {
-    const labels = THREAD_SPEAKER_LABELS[lang] || THREAD_SPEAKER_LABELS.es;
+  const Thread = ({ messages = [], caption, lang = 'es', speakerLabels }) => {
+    const labels = { ...(THREAD_SPEAKER_LABELS[lang] || THREAD_SPEAKER_LABELS.es), ...(speakerLabels || {}) };
     return (
       <div className="thread-frame">
         <ol className="thread" role="list" aria-label={caption || undefined}>
@@ -159,7 +165,6 @@
                 <span className="thread-bubble">
                   <span className="sr-only">{(labels[m.from] || m.from) + ': '}</span>
                   <span className="thread-text">{m.text}</span>
-                  {m.time && <span className="thread-time">{m.time}</span>}
                 </span>
               </li>
             );

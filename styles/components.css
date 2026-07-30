@@ -161,20 +161,6 @@
   color: var(--ink);
 }
 
-.thread-time {
-  align-self: flex-end;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: var(--tracking-mono);
-  text-transform: uppercase;
-  color: var(--body-muted);
-}
-
-/* On the brand-filled bubble, --body-muted (a mid grey) loses contrast
-   against --brand teal — swap to the existing on-dark muted token
-   instead of inventing a new color. */
-.thread-msg--ciclo .thread-time { color: var(--body-on-dark-muted); }
-
 .thread-divider {
   display: flex;
   align-items: center;

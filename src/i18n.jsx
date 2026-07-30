@@ -27,10 +27,14 @@ window.I18N = {
 
     /* --- Hero — conversation + the order it produced ---
        The thread and the order card must agree: same customer, same
-       service, same time. That correspondence is the whole point of the
-       pairing, so don't edit one without the other. No bubble may say
-       the bot charges or collects payment — it quotes a price and
-       schedules the pickup; a person records the payment later. */
+       branch, same pickup slot. That correspondence is the whole point of
+       the pairing, so don't edit one without the other. The bot only ever
+       schedules a recolección — it never asks what the customer is
+       washing, never quotes a price, and never charges or collects
+       payment (a person records items and price later, at the branch).
+       Every bot bubble here must be a literal templates.ts output; see
+       apps/api/src/hatchet/workflows/agent/{templates,run-conversation}.ts
+       in the ciclo repo. */
     hero: {
       badge: 'Para lavanderías y tintorerías',
       h1: 'Tus clientes piden por WhatsApp. Tú solo entregas.',
@@ -40,25 +44,25 @@ window.I18N = {
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
       thread_caption: 'Conversación de ejemplo por WhatsApp',
       thread: [
-        { from: 'customer', text: 'Hola, ¿tienen servicio a domicilio en Roma Norte?' },
-        { from: 'ciclo', text: 'Sí, recogemos y entregamos en Roma Norte. ¿Qué necesitas lavar?' },
-        { from: 'customer', text: 'Como 6 kilos de ropa normal, nada delicado.' },
-        { from: 'ciclo', text: 'Perfecto, lavado por kilo a $45/kg. ¿Pasamos hoy en la tarde?' },
-        { from: 'customer', text: 'Sí, hoy está bien.' },
-        { from: 'ciclo', text: 'Listo, Renata. Pasamos hoy de 4 a 6 pm por tu ropa. Te mando el link para seguir tu pedido.' },
+        { from: 'customer', text: 'Hola, ¿me pueden pasar a recoger ropa hoy?' },
+        { from: 'ciclo', text: '¡Hola de nuevo, Renata! 👋' },
+        { from: 'ciclo', text: 'El horario de la sucursal es:\nLun-Vie 09:00-18:00; Sáb 10:00-14:00\n\n¿Qué día y en qué horario (mañana, tarde o noche) te queda bien la recolección?' },
+        { from: 'customer', text: 'Hoy en la tarde, si se puede.' },
+        { from: 'ciclo', text: 'Voy a agendar tu recolección:\n\n👤 Renata Vidal\n📍 Río Pánuco 22, Roma Norte, Cuauhtémoc, CDMX, 06500\n🏠 Sucursal: Sucursal Roma Norte\n🕑 30 de julio por la tarde\n\n¿Confirmas? (sí/no)' },
+        { from: 'customer', text: 'Sí, confirmo.' },
       ],
       order: {
         folio: '#4821',
         customer_label: 'Cliente',
         customer: 'Renata Vidal',
-        zone_label: 'Zona',
-        zone: 'Roma Norte',
-        service_label: 'Servicio',
-        service: 'Lavado por kilo · 6 kg',
+        address_label: 'Dirección',
+        address: 'Río Pánuco 22, Roma Norte',
+        branch_label: 'Sucursal',
+        branch: 'Sucursal Roma Norte',
         stage: 'Recolección programada',
         window_label: 'Recolección',
-        window: 'Hoy · 4:00–6:00 pm',
-        note: 'Mismo cliente, mismo servicio, mismo horario — así queda en tu tablero.',
+        window: '30 de julio · por la tarde',
+        note: 'Mismo cliente, misma sucursal, mismo horario — así queda en tu tablero.',
       },
     },
 
@@ -68,15 +72,13 @@ window.I18N = {
         {
           num: '01',
           name: 'Recibe',
-          body: 'Tus clientes le escriben al mismo número de siempre — no instalan nada, no aprenden nada nuevo. El bot clasifica lo que te están pidiendo y responde desde una plantilla: catálogo, precios, disponibilidad, agenda la recolección. En cuanto la pregunta se sale de ese guion — una mancha, una prenda fuera de catálogo, una instrucción especial — la conversación pasa a alguien de tu equipo en una bandeja de conversaciones compartida, sin que tu cliente tenga que escribir a otro número.',
+          body: 'Tus clientes le escriben al mismo número de siempre — no instalan nada, no aprenden nada nuevo. El bot clasifica lo que te están pidiendo y responde desde una plantilla: catálogo, precios, disponibilidad, agenda la recolección. En cuanto la pregunta se sale de ese guion — una prenda fuera de catálogo, o de plano prefiere hablar con una persona — la conversación pasa a alguien de tu equipo en una bandeja de conversaciones compartida, sin que tu cliente tenga que escribir a otro número.',
           feats: ['Clasificación de intención', 'Respuestas por plantilla', 'Transferencia a una persona', 'Bandeja de conversaciones compartida'],
           thread_caption: 'Ejemplo: el bot transfiere una pregunta fuera de guion',
           thread: [
-            { from: 'customer', text: 'Buenas, esta blusa tiene una mancha de café ya seca, ¿la pueden sacar?' },
-            { from: 'ciclo', text: 'Buena pregunta — te conecto con alguien de mi equipo que te puede ayudar con eso.' },
+            { from: 'customer', text: '¿Cuánto cuesta lavar un edredón king size? No sé si eso lo manejan.' },
+            { from: 'ciclo', text: 'Déjame checarlo con el equipo, en un momento te contactan. 🙋' },
             { divider: 'Conversación transferida a una persona' },
-            { from: 'staff', text: 'Hola, soy Diego del equipo. Las manchas de café las tratamos antes del lavado — mándame una foto y te digo si sale completa.' },
-            { from: 'customer', text: 'Va, gracias.' },
           ],
         },
         {
@@ -117,9 +119,17 @@ window.I18N = {
       h: 'Un asistente que ya conoce tu negocio.',
       sub: 'Vive en tu panel y contesta con tus propios números — ventas, clientes, categorías — sin que armes un reporte.',
       thread_caption: 'Ejemplo: una pregunta real al asistente',
+      /* speakers: overrides Thread's default speaker labels for THIS
+         section only (Thread's `from` roles stay 'customer'/'ciclo' — the
+         hero and arc part 01 threads keep depending on the defaults). The
+         'customer' role here is the business owner asking about their own
+         sales, not a WhatsApp customer, so the default "Cliente" label is
+         wrong for a screen reader; same for "Ciclo (bot)" answering with
+         report data instead of ordering. */
+      speakers: { customer: 'Dueño del negocio', ciclo: 'Asistente de Ciclo' },
       thread: [
         { from: 'customer', text: '¿Cómo van las ventas esta semana?' },
-        { from: 'ciclo', text: 'Esta semana llevas $18,430 en 61 pedidos (ticket promedio $302).\n14% más que la semana pasada ($16,180).\nLavado por kilo sigue siendo tu categoría con más ingresos, y 9 de esos pedidos son de clientes nuevos.' },
+        { from: 'ciclo', text: 'Esta semana llevas $18,430 en 61 pedidos (ticket promedio $302).\n14% más que la semana pasada ($16,180).\nLavado por kilo sigue siendo tu categoría con más ingresos, y tuviste 9 clientes nuevos.' },
       ],
     },
 
@@ -262,25 +272,25 @@ window.I18N = {
       trust: 'No long contracts · We set up your operation in the demo',
       thread_caption: 'Example WhatsApp conversation',
       thread: [
-        { from: 'customer', text: 'Hi, do you deliver in Roma Norte?' },
-        { from: 'ciclo', text: 'We do — we pick up and drop off in Roma Norte. What do you need washed?' },
-        { from: 'customer', text: 'About 6 kilos of regular laundry, nothing delicate.' },
-        { from: 'ciclo', text: 'Got it — wash by the kilo is $45/kg. Can we come by this afternoon?' },
-        { from: 'customer', text: 'Yes, today works.' },
-        { from: 'ciclo', text: 'Done, Renata. We’ll come by today 4–6pm for your laundry. I’ll send you a link to follow your order.' },
+        { from: 'customer', text: 'Hi, can someone come by for a pickup today?' },
+        { from: 'ciclo', text: 'Hey again, Renata! 👋' },
+        { from: 'ciclo', text: 'Here’s the branch’s hours:\nMon–Fri 9am–6pm; Sat 10am–2pm\n\nWhat day and time window (morning, afternoon, or evening) works for the pickup?' },
+        { from: 'customer', text: 'This afternoon, if that works.' },
+        { from: 'ciclo', text: 'I’ll get your pickup scheduled:\n\n👤 Renata Vidal\n📍 Río Pánuco 22, Roma Norte, Cuauhtémoc, CDMX, 06500\n🏠 Branch: Roma Norte Branch\n🕑 July 30, afternoon\n\nConfirm? (yes/no)' },
+        { from: 'customer', text: 'Yes, confirmed.' },
       ],
       order: {
         folio: '#4821',
         customer_label: 'Customer',
         customer: 'Renata Vidal',
-        zone_label: 'Zone',
-        zone: 'Roma Norte',
-        service_label: 'Service',
-        service: 'Wash by the kilo · 6 kg',
+        address_label: 'Address',
+        address: 'Río Pánuco 22, Roma Norte',
+        branch_label: 'Branch',
+        branch: 'Roma Norte Branch',
         stage: 'Pickup scheduled',
         window_label: 'Pickup',
-        window: 'Today · 4:00–6:00 PM',
-        note: 'Same customer, same service, same time — that’s how it lands on your board.',
+        window: 'July 30 · afternoon',
+        note: 'Same customer, same branch, same time — that’s how it lands on your board.',
       },
     },
 
@@ -290,15 +300,13 @@ window.I18N = {
         {
           num: '01',
           name: 'Receive',
-          body: 'Your customers text the same number they always have — nothing to install, nothing new to learn. The bot classifies what they’re asking for and answers from a template: catalog, prices, availability, scheduling the pickup. The moment a question falls outside that script — a stain, a garment outside the catalog, a special instruction — the conversation hands off to someone on your team inside a shared conversation inbox, without your customer ever writing to a different number.',
+          body: 'Your customers text the same number they always have — nothing to install, nothing new to learn. The bot classifies what they’re asking for and answers from a template: catalog, prices, availability, scheduling the pickup. The moment a question falls outside that script — a garment outside the catalog, or the customer would simply rather talk to a person — the conversation hands off to someone on your team inside a shared conversation inbox, without your customer ever writing to a different number.',
           feats: ['Intent classification', 'Templated replies', 'Handoff to a person', 'Shared conversation inbox'],
           thread_caption: 'Example: the bot hands off a question outside the script',
           thread: [
-            { from: 'customer', text: 'Hi, this blouse has a dried coffee stain — can you get it out?' },
-            { from: 'ciclo', text: 'Good question — let me connect you with someone from the team who can help with that.' },
+            { from: 'customer', text: 'How much to wash a king-size comforter? Not sure if that’s something you handle.' },
+            { from: 'ciclo', text: 'Let me check with the team, they’ll reach out to you in a moment. 🙋' },
             { divider: 'Conversation handed off to a person' },
-            { from: 'staff', text: 'Hi, I’m Diego from the team. We pre-treat coffee stains before the wash — send me a photo and I’ll tell you if it’ll come out completely.' },
-            { from: 'customer', text: 'Great, thanks!' },
           ],
         },
         {
@@ -332,9 +340,10 @@ window.I18N = {
       h: 'An assistant that already knows your business.',
       sub: 'It lives in your dashboard and answers with your own numbers — sales, customers, categories — no report to build.',
       thread_caption: 'Example: a real question to the assistant',
+      speakers: { customer: 'Business owner', ciclo: 'Ciclo Assistant' },
       thread: [
         { from: 'customer', text: 'How are sales doing this week?' },
-        { from: 'ciclo', text: 'This week you’re at $18,430 across 61 orders (avg ticket $302).\nUp 14% from last week ($16,180).\nWash-by-the-kilo is still your top category, and 9 of those orders are from new customers.' },
+        { from: 'ciclo', text: 'This week you’re at $18,430 across 61 orders (avg ticket $302).\nUp 14% from last week ($16,180).\nWash-by-the-kilo is still your top category, and you had 9 new customers.' },
       ],
     },
 

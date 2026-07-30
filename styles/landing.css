@@ -167,10 +167,13 @@
 
 /* ---------- Hero conversation — Thread + the order it produced ----------
    Stacked at mobile (thread first, then the card it caused), side by
-   side from 768px up. Both panels are left-aligned regardless of
-   .hero-head's centering above them. No entrance animation here by
-   design — the rebuild removed motion from anything meant to read as a
-   real, static artifact rather than a marketing flourish. */
+   side from 760px up — matching .audience-grid's breakpoint rather than
+   the nav's unrelated 768px, so this branch doesn't add a second, close-
+   but-different breakpoint for the same "tablet and up" two-column
+   pattern. Both panels are left-aligned regardless of .hero-head's
+   centering above them. No entrance animation here by design — the
+   rebuild removed motion from anything meant to read as a real, static
+   artifact rather than a marketing flourish. */
 .hero-convo {
   margin: clamp(40px, 5vw, 64px) auto 0;
   max-width: 1080px;
@@ -179,7 +182,7 @@
   gap: 20px;
   text-align: left;
 }
-@media (min-width: 768px) {
+@media (min-width: 760px) {
   .hero-convo { grid-template-columns: 1fr 1fr; align-items: start; gap: 28px; }
 }
 
