@@ -44,28 +44,41 @@
     </div>
   );
 
-  /* ---------- Screen — a real product screenshot, framed ---------- */
+  /* ---------- Screen — a real product screenshot, framed ----------
+     The mobile crop is not a scaled-down desktop screenshot — the capture
+     pipeline produces a tight element crop (a stat row, a single order
+     card, a fee-rule list) with its own aspect ratio. Callers that supply
+     a mobile crop must also supply its own mobileWidth/mobileHeight so the
+     <source> reserves the right box; otherwise the browser would reserve
+     space using the desktop ratio and reflow once the differently-shaped
+     mobile image loads — the exact shift width/height exist to prevent.
+     When mobileWidth/mobileHeight aren't both given, they're omitted from
+     the <source> entirely: no dimensions is safer than the wrong ones. */
 
-  const Screen = ({ slug, alt, width, height, caption }) => (
-    <figure className="screen">
-      <picture>
-        <source
-          media="(max-width: 767px)"
-          srcSet={`assets/screens/${slug}-mobile.webp`}
-        />
-        <img
-          src={`assets/screens/${slug}.webp`}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="lazy"
-          decoding="async"
-          onError={(e) => { e.currentTarget.src = 'assets/screens/placeholder.svg'; }}
-        />
-      </picture>
-      {caption && <figcaption className="screen-cap">{caption}</figcaption>}
-    </figure>
-  );
+  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => {
+    const hasMobileDims = mobileWidth != null && mobileHeight != null;
+    return (
+      <figure className="screen">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet={`assets/screens/${slug}-mobile.webp`}
+            {...(hasMobileDims ? { width: mobileWidth, height: mobileHeight } : {})}
+          />
+          <img
+            src={`assets/screens/${slug}.webp`}
+            alt={alt}
+            width={width}
+            height={height}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.src = 'assets/screens/placeholder.svg'; }}
+          />
+        </picture>
+        {caption && <figcaption className="screen-cap">{caption}</figcaption>}
+      </figure>
+    );
+  };
 
   /* ---------- Export to global ---------- */
 
