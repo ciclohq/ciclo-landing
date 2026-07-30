@@ -187,7 +187,8 @@ Building against placeholders decouples this plan from the capture pipeline.
 - Create: `assets/screens/placeholder.svg`
 
 **Interfaces:**
-- Produces: `Screen` in `window.UI`, signature `<Screen slug alt width height caption? />`. Resolves `assets/screens/<slug>.webp` with a mobile crop at `assets/screens/<slug>-mobile.webp`.
+- Produces: `Screen` in `window.UI`, signature `<Screen slug alt width height mobileWidth? mobileHeight? caption? />`. Resolves `assets/screens/<slug>.webp` with a mobile crop at `assets/screens/<slug>-mobile.webp`.
+- **Mobile crops are element crops, not scaled desktop shots** — their aspect ratios differ from the 1440×900 desktop captures. When a call site has a mobile crop, it must pass `mobileWidth`/`mobileHeight` so the `<source>` reserves the right space; otherwise the browser reserves the desktop ratio and reflows on load. Omit both when unknown — no reservation beats a wrong one.
 
 - [ ] **Step 1: Create a placeholder**
 
@@ -198,14 +199,19 @@ An SVG at `assets/screens/placeholder.svg` — a `#F5F5F5` rectangle with a 1px 
 Explicit `width`/`height` prevent layout shift as images load. `<picture>` swaps to the mobile crop below 768px, because a 1440px dashboard scaled to a 390px viewport is illegible.
 
 ```jsx
-  /* ---------- Screen — a real product screenshot, framed ---------- */
+  /* ---------- Screen — a real product screenshot, framed ----------
+     Mobile crops are tight element crops, so their aspect ratio differs
+     from the desktop capture. Pass mobileWidth/mobileHeight when a crop
+     exists so the <source> reserves the right box; omit both if unknown. */
 
-  const Screen = ({ slug, alt, width, height, caption }) => (
+  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => (
     <figure className="screen">
       <picture>
         <source
           media="(max-width: 767px)"
           srcSet={`assets/screens/${slug}-mobile.webp`}
+          width={mobileWidth}
+          height={mobileHeight}
         />
         <img
           src={`assets/screens/${slug}.webp`}
