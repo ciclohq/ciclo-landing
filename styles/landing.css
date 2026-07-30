@@ -945,7 +945,11 @@
   border-color: var(--hairline-on-dark);
 }
 @media (max-width: 767px) { .footer .lang-toggle { display: inline-flex; } }
-.footer .lang-toggle button { color: var(--body-on-dark-muted); }
+.footer .lang-toggle button {
+  color: var(--body-on-dark-muted);
+  min-width: 44px; min-height: 44px; padding: 0 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
 .footer .lang-toggle button.is-active { background: var(--hairline-on-dark); color: var(--bright-white); }
 
 /* ---------- Language toggle — ES/EN; one copy in the nav, one in the footer ---------- */
