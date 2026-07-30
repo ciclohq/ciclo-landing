@@ -428,7 +428,7 @@
 
   /* ---------- Footer ---------- */
 
-  const Footer = ({ t }) => (
+  const Footer = ({ t, lang, setLang }) => (
     <footer className="footer" data-bg="navy">
       <div className="container">
         <p className="footer-tag">
@@ -446,6 +446,9 @@
             </div>
           ))}
         </div>
+        {/* Below 768px the nav LangToggle is hidden — this is the only
+            reachable one at that width; hidden itself at 768px and up. */}
+        <LangToggle lang={lang} setLang={setLang} />
         <div className="footer-base">
           <span>{t.footer.base_left}</span>
           <span>{t.footer.base_right}</span>
@@ -535,7 +538,7 @@
         <DemoCTA t={t} />
         <FAQ t={t} />
         <CTA t={t} />
-        <Footer t={t} />
+        <Footer t={t} lang={lang} setLang={setLang} />
       </>
     );
   };

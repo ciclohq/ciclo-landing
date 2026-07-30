@@ -82,6 +82,8 @@
 .nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; }
+.nav-cta .lang-toggle { display: none; }
+@media (min-width: 768px) { .nav-cta .lang-toggle { display: inline-flex; } }
 
 /* ---------- Section primitives ---------- */
 
@@ -935,7 +937,18 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* ---------- Language toggle — ES/EN, sits in the nav ---------- */
+/* Footer's copy of the language toggle — only reachable below 768px, the
+   inverse of the nav's rule, so exactly one instance is on screen at once. */
+.footer .lang-toggle {
+  display: none;
+  margin: 28px 0 0;
+  border-color: var(--hairline-on-dark);
+}
+@media (max-width: 767px) { .footer .lang-toggle { display: inline-flex; } }
+.footer .lang-toggle button { color: var(--body-on-dark-muted); }
+.footer .lang-toggle button.is-active { background: var(--hairline-on-dark); color: var(--bright-white); }
+
+/* ---------- Language toggle — ES/EN; one copy in the nav, one in the footer ---------- */
 
 .lang-toggle { display: inline-flex; border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden; }
 .lang-toggle button {
