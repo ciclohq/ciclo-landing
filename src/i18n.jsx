@@ -86,16 +86,39 @@ window.I18N = {
           name: 'Opera',
           body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. Recolección, proceso, entrega. En tu mostrador capturas las prendas y los precios desde el punto de venta y, si tienes varias sucursales, cambias entre ellas en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
-          screen: 'opera',
-          alt: 'Tablero de órdenes con el detalle de una orden abierto',
+          /* Product-shaped visual, not a screenshot — see BoardPanel's
+             comment in landing.jsx for the full source citation. Folio
+             #4821 / Renata Vidal is the same order the hero's OrderCard
+             shows, on purpose. */
+          board: {
+            label: 'Tablero · Sucursal Roma Norte',
+            count: '4 órdenes',
+            rows: [
+              { folio: '#4821', customer: 'Renata Vidal', stage: 'Por confirmar', stage_kind: 'unconfirmed' },
+              { folio: '#4818', customer: 'Diego Salas', stage: 'Recolección', stage_kind: 'pickup' },
+              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Proceso', stage_kind: 'processing' },
+              { folio: '#4809', customer: 'Luis Fernández', stage: 'Entrega', stage_kind: 'delivery' },
+            ],
+          },
         },
         {
           num: '03',
           name: 'Entrega',
           body: 'Dibujas tus zonas sobre el mapa y defines qué cobras: gratis desde $300, $12 por kilómetro, o una tarifa fija. Tus repartidores ven la ruta del día en su teléfono, y tu cliente sigue su pedido desde un link.',
           feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
-          screen: 'entrega-zonas',
-          alt: 'Zonas de entrega dibujadas sobre el mapa junto a las reglas de tarifa',
+          /* Product-shaped visual, not a screenshot — see FeeRulesPanel's
+             comment in landing.jsx for the full source citation. Numbers
+             match this part's own body copy exactly (gratis desde $300,
+             $12 por kilómetro) — nothing new is claimed here. */
+          feeRules: {
+            label: 'Reglas de tarifa',
+            chip: 'Por prioridad',
+            rules: [
+              { priority: '1', condition: 'Pedido de $300 o más', charge: 'Gratis' },
+              { priority: '2', condition: 'Cualquier otro pedido', charge: '$12.00 / km' },
+            ],
+            note: 'Se aplica la primera regla que cumple su condición, evaluada en orden de prioridad.',
+          },
         },
         {
           num: '04',
@@ -382,16 +405,31 @@ window.I18N = {
           name: 'Operate',
           body: 'Every order lands on the board with its customer, its garments, and its stage — pickup, processing, delivery. Your counter captures garments and prices from the point of sale, and if you run more than one branch, you switch between them in a click.',
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
-          screen: 'opera',
-          alt: 'Order board with an order’s detail panel open',
+          board: {
+            label: 'Board · Roma Norte Branch',
+            count: '4 orders',
+            rows: [
+              { folio: '#4821', customer: 'Renata Vidal', stage: 'To confirm', stage_kind: 'unconfirmed' },
+              { folio: '#4818', customer: 'Diego Salas', stage: 'Pickup', stage_kind: 'pickup' },
+              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Processing', stage_kind: 'processing' },
+              { folio: '#4809', customer: 'Luis Fernández', stage: 'Delivery', stage_kind: 'delivery' },
+            ],
+          },
         },
         {
           num: '03',
           name: 'Deliver',
           body: 'You draw your zones on the map and decide what to charge: free above $300, $12/km, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
           feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
-          screen: 'entrega-zonas',
-          alt: 'Delivery zones drawn on the map next to the fee rules',
+          feeRules: {
+            label: 'Fee rules',
+            chip: 'By priority',
+            rules: [
+              { priority: '1', condition: 'Order of $300 or more', charge: 'Free' },
+              { priority: '2', condition: 'Any other order', charge: '$12.00 / km' },
+            ],
+            note: 'The first rule whose condition is met is the one applied, evaluated in priority order.',
+          },
         },
         {
           num: '04',

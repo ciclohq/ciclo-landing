@@ -6,7 +6,7 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, LangToggle, Screen, Thread } = window.UI;
+  const { Logo, LangToggle, Thread } = window.UI;
 
   /* ---------- Contact ----------
      Every "Agenda una demo" CTA opens WhatsApp with a prefilled message.
@@ -161,17 +161,135 @@
     </div>
   );
 
+  /* ---------- Board panel — arc part 02's visual ----------
+     A slice of the orders board — several orders, each with a folio, a
+     customer, and a stage — in the order-card idiom (bright-white surface,
+     hairline border, shadow-md, mono-uppercase labels) rather than a
+     screenshot: a 1440×900 board capture renders at ~0.40× in this arc's
+     ~570px column, illegible before it even ships. There was never a real
+     'opera' capture to begin with (Screen would have silently fallen back
+     to the placeholder), the same situation RetentionPanel replaced for
+     arc 04.
+
+     Row #4821 / Renata Vidal / "Por confirmar" is deliberately the SAME
+     order the hero's OrderCard shows — so this panel and the hero read as
+     one continuous claim, not two unrelated mocks: the bot schedules it
+     unconfirmed, and here it is, sitting on the board exactly as promised,
+     next to orders a dispatcher already confirmed into pickup/processing/
+     delivery. That's the hero's "ningún pedido del bot se agenda solo"
+     claim, shown again from the operator's side of the board.
+
+     Stage taxonomy verified against apps/api/src/schema/
+     lifecycle-stage-type.ts — a CHECK constraint restricts `key` to
+     'pickup' | 'delivery' | 'processing', no other stage exists — and
+     apps/api/src/hatchet/workflows/agent/tools.ts (scheduleRecoleccion,
+     ~line 1162: a bot-created order inserts with `currentStageId: null`,
+     "stage-less ('Por confirmar')" until a dispatcher calls
+     POST /orders/:id/confirm; getActiveOrders' own comment, ~line 881-882,
+     documents "null = unconfirmed 'Por confirmar'" as the literal label
+     the product itself uses).
+
+     Chip colors are matched to the product's real badge, not invented:
+     apps/web/src/components/dashboard/orders/order-status-pill.tsx's
+     STAGE_DOT maps pickup→slate, processing→blue, delivery→emerald
+     (lines 249-251), and a separate PENDING_CONFIRMATION_CONFIG overrides
+     the unconfirmed state to a warning/orange pill labeled "Por confirmar"
+     (lines 53-57, 77-82). The landing token set has no slate or emerald
+     swatch, so the closest --chip-* family stands in for each by color
+     family, not by token name: chip-new (muted gray) for pickup/slate,
+     chip-pick (info blue) for processing/blue, chip-done (success green)
+     for delivery/emerald, chip-proc (warning orange) for unconfirmed —
+     chip-proc's name suggests "processing," but its color is the same
+     warning-orange the real "Por confirmar" pill uses, and processing
+     gets chip-pick instead because that token's blue is what the real
+     badge uses for processing. */
+
+  const BOARD_CHIP_CLASS = {
+    unconfirmed: 'board-chip--unconfirmed',
+    pickup: 'board-chip--pickup',
+    processing: 'board-chip--processing',
+    delivery: 'board-chip--delivery',
+  };
+
+  const BoardPanel = ({ t }) => (
+    <div className="board-panel">
+      <div className="board-panel-head">
+        <span className="board-panel-label">{t.label}</span>
+        <span className="board-panel-count">{t.count}</span>
+      </div>
+      <ol className="board-rows" role="list" aria-label={t.label}>
+        {t.rows.map((r, i) => (
+          <li key={i} className="board-row">
+            <span className="board-row-id">
+              <span className="board-row-folio">{r.folio}</span>
+              <span className="board-row-customer">{r.customer}</span>
+            </span>
+            <span className={`board-chip ${BOARD_CHIP_CLASS[r.stage_kind] || ''}`}>{r.stage}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+
+  /* ---------- Fee-rules panel — arc part 03's visual ----------
+     A slice of a delivery plan's prioritised rule list, in the same
+     hairline/mono idiom rather than a map screenshot — "dibujas tus zonas
+     sobre el mapa" needs an actual canvas the arc's ~570px column can't
+     render legibly either way, and there was never a real 'entrega-zonas'
+     capture to begin with. This panel shows exactly the two rule types
+     this page already claims in its own prose (arc part 03's body and the
+     FAQ's shipping answer): "gratis desde $300" / "free above $300" and
+     "$12 por kilómetro" / "$12/km" — it dramatizes numbers already on the
+     page, it does not invent new ones.
+
+     Verified against apps/api/src/modules/delivery-fee/
+     delivery-fee-engine.ts: `evaluateDeliveryFee` sorts rules by
+     `priority` ascending and returns the fee of the FIRST rule whose
+     condition matches (lines 64-69). An `order_value_gte` rule charging
+     `free` ranked ahead of an `always` rule charging `per_km` is exactly
+     this two-rule shape — the `always` rule only ever fires because the
+     free rule's condition didn't match (order subtotal below $300), so
+     "cualquier otro pedido" / "any other order" describes it accurately,
+     not as an invented catch-all. `priority`, `conditionType` and
+     `chargeType` are the engine's own field names (delivery-fee.service.ts
+     orders live rules by `deliveryPricingRules.priority` ascending, lines
+     161-173), not landing copy re-described. */
+
+  const FeeRulesPanel = ({ t }) => (
+    <div className="fee-panel">
+      <div className="fee-panel-head">
+        <span className="fee-panel-label">{t.label}</span>
+        <span className="fee-panel-chip">{t.chip}</span>
+      </div>
+      <ol className="fee-rules" role="list" aria-label={t.label}>
+        {t.rules.map((r, i) => (
+          <li key={i} className="fee-rule">
+            <span className="fee-rule-cond">
+              <span className="fee-rule-priority">{r.priority}</span>
+              <span className="fee-rule-condition">{r.condition}</span>
+            </span>
+            <span className="fee-rule-charge">{r.charge}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="fee-panel-note">{t.note}</p>
+    </div>
+  );
+
   /* ---------- Arc — the four-part product narrative ----------
      Replaces HowItWorks + Modules: one story (receive → operate → deliver →
      retain), each part pairing prose with a visual. Part 01 renders a
      Thread — the handoff the hero deliberately doesn't show: an
      out-of-scope question, a divider marking the transfer, a person
-     answering. Part 04 renders RetentionPanel — a stamp card and a
-     membership state, the same "adopt a different visual" allowance the
-     01/Thread precedent set. Parts 02–03 keep real product screenshots.
-     The check is "does this part supply thread/retention data," not "is
-     this index 0." The 01–04 numbering survives here and only here, where
-     sequence carries real meaning. */
+     answering. Part 02 renders BoardPanel (the orders board), part 03
+     renders FeeRulesPanel (prioritised delivery fee rules), part 04
+     renders RetentionPanel (a stamp card and a membership state) — all
+     three the same "adopt a different visual instead of a screenshot"
+     allowance the 01/Thread precedent set, now covering every part; no
+     arc part renders a screenshot any more. The check is "which data key
+     does this part supply," not "which index is this." The 01–04
+     numbering survives here and only here, where sequence carries real
+     meaning. */
 
   const Arc = ({ t, lang }) => (
     <section id="how" className="section surface-cream-bg" data-bg="cream">
@@ -191,9 +309,11 @@
                 <RetentionPanel t={p.retention} />
               ) : p.thread ? (
                 <Thread messages={p.thread} caption={p.thread_caption} lang={lang} />
-              ) : (
-                <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
-              )}
+              ) : p.board ? (
+                <BoardPanel t={p.board} />
+              ) : p.feeRules ? (
+                <FeeRulesPanel t={p.feeRules} />
+              ) : null}
             </div>
           </article>
         ))}

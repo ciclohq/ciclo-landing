@@ -5,8 +5,6 @@
    ============================================================= */
 
 (() => {
-  const { useState } = React;
-
   /* ---------- Logo — droplets mark + wordmark, matches the product app ---------- */
 
   const Logo = ({ className = '' }) => (
@@ -45,69 +43,6 @@
       ))}
     </div>
   );
-
-  /* ---------- Screen — a real product screenshot, framed ----------
-     The mobile crop is not a scaled-down desktop screenshot — the capture
-     pipeline produces a tight element crop (a stat row, a single order
-     card, a fee-rule list) with its own aspect ratio. Callers that supply
-     a mobile crop must also supply its own mobileWidth/mobileHeight so the
-     <source> reserves the right box; otherwise the browser would reserve
-     space using the desktop ratio and reflow once the differently-shaped
-     mobile image loads — the exact shift width/height exist to prevent.
-     When mobileWidth/mobileHeight aren't both given, they're omitted from
-     the <source> entirely: no dimensions is safer than the wrong ones.
-
-     Failure is tracked in state, not by mutating the <img>'s src. Inside a
-     <picture>, the matching <source> — not the <img src> — governs which
-     resource loads; the <img src> is only used as a fallback when no
-     <source> matches. Below 768px the mobile <source> always matches, so
-     assigning a new src to the <img> on error does nothing to stop the
-     browser from re-selecting that same failing <source>, which fires
-     onError again — an infinite request loop. Once failed is true we stop
-     rendering any <source> at all, so the <img src> — now the placeholder
-     — is what actually gets used. */
-
-  const Screen = ({ slug, alt, width, height, mobileWidth, mobileHeight, caption }) => {
-    const [failed, setFailed] = useState(false);
-    const hasMobileDims = mobileWidth != null && mobileHeight != null;
-    const handleError = () => {
-      // Idempotent: once failed, don't set it again — a placeholder that
-      // somehow also 404s must not restart the cycle.
-      if (!failed) setFailed(true);
-    };
-    // Only warn once the *real* desktop capture has loaded successfully —
-    // `failed` is already updated by the time this fires for the
-    // placeholder fallback, so today's placeholder state stays quiet.
-    const handleLoad = () => {
-      if (!failed && !hasMobileDims) {
-        console.warn(`Screen "${slug}": mobileWidth/mobileHeight not set — mobile layout may shift when the mobile crop loads.`);
-      }
-    };
-    return (
-      <figure className="screen">
-        <picture>
-          {!failed && (
-            <source
-              media="(max-width: 767px)"
-              srcSet={`assets/screens/${slug}-mobile.webp`}
-              {...(hasMobileDims ? { width: mobileWidth, height: mobileHeight } : {})}
-            />
-          )}
-          <img
-            src={failed ? 'assets/screens/placeholder.svg' : `assets/screens/${slug}.webp`}
-            alt={alt}
-            width={width}
-            height={height}
-            loading="lazy"
-            decoding="async"
-            onError={handleError}
-            onLoad={handleLoad}
-          />
-        </picture>
-        {caption && <figcaption className="screen-cap">{caption}</figcaption>}
-      </figure>
-    );
-  };
 
   /* ---------- Thread — the conversation-as-UI primitive ----------
      Renders a WhatsApp-shaped exchange without cloning WhatsApp: no
@@ -180,5 +115,5 @@
 
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, LangToggle, Screen, Thread };
+  window.UI = { Logo, Mono, LangToggle, Thread };
 })();

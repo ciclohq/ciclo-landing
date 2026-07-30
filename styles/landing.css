@@ -450,6 +450,138 @@
   .retain-fields { grid-template-columns: 1fr 1fr; }
 }
 
+/* ---------- Board panel — arc part 02's visual ----------
+   A single card in the order-card idiom (bright-white surface, hairline
+   border, shadow-md), hairline-separated order rows inside instead of a
+   card grid. No new colors — every chip below reuses an existing
+   --chip-* pair (see BoardPanel's comment in landing.jsx for exactly
+   which one maps to which stage, and why). */
+
+.board-panel {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.board-panel-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.board-panel-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.board-panel-count {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--body-muted); white-space: nowrap;
+}
+.board-rows { margin-top: 4px; }
+.board-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.board-row:first-child { border-top: 0; }
+.board-row-id {
+  min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.board-row-folio {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: var(--tracking-mono);
+  color: var(--body-muted);
+}
+.board-row-customer {
+  font-size: 16px; font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.board-chip {
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+/* pickup = product's slate dot, processing = blue, delivery = emerald,
+   unconfirmed = the "Por confirmar" pill's warning/orange — matched to
+   apps/web's order-status-pill.tsx by color family, since the landing
+   token set has no slate or emerald swatch of its own. */
+.board-chip--pickup      { color: var(--chip-new-f);  background: var(--chip-new-b); }
+.board-chip--processing  { color: var(--chip-pick-f); background: var(--chip-pick-b); }
+.board-chip--delivery    { color: var(--chip-done-f); background: var(--chip-done-b); }
+.board-chip--unconfirmed { color: var(--chip-proc-f); background: var(--chip-proc-b); }
+
+/* ---------- Fee-rules panel — arc part 03's visual ----------
+   Same card shell as the board panel; rules render as a hairline-
+   separated ordered list (priority · condition · charge) rather than a
+   table, so it reads the same at 390px and at the arc's ~570px column.
+   The chip reuses --chip-new (muted/default) — "por prioridad" is a
+   description of the list, not a status, so it gets the neutral token. */
+
+.fee-panel {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.fee-panel-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.fee-panel-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.fee-panel-chip {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--chip-new-f); background: var(--chip-new-b);
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+.fee-rules { margin-top: 4px; }
+.fee-rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.fee-rule:first-child { border-top: 0; }
+.fee-rule-cond {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.fee-rule-priority {
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--brand);
+}
+.fee-rule-condition {
+  min-width: 0;
+  font-size: 16px; line-height: 1.5; color: var(--body);
+}
+.fee-rule-charge {
+  flex-shrink: 0;
+  font-size: 16px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fee-panel-note {
+  margin: 16px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 16px; line-height: 1.5; color: var(--body-muted);
+}
+
 /* ---------- Assistant — third Thread appearance, centered "moment" ----------
    A single centered block (heading + framing sentence + Thread), the same
    recipe as .hero-head, so it reads as a page-level beat rather than a
