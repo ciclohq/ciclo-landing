@@ -27,54 +27,24 @@
     return <C className={cls} style={style}>{children}</C>;
   };
 
-  /* ---------- Tweaks panel — language + theme picker ---------- */
+  /* ---------- Language toggle — ES/EN, sits in the nav ---------- */
 
-  const TweaksPanel = ({ open, setOpen, lang, setLang, theme, setTheme, t }) => {
-    if (!open) {
-      return (
-        <button className="tweaks-toggle" onClick={() => setOpen(true)} aria-expanded="false">
-          <span className="dot-mini" />
-          <span>{t.title}</span>
+  const LangToggle = ({ lang, setLang }) => (
+    <div className="lang-toggle" role="group" aria-label="Idioma">
+      {['es', 'en'].map((l) => (
+        <button
+          key={l}
+          className={lang === l ? 'is-active' : ''}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+        >
+          {l.toUpperCase()}
         </button>
-      );
-    }
-    return (
-      <>
-        <button className="tweaks-toggle" onClick={() => setOpen(false)} aria-expanded="true">
-          <span className="dot-mini" />
-          <span>{t.close}</span>
-        </button>
-        <div className="tweaks-panel" role="dialog" aria-label="Tweaks">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Mono style={{ color: 'var(--ink)' }}>{t.title}</Mono>
-            <Mono style={{ color: 'var(--body-muted)' }}>v 4.0</Mono>
-          </div>
-
-          <hr className="hairline" />
-
-          <div className="tweaks-row">
-            <Mono>{t.lang}</Mono>
-            <div className="seg">
-              {t.langs.map((l) => (
-                <button key={l} className={lang === l.toLowerCase() ? 'is-active' : ''} onClick={() => setLang(l.toLowerCase())}>{l}</button>
-              ))}
-            </div>
-          </div>
-
-          <div className="tweaks-row">
-            <Mono>{t.theme}</Mono>
-            <div className="seg">
-              {t.themes.map((th) => (
-                <button key={th} className={theme === th.toLowerCase() ? 'is-active' : ''} onClick={() => setTheme(th.toLowerCase())}>{th}</button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
+      ))}
+    </div>
+  );
 
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, TweaksPanel };
+  window.UI = { Logo, Mono, LangToggle };
 })();

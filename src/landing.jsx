@@ -5,59 +5,12 @@
    ============================================================= */
 
 (() => {
-  const { useState, useEffect, useRef } = React;
-  const { Logo, Mono, TweaksPanel } = window.UI;
-
-  const prefersReducedMotion = () =>
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Count-up stat — ticks from 0 to `end` once on mount */
-  const CountUp = ({ end, prefix = '', suffix = '', duration = 1100 }) => {
-    const [val, setVal] = useState(prefersReducedMotion() ? end : 0);
-    useEffect(() => {
-      if (prefersReducedMotion()) return;
-      let raf;
-      const t0 = performance.now();
-      const tick = (now) => {
-        const p = Math.min((now - t0) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        setVal(Math.round(end * eased));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      return () => cancelAnimationFrame(raf);
-    }, [end, duration]);
-    return <>{prefix}{val.toLocaleString('en-US')}{suffix}</>;
-  };
-
-  /* Cursor-follow tilt — desktop pointers only, springs back on leave */
-  const useTilt = (max = 2.2) => {
-    const ref = useRef(null);
-    useEffect(() => {
-      const el = ref.current;
-      if (!el) return;
-      if (prefersReducedMotion()) return;
-      if (!window.matchMedia('(pointer: fine)').matches) return;
-      const onMove = (e) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        el.style.transform = `perspective(1200px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`;
-      };
-      const onLeave = () => { el.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'; };
-      el.addEventListener('mousemove', onMove);
-      el.addEventListener('mouseleave', onLeave);
-      return () => {
-        el.removeEventListener('mousemove', onMove);
-        el.removeEventListener('mouseleave', onLeave);
-      };
-    }, [max]);
-    return ref;
-  };
+  const { useState, useEffect } = React;
+  const { Logo, Mono, LangToggle } = window.UI;
 
   /* ---------- Nav ---------- */
 
-  const Nav = ({ t, navBg }) => (
+  const Nav = ({ t, navBg, lang, setLang }) => (
     <nav className={`nav nav-bg-${navBg}`}>
       <div className="nav-row">
         <a href="#" aria-label="Ciclo"><Logo /></a>
@@ -68,6 +21,7 @@
           <a href="#faq">{t.nav.faq}</a>
         </div>
         <div className="nav-cta">
+          <LangToggle lang={lang} setLang={setLang} />
           <a href="#" className="btn btn-ghost" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.login}</a>
           <a href="mailto:hola@ciclo.mx?subject=Demo%20Ciclo" className="btn btn-ink btn-arrow" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>{t.nav.cta}</a>
         </div>
@@ -119,10 +73,9 @@
      inset sidebar (Plataforma nav), h-12 topbar with branch switcher,
      "Hola, {nombre} 👋" header, 4 stat cards with delta badges. */
   const HeroVisual = () => {
-    const tiltRef = useTilt(2.2);
     return (
     <div className="hero-stage" aria-hidden="true">
-      <div className="app" ref={tiltRef}>
+      <div className="app">
         <div className="appbar">
           <span className="appbar-dots"><i /><i /><i /></span>
           <span className="appbar-url">app.ciclo.mx/dashboard</span>
@@ -155,9 +108,9 @@
               <span className="app-newbtn">+ Nueva orden</span>
             </div>
             <div className="app-stats">
-              <div className="app-stat"><div className="k"><Icon d="bag" />Órdenes activas</div><div className="v"><CountUp end={24} /></div><span className="b">+12%</span></div>
-              <div className="app-stat"><div className="k"><Icon d="dollar" />Ingresos del día</div><div className="v"><CountUp end={8420} prefix="$" /></div><span className="b">+4.5%</span></div>
-              <div className="app-stat"><div className="k"><Icon d="users" />Clientes nuevos</div><div className="v"><CountUp end={8} /></div><span className="b">+2</span></div>
+              <div className="app-stat"><div className="k"><Icon d="bag" />Órdenes activas</div><div className="v">24</div><span className="b">+12%</span></div>
+              <div className="app-stat"><div className="k"><Icon d="dollar" />Ingresos del día</div><div className="v">$8,420</div><span className="b">+4.5%</span></div>
+              <div className="app-stat"><div className="k"><Icon d="users" />Clientes nuevos</div><div className="v">8</div><span className="b">+2</span></div>
               <div className="app-stat"><div className="k"><Icon d="clock" />Tiempo promedio</div><div className="v">1.8h</div><span className="b">−6%</span></div>
             </div>
             <div className="app-grid2">
@@ -180,24 +133,6 @@
         </div>
       </div>
     </div>
-    );
-  };
-
-  /* ---------- Ticker — looping benefits strip under the hero ---------- */
-
-  const Ticker = ({ t }) => {
-    const items = t.hero.ticker || [];
-    const seq = (key) => (
-      <span className="ticker-seq" key={key} aria-hidden={key > 0 ? 'true' : undefined}>
-        {items.map((it, i) => (
-          <span className="ticker-item" key={i}><i />{it}</span>
-        ))}
-      </span>
-    );
-    return (
-      <div className="ticker" data-bg="cream">
-        <div className="ticker-track">{seq(0)}{seq(1)}</div>
-      </div>
     );
   };
 
@@ -523,14 +458,11 @@
 
   const App = () => {
     const [lang, setLang] = useState('es');
-    const [theme, setTheme] = useState('default');
-    const [tweaksOpen, setTweaksOpen] = useState(false);
     const [navBg, setNavBg] = useState('cream');
 
     useEffect(() => {
       document.documentElement.lang = lang;
-      document.documentElement.dataset.theme = theme;
-    }, [lang, theme]);
+    }, [lang]);
 
     /* Neutralize dead-link clicks (href="#") so they don't jump to top.
        Real anchors (#modules, #pricing, etc.) are unaffected. */
@@ -595,9 +527,8 @@
 
     return (
       <>
-        <Nav t={t} navBg={navBg} />
+        <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <Hero t={t} />
-        <Ticker t={t} />
         <HowItWorks t={t} />
         <Modules t={t} />
         <Audience t={t} />
@@ -605,15 +536,6 @@
         <FAQ t={t} />
         <CTA t={t} />
         <Footer t={t} />
-        <TweaksPanel
-          open={tweaksOpen}
-          setOpen={setTweaksOpen}
-          lang={lang}
-          setLang={setLang}
-          theme={theme}
-          setTheme={setTheme}
-          t={t.tweaks}
-        />
       </>
     );
   };

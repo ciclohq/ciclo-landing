@@ -25,14 +25,6 @@ window.I18N = {
       cta_primary: 'Agenda una demo',
       cta_ghost:   'Cómo funciona',
       trust: 'Sin contratos largos · Configuramos tu operación en la demo',
-      ticker: [
-        'Tablero multi-sucursal',
-        'Zonas de entrega en el mapa',
-        'Tarifas de envío flexibles',
-        'Rutas para repartidores',
-        'Onboarding en español',
-        'WhatsApp · próximamente',
-      ],
     },
 
     /* --- How it works — the order journey --- */
@@ -216,16 +208,6 @@ window.I18N = {
       base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
       base_right: 'OPERANDO EN MÉXICO',
     },
-
-    /* --- Tweaks panel --- */
-    tweaks: {
-      title: 'AJUSTES',
-      close: 'CERRAR',
-      lang: 'IDIOMA',
-      theme: 'TEMA DE COLOR',
-      themes: ['DEFAULT', 'FOREST', 'OCEAN'],
-      langs:  ['ES', 'EN'],
-    },
   },
 
   en: {
@@ -239,14 +221,6 @@ window.I18N = {
       cta_primary: 'Book a demo',
       cta_ghost:   'How it works',
       trust: 'No long contracts · We set up your operation in the demo',
-      ticker: [
-        'Multi-branch board',
-        'Delivery zones on the map',
-        'Flexible delivery fees',
-        'Routes for drivers',
-        'White-glove onboarding',
-        'WhatsApp · coming soon',
-      ],
     },
 
     how: {
@@ -398,15 +372,6 @@ window.I18N = {
       ],
       base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
       base_right: 'OPERATING IN MEXICO',
-    },
-
-    tweaks: {
-      title: 'TWEAKS',
-      close: 'CLOSE',
-      lang: 'LANGUAGE',
-      theme: 'COLOR THEME',
-      themes: ['DEFAULT', 'FOREST', 'OCEAN'],
-      langs:  ['ES', 'EN'],
     },
   },
 };

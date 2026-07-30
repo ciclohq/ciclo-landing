@@ -388,40 +388,6 @@
   .app-grid2 { grid-template-columns: 1fr; }
 }
 
-/* ---------- Ticker — looping benefits strip ---------- */
-
-.ticker {
-  border-top: 1px solid var(--hairline-soft);
-  border-bottom: 1px solid var(--hairline-soft);
-  background: var(--bright-white);
-  overflow: hidden;
-  padding: 14px 0;
-  /* Fade edges so items slide in/out of nothing */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-}
-.ticker-track {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: ticker-scroll 32s linear infinite;
-}
-.ticker:hover .ticker-track { animation-play-state: paused; }
-.ticker-seq { display: inline-flex; }
-.ticker-item {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding-right: 44px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--body-muted);
-}
-.ticker-item i {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--brand); flex-shrink: 0;
-}
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 /* ---------- How it works — order-journey strip ---------- */
 
 .journey {
@@ -969,57 +935,15 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* ---------- Tweaks toggle — floating panel ---------- */
+/* ---------- Language toggle — ES/EN, sits in the nav ---------- */
 
-.tweaks-toggle {
-  position: fixed; bottom: 18px; right: 18px; z-index: 50;
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px;
-  background: var(--paper-cream);
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: var(--ink);
-  cursor: pointer;
+.lang-toggle { display: inline-flex; border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden; }
+.lang-toggle button {
+  font: 500 12px/1 var(--font-mono); letter-spacing: var(--tracking-mono);
+  padding: 7px 10px; background: transparent; color: var(--body-muted);
+  border: 0; cursor: pointer;
 }
-.dot-mini {
-  width: 6px; height: 6px;
-  background: var(--brand);
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.tweaks-panel {
-  position: fixed; bottom: 70px; right: 18px; z-index: 50;
-  width: 280px; padding: 18px;
-  background: var(--off-white);
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  display: flex; flex-direction: column; gap: 14px;
-}
-.tweaks-row {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-}
-.seg {
-  display: inline-flex; gap: 4px;
-  padding: 3px;
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  background: var(--paper-cream);
-}
-.seg button {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
-  padding: 5px 10px;
-  border-radius: 999px;
-  color: var(--body);
-  cursor: pointer;
-  background: transparent;
-  border: none;
-}
-.seg button.is-active { background: var(--ink); color: #FFFFFF; }
+.lang-toggle button.is-active { background: var(--bright-white); color: var(--ink); }
 
 /* ---------- Mono utility (used by Mono component) ---------- */
 
@@ -1080,7 +1004,7 @@
   .hero-head .badge, .hero .h1, .hero .lede,
   .hero-actions, .hero-trust, .hero-stage,
   .mk-route, .wmun, .app-badge,
-  .ticker-track, .mk-typing i,
+  .mk-typing i,
   .reveal-ready [data-reveal].is-in,
   .reveal-ready [data-reveal='stagger'].is-in > * { animation: none; }
   .reveal-ready [data-reveal]:not(.is-in),
