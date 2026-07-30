@@ -106,11 +106,15 @@
 
   /* ---------- Arc — the four-part product narrative ----------
      Replaces HowItWorks + Modules: one story (receive → operate → deliver →
-     retain), each part pairing prose with a real product screenshot. The
-     01–04 numbering survives here and only here, where sequence carries
-     real meaning. */
+     retain), each part pairing prose with a visual. Part 01 renders a
+     Thread — the handoff the hero deliberately doesn't show: an
+     out-of-scope question, a divider marking the transfer, a person
+     answering. Parts 02–04 keep real product screenshots. The check is
+     "does this part supply thread data," not "is this index 0" — a later
+     part can adopt a Thread the same way. The 01–04 numbering survives
+     here and only here, where sequence carries real meaning. */
 
-  const Arc = ({ t }) => (
+  const Arc = ({ t, lang }) => (
     <section id="how" className="section surface-cream-bg" data-bg="cream">
       <div className="container">
         {t.arc.parts.map((p, i) => (
@@ -124,7 +128,11 @@
               </ul>
             </div>
             <div className="arc-screen">
-              <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
+              {p.thread ? (
+                <Thread messages={p.thread} caption={p.thread_caption} lang={lang} />
+              ) : (
+                <Screen slug={p.screen} alt={p.alt} width={1440} height={900} />
+              )}
             </div>
           </article>
         ))}
@@ -378,7 +386,7 @@
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <main>
           <Hero t={t} lang={lang} />
-          <Arc t={t} />
+          <Arc t={t} lang={lang} />
           <Included t={t} />
           <Audience t={t} />
           <DemoCTA t={t} />

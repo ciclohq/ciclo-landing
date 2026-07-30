@@ -67,10 +67,16 @@ window.I18N = {
         {
           num: '01',
           name: 'Recibe',
-          body: 'Tus clientes escriben al mismo número de siempre. El bot entiende qué necesitan, arma el pedido y agenda la recolección. Cuando algo se sale del guion, la conversación pasa a una persona de tu equipo sin que el cliente lo note.',
-          feats: ['Pedidos por WhatsApp', 'Respuestas automáticas', 'Transferencia a un humano'],
-          screen: 'recibe',
-          alt: 'Bandeja de conversaciones con un pedido tomado por el bot',
+          body: 'Tus clientes le escriben al mismo número de siempre — no instalan nada, no aprenden nada nuevo. El bot clasifica lo que te están pidiendo y responde desde una plantilla: catálogo, precios, disponibilidad, agenda la recolección. En cuanto la pregunta se sale de ese guion — una mancha, una prenda fuera de catálogo, una instrucción especial — la conversación pasa a alguien de tu equipo en una bandeja de conversaciones compartida, sin que tu cliente tenga que escribir a otro número.',
+          feats: ['Clasificación de intención', 'Respuestas por plantilla', 'Transferencia a una persona', 'Bandeja de conversaciones compartida'],
+          thread_caption: 'Ejemplo: el bot transfiere una pregunta fuera de guion',
+          thread: [
+            { from: 'customer', text: 'Buenas, esta blusa tiene una mancha de café ya seca, ¿la pueden sacar?' },
+            { from: 'ciclo', text: 'Buena pregunta — te conecto con alguien de mi equipo que te puede ayudar con eso.' },
+            { divider: 'Conversación transferida a una persona' },
+            { from: 'staff', text: 'Hola, soy Diego del equipo. Las manchas de café las tratamos antes del lavado — mándame una foto y te digo si sale completa.' },
+            { from: 'customer', text: 'Va, gracias.' },
+          ],
         },
         {
           num: '02',
@@ -266,10 +272,16 @@ window.I18N = {
         {
           num: '01',
           name: 'Receive',
-          body: 'Your customers text the same number they always have. The bot understands what they need, builds the order, and schedules the pickup. When something falls outside the script, the conversation hands off to someone on your team — the customer never notices.',
-          feats: ['WhatsApp ordering', 'Automated replies', 'Handoff to a human'],
-          screen: 'recibe',
-          alt: 'Conversation inbox with an order the bot just took',
+          body: 'Your customers text the same number they always have — nothing to install, nothing new to learn. The bot classifies what they’re asking for and answers from a template: catalog, prices, availability, scheduling the pickup. The moment a question falls outside that script — a stain, a garment outside the catalog, a special instruction — the conversation hands off to someone on your team inside a shared conversation inbox, without your customer ever writing to a different number.',
+          feats: ['Intent classification', 'Templated replies', 'Handoff to a person', 'Shared conversation inbox'],
+          thread_caption: 'Example: the bot hands off a question outside the script',
+          thread: [
+            { from: 'customer', text: 'Hi, this blouse has a dried coffee stain — can you get it out?' },
+            { from: 'ciclo', text: 'Good question — let me connect you with someone from the team who can help with that.' },
+            { divider: 'Conversation handed off to a person' },
+            { from: 'staff', text: 'Hi, I’m Diego from the team. We pre-treat coffee stains before the wash — send me a photo and I’ll tell you if it’ll come out completely.' },
+            { from: 'customer', text: 'Great, thanks!' },
+          ],
         },
         {
           num: '02',
