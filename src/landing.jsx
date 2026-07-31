@@ -453,71 +453,62 @@
   );
 
   /* ---------- Assistant — its own section ----------
-     Third and last appearance of Thread (hero, arc part 01, here) — three
-     is what makes it a motif instead of three similar-looking one-offs.
-     Speaker roles are reused for a different exchange than the rest of the
-     page: the owner asks (customer — left, white) and the assistant
-     answers (ciclo — right, brand-filled). `t.assistant.speakers`
-     overrides the announced screen-reader labels for those two roles —
-     the default "Cliente"/"Ciclo (bot)" labels are wrong here, since this
-     is the owner asking about their own sales, not a WhatsApp customer.
-     The answer is real report data shaped like a genuine tool response
-     (see get_sales_report in apps/api/src/modules/chat/chat-tools.ts) —
-     no forecasting, no advice, no action taken for the owner.
+     Used to pair a hand-built Thread (an invented Q&A — "$18,430 en 61
+     pedidos") with a screenshot of the Reportes screen: wrong screen for
+     a section about the assistant, and an invented answer sitting right
+     next to it (task: assistant screenshot defect). Both are gone. This
+     is now a single real capture — assets/screens/assistant.webp, taken by
+     actually driving the product against the synthetic "Lavandería
+     Aurora" org, opening /dashboard/chat, and asking the same question
+     the old thread invented an answer for. The real LLM's real reply is
+     what's in the crop, so there's no separate Thread claiming a
+     different number ("$3,464.95 en 20 órdenes" per the "Nuevos" row is
+     the crop's real figure) beside it. Thread itself is untouched — the
+     hero and arc part 01 still use it; this section simply stopped being
+     its third appearance.
 
      This is the page's one deliberately inverted band (task: page rhythm —
      nine-plus screens of light surfaces was the core complaint). Short,
-     self-contained, and the ciclo/bot bubble's brand-deep fill genuinely
-     pops on dark, which is why this section carries the inversion instead
-     of any other. `.surface-ink-bg` + the `#asistente`-scoped overrides in
-     landing.css use only the existing on-dark token family the footer
-     already established (--ink, --hairline-on-dark(-soft),
-     --body-on-dark(-muted)) — no new colors. The override is scoped to
-     `#asistente .thread-frame` / `#asistente .thread-msg--customer
-     .thread-bubble` only, so the unscoped `.thread-frame` /
-     `.thread-msg--customer .thread-bubble` rules still govern the hero and
-     arc part 01 exactly as before. The ciclo/bot bubble itself
-     (`.thread-msg--ciclo .thread-bubble`) is NOT touched here — it's
-     already an opaque brand-deep fill with white text (6.32:1) regardless
-     of what section it sits in, so it needs no dark-specific variant.
+     self-contained, single-image now, so the inversion is carried by the
+     heading/lede plus one on-dark screenshot frame rather than a
+     thread-plus-image pair. `.surface-ink-bg` + the `#asistente`-scoped
+     overrides in landing.css use only the existing on-dark token family
+     the footer already established (--ink, --hairline-on-dark(-soft),
+     --body-on-dark(-muted)) — no new colors.
 
-     assets/screens/reports.webp joins the thread here rather than opening
-     a new section: it's the screen get_sales_report's answer is drawn
-     from — same "already knows your business" claim, one step closer to
-     the underlying product. Verified by viewing the file directly, so
-     `report_alt`/`report_caption` describe only what's in the crop: tiles
-     for revenue, VAT, discounts, order count, average ticket and
-     cancellation rate for a date range, a daily-revenue line chart and an
-     orders-by-stage breakdown — not the "top clientes"/"ingresos por
-     sucursal" panels further down the real screen, which the crop doesn't
-     foreground. Two-column with the thread at 900px+ (this section's own
-     breakpoint — wide enough for both panels to read at once without
-     squeezing the report illegible), stacked thread-then-report at
-     mobile. The image's border/shadow reuse the existing on-dark hairline
-     token (`--hairline-on-dark`), already established by the scoped rules
-     directly above — no new colors. */
+     Copy describes only what's visibly in the crop (verified by viewing
+     the file directly): a table of order status/stage counts, a bolded
+     "Lectura rápida" summary, a "Mejores clientes de la semana" table
+     (name, revenue, order count) for five named customers, a "Clientes
+     nuevos vs recurrentes" table, a second bolded summary, and a closing
+     offer to compare this week against last week. `t.assistant.alt` /
+     `t.assistant.caption` follow the same naming and framing as every
+     other single-screenshot section on the page (Screens, DriverApp,
+     Attendance) — no `report_`/`thread_` prefix left over from the old
+     two-up layout. Single centered column (`.assistant-figure`, capped at
+     1040px like the old two-up row's combined width) rather than the
+     former two-column thread-plus-image grid — one image needs one
+     column, not a breakpoint. The image's border/shadow reuse the
+     existing on-dark hairline token (`--hairline-on-dark`), already
+     established by the scoped rules below — no new colors. */
 
-  const Assistant = ({ t, lang }) => (
+  const Assistant = ({ t }) => (
     <section id="asistente" className="section surface-ink-bg" data-bg="navy">
       <div className="container">
         <div className="assistant-head">
           <h2 className="h2">{t.assistant.h}</h2>
           <p className="lede">{t.assistant.sub}</p>
         </div>
-        <div className="assistant-body">
-          <div className="assistant-thread">
-            <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} speakerLabels={t.assistant.speakers} />
-          </div>
-          <figure className="assistant-report">
-            <Screenshot
-              src="assets/screens/reports.webp"
-              width={2880}
-              height={1800}
-              alt={t.assistant.report_alt}
-            />
-            <figcaption className="assistant-report-caption">{t.assistant.report_caption}</figcaption>
-          </figure>
-        </div>
+        <figure className="assistant-figure">
+          <Screenshot
+            className="assistant-img"
+            src="assets/screens/assistant.webp"
+            width={2880}
+            height={1800}
+            alt={t.assistant.alt}
+          />
+          <figcaption className="assistant-caption">{t.assistant.caption}</figcaption>
+        </figure>
       </div>
     </section>
   );
@@ -907,7 +898,7 @@
           <SectionJump t={t} lang={lang} />
           <Arc t={t} lang={lang} />
           <DriverApp t={t} />
-          <Assistant t={t} lang={lang} />
+          <Assistant t={t} />
           <Included t={t} />
           <Attendance t={t} />
           <OrderModels t={t} />
