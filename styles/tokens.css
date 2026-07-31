@@ -15,10 +15,39 @@
   --ink-soft:      #2A3850;
 
   /* Brand — #008F92 is THE primary (app --primary token, Alex's call).
-     Soft teal #35BABC stays only for app-faithful mock details (org icon, rings). */
+     Soft teal #35BABC stays only for app-faithful mock details (org icon, rings).
+     --brand itself stays untouched (borders, fills, zone polygon, stamp
+     circles, arc numerals) — only its TEXT uses get the darker variants
+     below, so the page's overall teal doesn't shift:
+       white text on --brand      = 3.93:1 (fails 4.5)
+       white text on --brand-deep = 6.32:1 (passes) — used for .btn-brand
+         and the bot's thread bubbles (idle state)
+       white text on --brand-ink  = 8.14:1 (passes, more headroom) — used
+         for .btn-brand's hover/pressed state so it still reads as a step
+         darker than idle
+       --brand-deep as text on --paper-cream = 5.95:1 (passes) — used for
+         .arc-num, which previously set --brand directly at 3.70:1
+       --brand-deep as text on light surfaces (paper-cream/off-white/pale-
+         cobalt, 5.79–5.95:1) — used for .nav-links a:hover, .section-jump
+         a:hover and .faq-list .q:hover, which previously set --brand
+         directly at 3.70–3.93:1
+       .nav-bg-navy .nav-links a:hover previously set --brand directly at
+         3.72:1 against raw --ink — but .nav-bg-navy is a translucent fill
+         (rgba(14,22,40,0.85) + backdrop-filter blur/saturate), so the
+         real rendered background is a lighter composite, measured in
+         Chrome as rgb(53,59,74), not raw --ink. --brand-deep/--brand-ink
+         are darker than --brand and read WORSE there; --brand-soft (the
+         .nav-bg-navy .nav-logo .accent color) computes to ~4.7:1 against
+         that composite in isolation but measured only 4.11:1 rendered
+         (translucency + saturate() shift the actual pixel beyond a flat
+         alpha-composite calc) — fails 4.5:1. Used --accent-soft (#E3EAFB,
+         periwinkle, product --accent — "active states") instead: 9.29:1
+         against the measured composite, enough headroom to hold across
+         however that composite shifts with scroll content, and visually
+         distinct from the surrounding #FFFFFF idle nav-link text. */
   --brand:         #008F92;          /* product --primary — the lead color */
-  --brand-deep:    #006B6D;          /* product chart-5 — hover/pressed */
-  --brand-ink:     #00595B;
+  --brand-deep:    #006B6D;          /* product chart-5 — text-safe variant: idle text-on-brand + text-on-light */
+  --brand-ink:     #00595B;          /* text-safe variant: hover/pressed step below --brand-deep */
   --brand-soft:    #35BABC;          /* product --ring / --sidebar-primary — mock details, on-dark accents */
   --brand-tint:    #E6F4F4;
   --brand-ring:    #35BABC;
@@ -49,9 +78,14 @@
   --hairline-on-dark:   rgba(255, 255, 255, 0.14);
   --hairline-on-dark-soft: rgba(255, 255, 255, 0.07);
 
-  /* Body — from product foreground/muted-foreground */
+  /* Body — from product foreground/muted-foreground.
+     --body-muted darkened for WCAG AA at 12-16px against the off-white/tint
+     surfaces it actually sits on in this page (was #6C727E, 4.43:1 on
+     #F5F5F5 — fails; #6C727E passes on pure white only). Same value as
+     --chip-new-f (coincidence of the same lightness move, not a shared
+     token — chip backgrounds are untouched). */
   --body:          #45506A;
-  --body-muted:    #6C727E;
+  --body-muted:    #686E7A;          /* was #6C727E — 4.70:1 on #F5F5F5, 4.69:1 on #FEF3EC */
   --body-on-dark:  rgba(255, 255, 255, 0.78);
   --body-on-dark-muted: rgba(255, 255, 255, 0.52);
 

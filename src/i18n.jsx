@@ -86,18 +86,18 @@ window.I18N = {
           name: 'Opera',
           body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas las prendas — cantidades y pesos — desde el punto de venta, y cambias de sucursal en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
-          /* Product-shaped visual, not a screenshot — see BoardPanel's
-             comment in landing.jsx for the full source citation. Folio
-             #4821 / Renata Vidal is the same order the hero's OrderCard
-             shows, on purpose. */
+          /* Product-shaped visual, not a screenshot — see Board's comment
+             in landing.jsx for the full source citation. Folio #4821 /
+             Renata Vidal is the same order the hero's OrderCard shows, on
+             purpose, and sits under `unconfirmed`, outside every stage —
+             `stages` holds only the three real lifecycle stages. */
           board: {
             label: 'Tablero · Sucursal Roma Norte',
-            count: '4 órdenes',
-            rows: [
-              { folio: '#4821', customer: 'Renata Vidal', stage: 'Por confirmar', stage_kind: 'unconfirmed' },
-              { folio: '#4818', customer: 'Diego Salas', stage: 'Recolección', stage_kind: 'pickup' },
-              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Procesamiento', stage_kind: 'processing' },
-              { folio: '#4809', customer: 'Luis Fernández', stage: 'Entrega', stage_kind: 'delivery' },
+            unconfirmed: { chip: 'Por confirmar', folio: '#4821', customer: 'Renata Vidal' },
+            stages: [
+              { key: 'pickup', label: 'Recolección', orders: [{ folio: '#4818', customer: 'Diego Salas' }] },
+              { key: 'processing', label: 'Procesamiento', orders: [{ folio: '#4815', customer: 'Camila Ortiz' }] },
+              { key: 'delivery', label: 'Entrega', orders: [{ folio: '#4809', customer: 'Luis Fernández' }] },
             ],
           },
         },
@@ -106,16 +106,18 @@ window.I18N = {
           name: 'Entrega',
           body: 'Dibujas tus zonas en el mapa y defines qué cobras: gratis desde $300, por kilómetro o tarifa fija. Tus repartidores ven la ruta del día en su teléfono y tu cliente sigue el pedido desde un link.',
           feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
-          /* Product-shaped visual, not a screenshot — see FeeRulesPanel's
-             comment in landing.jsx for the full source citation. Numbers
-             match this part's own body copy exactly (gratis desde $300,
-             $12 por kilómetro) — nothing new is claimed here. */
-          feeRules: {
-            label: 'Reglas de tarifa',
-            chip: 'Por prioridad',
+          /* Product-shaped visual, not a screenshot — see ZoneMap's comment
+             in landing.jsx for the full source citation. Numbers match this
+             part's own body copy exactly (gratis desde $300, $12 por
+             kilómetro) — nothing new is claimed here. */
+          zoneMap: {
+            label: 'Zona de reparto',
+            map_alt: 'Mapa con la zona de reparto dibujada alrededor de la sucursal',
+            branch_label: 'Sucursal Roma Norte',
+            ladder_label: 'Reglas de tarifa',
             rules: [
-              { priority: '1', condition: 'Pedido de $300 o más', charge: 'Gratis' },
-              { priority: '2', condition: 'Cualquier otro pedido', charge: '$12.00 / km' },
+              { step: '1', condition: 'Pedido de $300 o más', charge: 'Gratis' },
+              { step: '2', condition: 'Cualquier otro pedido', charge: '$12.00 / km' },
             ],
             note: 'Se aplica la primera regla que cumple su condición, evaluada en orden de prioridad.',
           },
@@ -151,9 +153,7 @@ window.I18N = {
             membership: {
               label: 'Membresía',
               status: 'Activa',
-              plan_label: 'Plan',
               plan: 'Plan Frecuente',
-              benefit_label: 'Beneficio',
               benefit: '15% de descuento + entrega gratis',
               renews_label: 'Vigente hasta',
               renews: '18 de agosto',
@@ -206,7 +206,7 @@ window.I18N = {
       ],
     },
 
-    /* --- Attendance — its own compact section (not an Included row alone).
+    /* --- Attendance — a compact aside now, not a fabricated roster.
        Verified against apps/api/src/modules/attendance/: pin.util.ts (PIN
        hashing/verification), dto/punch.dto.ts (branchId + 4-digit PIN + type
        required per punch — the clock happens at a branch, not the PIN
@@ -214,17 +214,18 @@ window.I18N = {
        per-employee overrides, DEFAULT_TOLERANCE_MINUTES = 15, overridable per
        day) and daily-summary.ts (buildDailySummaries: 'late' when firstIn is
        after scheduledStart + tolerance, 'absent' when there are no punches by
-       then, hours = lastOut − firstIn). Names and times are an illustrative
-       example roster, like the hero's order card — not real employees. --- */
+       then, hours = lastOut − firstIn). `facts` replaces the old three-name
+       roster (Marisol G./Iván R./Paola T. — invented employees, dropped) —
+       see landing.jsx's Attendance comment for the per-fact source cite. --- */
     attendance: {
       h: 'Entradas y salidas, sucursal por sucursal.',
       sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
-      rows: [
-        { name: 'Marisol G.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 08:57 · Salida 18:04', flag: 'A tiempo', flag_kind: 'done' },
-        { name: 'Iván R.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 09:22 · Salida 18:10', flag: 'Tarde', flag_kind: 'proc' },
-        { name: 'Paola T.', meta: 'Sucursal Del Valle · 10:00–19:00', times: 'Sin registro', flag: 'Ausente', flag_kind: 'new' },
+      facts: [
+        'PIN de 4 dígitos, en cualquier sucursal',
+        'Tolerancia ajustable, 15 min por defecto',
+        'Resumen diario: tardanzas y faltas',
       ],
-      note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si nunca marca entrada.',
+      note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si no tiene ninguna marca en el día.',
     },
 
     /* --- Order models — two pricing units, one per category. Verified
@@ -421,12 +422,11 @@ window.I18N = {
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           board: {
             label: 'Board · Roma Norte Branch',
-            count: '4 orders',
-            rows: [
-              { folio: '#4821', customer: 'Renata Vidal', stage: 'To confirm', stage_kind: 'unconfirmed' },
-              { folio: '#4818', customer: 'Diego Salas', stage: 'Pickup', stage_kind: 'pickup' },
-              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Processing', stage_kind: 'processing' },
-              { folio: '#4809', customer: 'Luis Fernández', stage: 'Delivery', stage_kind: 'delivery' },
+            unconfirmed: { chip: 'To confirm', folio: '#4821', customer: 'Renata Vidal' },
+            stages: [
+              { key: 'pickup', label: 'Pickup', orders: [{ folio: '#4818', customer: 'Diego Salas' }] },
+              { key: 'processing', label: 'Processing', orders: [{ folio: '#4815', customer: 'Camila Ortiz' }] },
+              { key: 'delivery', label: 'Delivery', orders: [{ folio: '#4809', customer: 'Luis Fernández' }] },
             ],
           },
         },
@@ -435,12 +435,14 @@ window.I18N = {
           name: 'Deliver',
           body: 'You draw your zones on the map and decide what to charge: free above $300, per kilometer, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
           feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
-          feeRules: {
-            label: 'Fee rules',
-            chip: 'By priority',
+          zoneMap: {
+            label: 'Delivery zone',
+            map_alt: 'Map with the delivery zone drawn around the branch',
+            branch_label: 'Roma Norte Branch',
+            ladder_label: 'Fee rules',
             rules: [
-              { priority: '1', condition: 'Order of $300 or more', charge: 'Free' },
-              { priority: '2', condition: 'Any other order', charge: '$12.00 / km' },
+              { step: '1', condition: 'Order of $300 or more', charge: 'Free' },
+              { step: '2', condition: 'Any other order', charge: '$12.00 / km' },
             ],
             note: 'The first rule whose condition is met is the one applied, evaluated in priority order.',
           },
@@ -462,9 +464,7 @@ window.I18N = {
             membership: {
               label: 'Membership',
               status: 'Active',
-              plan_label: 'Plan',
               plan: 'Frequent Plan',
-              benefit_label: 'Benefit',
               benefit: '15% off + free delivery',
               renews_label: 'Active through',
               renews: 'August 18',
@@ -501,12 +501,12 @@ window.I18N = {
     attendance: {
       h: 'Clock-ins and clock-outs, branch by branch.',
       sub: 'Your team clocks in and out with a 4-digit PIN at each branch. You see everyone’s schedule and a daily summary.',
-      rows: [
-        { name: 'Marisol G.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 8:57am · Out 6:04pm', flag: 'On time', flag_kind: 'done' },
-        { name: 'Iván R.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 9:22am · Out 6:10pm', flag: 'Late', flag_kind: 'proc' },
-        { name: 'Paola T.', meta: 'Del Valle Branch · 10:00am–7:00pm', times: 'No punch', flag: 'Absent', flag_kind: 'new' },
+      facts: [
+        '4-digit PIN, valid at any branch',
+        '15-minute grace period, adjustable per day',
+        'Daily summary: late arrivals and absences',
       ],
-      note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they never clock in.',
+      note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they have no punches at all that day.',
     },
 
     audience: {

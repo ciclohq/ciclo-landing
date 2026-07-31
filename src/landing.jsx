@@ -90,7 +90,7 @@
   );
 
   const Hero = ({ t, lang }) => (
-    <section className="hero" data-bg="cream">
+    <section className="hero surface-tint-bg" data-bg="tint">
       <div className="container">
         <div className="hero-head">
           <span className="badge"><i />{t.hero.badge}</span>
@@ -129,188 +129,193 @@
     </nav>
   );
 
-  /* ---------- Retention panel — arc part 04's visual ----------
-     A stamp card mid-progress plus a membership state on a customer, in
-     the order-card idiom (bright-white panel, hairline, mono dt / 16px dd,
-     a chip for status) rather than a screenshot — there was never a real
-     'retiene' capture to begin with (Screen would have silently fallen
-     back to the placeholder). Verified against apps/api/src/modules/
-     promotion/promotion-engine.ts (buy_n_get_free + countingWindow:
-     'customer_history': one stamp per completed qualifying order, and once
-     the punch count reaches buyQuantity, the redeeming order's cheapest
-     freeQuantity units go free — countableUnitPrices sorts ascending) and
-     membership-benefits.ts membershipSummaryFor (status is derived, never
-     stored; percentOff/freeDelivery/allowanceAmount are independent,
-     combinable plan fields). The stamp dots are aria-hidden; the count is
-     also rendered as text so it isn't screen-reader-invisible. */
+  /* ---------- Stamp card — arc part 04's visual ----------
+     The stamp count is inherently a count, so it renders as a punch-card
+     grid of filled/empty dots (geometry: dots), not a hairline-row list —
+     the 4th and last distinct shape in the arc (bubbles → columns → map →
+     dots). Verified against apps/api/src/common/loyalty-progress.ts:
+     punchCountsFor only counts orders where order.status === 'completed'
+     (line 65) toward a customer_history buy_n_get_free promo, and
+     loyaltyProgressFor's `target` is the promotion's own `buyQuantity`
+     field (line 147) — the number of dots drawn here IS that target, not
+     an arbitrary round number. apps/api/src/modules/promotion/
+     promotion.service.ts (line 419) rejects a buy_n_get_free promo against
+     any category whose pricing_unit isn't 'per_item', which is why this
+     card's promo is scoped to a per-piece category ("Camisas") rather than
+     a per-kilo one — a laundromat's by-the-kilo loads can't run this
+     promotion at all, so illustrating it on shirts is not an arbitrary
+     choice. The membership state below reuses membership-benefits.ts
+     membershipSummaryFor's fields (status derived, never stored;
+     percentOff/freeDelivery independent, combinable plan fields) but folds
+     them into one sentence instead of a second stacked dt/dd block, so the
+     card doesn't quietly reintroduce the hairline-row shape it exists to
+     replace. The dot grid is aria-hidden; the count is also rendered as
+     text so it isn't screen-reader-invisible. */
 
-  const RetentionPanel = ({ t }) => (
-    <div className="retain-panel">
-      <div className="retain-card">
-        <div className="retain-card-head">
-          <span className="retain-card-label">{t.stamp.label}</span>
-          <span className="retain-card-chip">{t.stamp.chip}</span>
-        </div>
-        <div className="retain-stamps" aria-hidden="true">
-          {Array.from({ length: t.stamp.target }).map((_, i) => (
-            <span key={i} className={`retain-stamp ${i < t.stamp.progress ? 'is-filled' : ''}`} />
-          ))}
-        </div>
-        <p className="sr-only">{t.stamp.progress_sr}</p>
-        <p className="retain-card-note">{t.stamp.note}</p>
+  const StampCard = ({ t }) => (
+    <div className="stampcard">
+      <div className="panel-head">
+        <span className="panel-label">{t.stamp.label}</span>
+        <span className="chip chip--route">{t.stamp.chip}</span>
       </div>
-      <div className="retain-card">
-        <div className="retain-card-head">
-          <span className="retain-card-label">{t.membership.label}</span>
-          <span className="retain-card-chip retain-card-chip--done">{t.membership.status}</span>
+      <div className="stampcard-dots" aria-hidden="true">
+        {Array.from({ length: t.stamp.target }).map((_, i) => (
+          <span key={i} className={`stampcard-dot ${i < t.stamp.progress ? 'is-filled' : ''}`} />
+        ))}
+      </div>
+      <p className="sr-only">{t.stamp.progress_sr}</p>
+      <p className="stampcard-count">
+        {t.stamp.progress}<span className="stampcard-count-target">/{t.stamp.target}</span>
+      </p>
+      <p className="stampcard-note">{t.stamp.note}</p>
+      <div className="stampcard-membership">
+        <div className="stampcard-membership-head">
+          <span className="panel-label">{t.membership.label}</span>
+          <span className="chip chip--done">{t.membership.status}</span>
         </div>
-        <dl className="retain-fields">
-          <div>
-            <dt>{t.membership.plan_label}</dt>
-            <dd>{t.membership.plan}</dd>
-          </div>
-          <div>
-            <dt>{t.membership.benefit_label}</dt>
-            <dd>{t.membership.benefit}</dd>
-          </div>
-          <div>
-            <dt>{t.membership.renews_label}</dt>
-            <dd>{t.membership.renews}</dd>
-          </div>
-        </dl>
+        <p className="stampcard-membership-text">
+          <strong>{t.membership.plan}</strong> — {t.membership.benefit}. {t.membership.renews_label} {t.membership.renews}.
+        </p>
       </div>
     </div>
   );
 
-  /* ---------- Board panel — arc part 02's visual ----------
-     A slice of the orders board — several orders, each with a folio, a
-     customer, and a stage — in the order-card idiom (bright-white surface,
-     hairline border, shadow-md, mono-uppercase labels) rather than a
-     screenshot: a 1440×900 board capture renders at ~0.40× in this arc's
-     ~570px column, illegible before it even ships. There was never a real
-     'opera' capture to begin with (Screen would have silently fallen back
-     to the placeholder), the same situation RetentionPanel replaced for
-     arc 04.
+  /* ---------- Board — arc part 02's visual ----------
+     The board's real metaphor is parallel stage columns, not a vertical
+     list — this renders three lane columns (geometry: columns, the 2nd of
+     the arc's four distinct shapes) plus one order sitting outside all of
+     them, exactly like the real board does. There was never a real
+     'opera' capture to begin with (a 1440×900 board screenshot renders at
+     ~0.40× in this arc's ~570px column, illegible before it even ships) —
+     the same situation StampCard replaced for arc 04.
 
-     Row #4821 / Renata Vidal / "Por confirmar" is deliberately the SAME
-     order the hero's OrderCard shows — so this panel and the hero read as
-     one continuous claim, not two unrelated mocks: the bot schedules it
-     unconfirmed, and here it is, sitting on the board exactly as promised,
-     next to orders a dispatcher already confirmed into pickup/processing/
+     `unconfirmed` / #4821 / Renata Vidal is deliberately the SAME order
+     the hero's OrderCard shows — so this panel and the hero read as one
+     continuous claim, not two unrelated mocks: the bot schedules it
+     unconfirmed, and here it sits outside every lane exactly as promised,
+     while orders a dispatcher already confirmed occupy pickup/processing/
      delivery. That's the hero's "ningún pedido del bot se agenda solo"
      claim, shown again from the operator's side of the board.
 
      Stage taxonomy verified against apps/api/src/schema/
-     lifecycle-stage-type.ts — a CHECK constraint restricts `key` to
-     'pickup' | 'delivery' | 'processing', no other stage exists — and
-     apps/api/src/hatchet/workflows/agent/tools.ts (scheduleRecoleccion,
-     ~line 1162: a bot-created order inserts with `currentStageId: null`,
-     "stage-less ('Por confirmar')" until a dispatcher calls
-     POST /orders/:id/confirm; getActiveOrders' own comment, ~line 881-882,
-     documents "null = unconfirmed 'Por confirmar'" as the literal label
-     the product itself uses).
+     lifecycle-stage-type.ts (lines 12-14) — a CHECK constraint restricts
+     `key` to 'pickup' | 'delivery' | 'processing', no other stage exists,
+     which is exactly the three lanes rendered — and apps/api/src/hatchet/
+     workflows/agent/tools.ts's scheduleRecoleccion (line 1130; the
+     "stage-less" comment at line 1162): a bot-created order inserts with
+     `currentStageId: null` until a dispatcher calls POST
+     /orders/:id/confirm, which is why `unconfirmed` is modeled as its own
+     field, structurally outside the `stages` array, rather than as a
+     fourth lane or a stage_kind on a shared row shape.
 
-     Chip colors are matched to the product's real badge, not invented:
-     apps/web/src/components/dashboard/orders/order-status-pill.tsx's
-     STAGE_DOT maps pickup→slate, processing→blue, delivery→emerald
-     (lines 249-251), and a separate PENDING_CONFIRMATION_CONFIG overrides
-     the unconfirmed state to a warning/orange pill labeled "Por confirmar"
-     (lines 53-57, 77-82). The landing token set has no slate or emerald
-     swatch, so the closest --chip-* family stands in for each by color
-     family, not by token name: chip-new (muted gray) for pickup/slate,
-     chip-pick (info blue) for processing/blue, chip-done (success green)
-     for delivery/emerald, chip-proc (warning orange) for unconfirmed —
-     chip-proc's name suggests "processing," but its color is the same
-     warning-orange the real "Por confirmar" pill uses, and processing
-     gets chip-pick instead because that token's blue is what the real
-     badge uses for processing. */
+     The unconfirmed chip's color is matched to the product's real badge,
+     not invented: order-status-pill.tsx's PENDING_CONFIRMATION_CONFIG
+     (lines 53-57) renders "Por confirmar" as a warning/orange pill, which
+     is what --chip-proc (warning orange) stands in for here — its name
+     suggests "processing," but the color, not the name, is what's being
+     matched; the processing LANE itself carries no chip color at all in
+     this shape (lanes are typed by position, not by a colored badge). */
 
-  const BOARD_CHIP_CLASS = {
-    unconfirmed: 'board-chip--unconfirmed',
-    pickup: 'board-chip--pickup',
-    processing: 'board-chip--processing',
-    delivery: 'board-chip--delivery',
-  };
-
-  const BoardPanel = ({ t }) => (
-    <div className="board-panel">
-      <div className="board-panel-head">
-        <span className="board-panel-label">{t.label}</span>
-        <span className="board-panel-count">{t.count}</span>
+  const Board = ({ t }) => (
+    <div className="board">
+      <div className="panel-head">
+        <span className="panel-label">{t.label}</span>
       </div>
-      <ol className="board-rows" role="list" aria-label={t.label}>
-        {t.rows.map((r, i) => (
-          <li key={i} className="board-row">
-            <span className="board-row-id">
-              <span className="board-row-folio">{r.folio}</span>
-              <span className="board-row-customer">{r.customer}</span>
-            </span>
-            <span className={`board-chip ${BOARD_CHIP_CLASS[r.stage_kind] || ''}`}>{r.stage}</span>
-          </li>
+      <div className="board-unconfirmed">
+        <span className="board-unconfirmed-folio">{t.unconfirmed.folio}</span>
+        <span className="board-unconfirmed-customer">{t.unconfirmed.customer}</span>
+        <span className="chip chip--proc">{t.unconfirmed.chip}</span>
+      </div>
+      <div className="board-lanes" role="list" aria-label={t.label} tabIndex={0}>
+        {t.stages.map((s, i) => (
+          <div key={i} className={`board-lane board-lane--${s.key}`} role="listitem">
+            <div className="board-lane-head">
+              <span className="board-lane-name">{s.label}</span>
+              <span className="board-lane-count">{s.orders.length}</span>
+            </div>
+            <div className="board-lane-orders">
+              {s.orders.map((o, j) => (
+                <div key={j} className="board-order">
+                  <span className="board-order-folio">{o.folio}</span>
+                  <span className="board-order-customer">{o.customer}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         ))}
-      </ol>
+      </div>
     </div>
   );
 
-  /* ---------- Fee-rules panel — arc part 03's visual ----------
-     A slice of a delivery plan's prioritised rule list, in the same
-     hairline/mono idiom rather than a map screenshot — "dibujas tus zonas
-     sobre el mapa" needs an actual canvas the arc's ~570px column can't
-     render legibly either way, and there was never a real 'entrega-zonas'
-     capture to begin with. This panel shows exactly the two rule types
-     this page already claims in its own prose (arc part 03's body and the
-     FAQ's shipping answer): "gratis desde $300" / "free above $300" and
-     "$12 por kilómetro" / "$12/km" — it dramatizes numbers already on the
-     page, it does not invent new ones.
+  /* ---------- Zone map — arc part 03's visual ----------
+     An inline SVG polygon standing in for a drawn delivery zone (geometry:
+     map, the 3rd of the arc's four distinct shapes), with a compact
+     numbered fee ladder beneath it — no image file, no map tiles, no
+     network request; a real map screenshot at 1440×900 renders illegibly
+     in this arc's ~570px column anyway, and there was never a real
+     'entrega-zonas' capture to begin with. Zones are genuinely drawn
+     on-screen in the product, not a landing-page invention: apps/api/src/
+     schema/zone.ts stores each zone's `boundary` as a `geographyPolygon`
+     (line 15), and apps/web/src/components/dashboard/settings/
+     zone-map.tsx configures mapbox-gl-draw with `defaultMode:
+     "draw_polygon"` (line 97) — an operator draws an irregular polygon on
+     a live map, which is what the hand-drawn (non-circular, non-square)
+     polygon points below represent, not a generic map icon.
 
-     Verified against apps/api/src/modules/delivery-fee/
-     delivery-fee-engine.ts: `evaluateDeliveryFee` sorts rules by
-     `priority` ascending and returns the fee of the FIRST rule whose
-     condition matches (lines 64-69). An `order_value_gte` rule charging
-     `free` ranked ahead of an `always` rule charging `per_km` is exactly
-     this two-rule shape — the `always` rule only ever fires because the
-     free rule's condition didn't match (order subtotal below $300), so
+     The fee ladder shows exactly the two rule types this page already
+     claims in its own prose (arc part 03's body and the FAQ's shipping
+     answer): "gratis desde $300" / "free above $300" and "$12 por
+     kilómetro" / "$12/km" — it dramatizes numbers already on the page, it
+     does not invent new ones. Verified against apps/api/src/modules/
+     delivery-fee/delivery-fee-engine.ts: `evaluateDeliveryFee` sorts rules
+     by `priority` ascending and returns the fee of the FIRST rule whose
+     condition matches (line 68). An `order_value_gte` rule charging `free`
+     ranked ahead of an `always` rule charging `per_km` is exactly this
+     two-rule shape — the `always` rule only ever fires because the free
+     rule's condition didn't match (order subtotal below $300), so
      "cualquier otro pedido" / "any other order" describes it accurately,
-     not as an invented catch-all. `priority`, `conditionType` and
-     `chargeType` are the engine's own field names (delivery-fee.service.ts
-     orders live rules by `deliveryPricingRules.priority` ascending, lines
-     161-173), not landing copy re-described. */
+     not as an invented catch-all. */
 
-  const FeeRulesPanel = ({ t }) => (
-    <div className="fee-panel">
-      <div className="fee-panel-head">
-        <span className="fee-panel-label">{t.label}</span>
-        <span className="fee-panel-chip">{t.chip}</span>
+  const ZoneMap = ({ t }) => (
+    <div className="panel">
+      <div className="panel-head">
+        <span className="panel-label">{t.label}</span>
       </div>
-      <ol className="fee-rules" role="list" aria-label={t.label}>
+      <svg className="zonemap-svg" viewBox="0 0 220 130" role="img" aria-label={t.map_alt}>
+        <rect className="zonemap-bg" x="0" y="0" width="220" height="130" rx="12" />
+        <g className="zonemap-grid" aria-hidden="true">
+          <line x1="0" y1="34" x2="220" y2="34" />
+          <line x1="0" y1="78" x2="220" y2="78" />
+          <line x1="58" y1="0" x2="58" y2="130" />
+          <line x1="152" y1="0" x2="152" y2="130" />
+        </g>
+        <polygon className="zonemap-zone" points="62,16 146,11 182,47 168,101 96,120 34,85 22,44" />
+        <circle className="zonemap-branch" cx="98" cy="60" r="6" />
+      </svg>
+      <p className="zonemap-caption">{t.branch_label}</p>
+      <ol className="zonemap-ladder" role="list" aria-label={t.ladder_label}>
         {t.rules.map((r, i) => (
-          <li key={i} className="fee-rule">
-            <span className="fee-rule-cond">
-              <span className="fee-rule-priority">{r.priority}</span>
-              <span className="fee-rule-condition">{r.condition}</span>
-            </span>
-            <span className="fee-rule-charge">{r.charge}</span>
+          <li key={i} className="zonemap-rule">
+            <span className="zonemap-rule-step" aria-hidden="true">{r.step}</span>
+            <span className="zonemap-rule-condition">{r.condition}</span>
+            <span className="zonemap-rule-charge">{r.charge}</span>
           </li>
         ))}
       </ol>
-      <p className="fee-panel-note">{t.note}</p>
+      <p className="panel-note">{t.note}</p>
     </div>
   );
 
   /* ---------- Arc — the four-part product narrative ----------
      Replaces HowItWorks + Modules: one story (receive → operate → deliver →
-     retain), each part pairing prose with a visual. Part 01 renders a
-     Thread — the handoff the hero deliberately doesn't show: an
-     out-of-scope question, a divider marking the transfer, a person
-     answering. Part 02 renders BoardPanel (the orders board), part 03
-     renders FeeRulesPanel (prioritised delivery fee rules), part 04
-     renders RetentionPanel (a stamp card and a membership state) — all
-     three the same "adopt a different visual instead of a screenshot"
-     allowance the 01/Thread precedent set, now covering every part; no
-     arc part renders a screenshot any more. The check is "which data key
-     does this part supply," not "which index is this." The 01–04
-     numbering survives here and only here, where sequence carries real
-     meaning. */
+     retain), each part pairing prose with a visual. Deliberately FOUR
+     different geometries, not four skins on one shape: 01/Thread renders
+     chat bubbles (unchanged — the page's signature element), 02/Board
+     renders parallel stage columns, 03/ZoneMap renders an inline SVG
+     polygon plus a fee ladder, 04/StampCard renders a dot grid. None of
+     them is a screenshot. The check is "which data key does this part
+     supply," not "which index is this." The 01–04 numbering survives here
+     and only here, where sequence carries real meaning. */
 
   const Arc = ({ t, lang }) => (
     <section id="how" className="section surface-cream-bg" data-bg="cream">
@@ -327,13 +332,13 @@
             </div>
             <div className="arc-screen">
               {p.retention ? (
-                <RetentionPanel t={p.retention} />
+                <StampCard t={p.retention} />
               ) : p.thread ? (
                 <Thread messages={p.thread} caption={p.thread_caption} lang={lang} />
               ) : p.board ? (
-                <BoardPanel t={p.board} />
-              ) : p.feeRules ? (
-                <FeeRulesPanel t={p.feeRules} />
+                <Board t={p.board} />
+              ) : p.zoneMap ? (
+                <ZoneMap t={p.zoneMap} />
               ) : null}
             </div>
           </article>
@@ -353,10 +358,26 @@
      is the owner asking about their own sales, not a WhatsApp customer.
      The answer is real report data shaped like a genuine tool response
      (see get_sales_report in apps/api/src/modules/chat/chat-tools.ts) —
-     no forecasting, no advice, no action taken for the owner. */
+     no forecasting, no advice, no action taken for the owner.
+
+     This is the page's one deliberately inverted band (task: page rhythm —
+     nine-plus screens of light surfaces was the core complaint). Short,
+     self-contained, and the ciclo/bot bubble's brand-deep fill genuinely
+     pops on dark, which is why this section carries the inversion instead
+     of any other. `.surface-ink-bg` + the `#asistente`-scoped overrides in
+     landing.css use only the existing on-dark token family the footer
+     already established (--ink, --hairline-on-dark(-soft),
+     --body-on-dark(-muted)) — no new colors. The override is scoped to
+     `#asistente .thread-frame` / `#asistente .thread-msg--customer
+     .thread-bubble` only, so the unscoped `.thread-frame` /
+     `.thread-msg--customer .thread-bubble` rules still govern the hero and
+     arc part 01 exactly as before. The ciclo/bot bubble itself
+     (`.thread-msg--ciclo .thread-bubble`) is NOT touched here — it's
+     already an opaque brand-deep fill with white text (6.32:1) regardless
+     of what section it sits in, so it needs no dark-specific variant. */
 
   const Assistant = ({ t, lang }) => (
-    <section id="asistente" className="section surface-tint-bg" data-bg="tint">
+    <section id="asistente" className="section surface-ink-bg" data-bg="navy">
       <div className="container">
         <div className="assistant-head">
           <h2 className="h2">{t.assistant.h}</h2>
@@ -401,38 +422,49 @@
     </section>
   );
 
-  /* ---------- Attendance — staff clock-in, its own compact home ----------
+  /* ---------- Attendance — staff clock-in, demoted to a compact aside ----------
      Sits outside the recibe/opera/entrega/retiene arc on purpose (staff
      attendance isn't part of the customer-facing delivery story), so it
      doesn't interrupt the arc's flow — placed right after #incluye instead,
      next to the "Personal" spec row it elaborates on, the same way
-     OrderModels elaborates on the pricing-unit row directly below it. Kept
-     to a compact three-row roster (the hairline idiom, no cards) rather
-     than a full-height section: a real daily-summary shape, not a second
-     scroll-length section. Verified against apps/api/src/modules/
-     attendance/pin.util.ts, dto/punch.dto.ts (branchId + 4-digit PIN per
-     punch), schedule-resolution.ts (per-branch/per-employee schedules,
-     DEFAULT_TOLERANCE_MINUTES = 15) and daily-summary.ts (late/absent
-     flags, hours from firstIn/lastOut). */
+     OrderModels elaborates on the pricing-unit row directly below it.
+
+     Previously a fabricated three-employee roster (Marisol G./Iván R./
+     Paola T.) under a full `.h2` — the same visual weight as the delivery
+     engine, for the least differentiating feature on the page, and an
+     invented staff list a real prospect could notice isn't theirs. Demoted
+     to a `.h3`-weight heading, `.section--tight` padding (roughly half of
+     `--section-y`) and three capability facts in the arc's own
+     `.arc-feats` pill idiom — no cards, no invented names, no roster.
+     Attendance itself stays represented (it was moved out of the FAQ on
+     purpose, per the plan) via those three facts plus the existing
+     late/absent note, both still literal product behavior, not a
+     restatement of copy elsewhere on the page:
+       - pin.util.ts: hashPin/verifyPin — the 4-digit PIN is scrypt-hashed
+         and timing-safe compared, never stored or checked as plaintext.
+       - dto/punch.dto.ts: PunchDto requires branchId + a pin matching
+         `/^\d{4}$/` + type ('check_in'|'check_out') on every punch — the
+         clock happens at a branch, not the PIN alone.
+       - schedule-resolution.ts: DEFAULT_TOLERANCE_MINUTES = 15;
+         resolveSchedule reads a per-branch, per-day-of-week schedule
+         first, then an optional per-employee, per-day override (including
+         its own toleranceMinutes) — the fact's "ajustable" / "adjustable"
+         describes that override chain, not a single fixed global setting.
+       - daily-summary.ts: buildDailySummaries flags 'late' when firstIn is
+         after scheduledStart + tolerance and 'absent' when there are no
+         punches by then — exactly the two flags the note beneath the
+         facts explains (hours = lastOut − firstIn is also computed there,
+         but isn't claimed in the compact copy above). */
 
   const Attendance = ({ t }) => (
-    <section id="personal" className="section surface-white-bg" data-bg="off">
+    <section id="personal" className="section section--tight surface-tint-bg" data-bg="tint">
       <div className="container">
-        <h2 className="h2">{t.attendance.h}</h2>
+        <h2 className="h3">{t.attendance.h}</h2>
         <p className="lede">{t.attendance.sub}</p>
-        <div className="roster">
-          {t.attendance.rows.map((r, i) => (
-            <div key={i} className="roster-row">
-              <div className="roster-who">
-                <span className="roster-name">{r.name}</span>
-                <span className="roster-meta">{r.meta}</span>
-              </div>
-              <span className="roster-times">{r.times}</span>
-              <span className={`roster-flag roster-flag--${r.flag_kind}`}>{r.flag}</span>
-            </div>
-          ))}
-        </div>
-        <p className="roster-note">{t.attendance.note}</p>
+        <ul className="arc-feats">
+          {t.attendance.facts.map((f, i) => <li key={i}>{f}</li>)}
+        </ul>
+        <p className="personal-note">{t.attendance.note}</p>
       </div>
     </section>
   );
@@ -637,7 +669,9 @@
 
   const App = () => {
     const [lang, setLang] = useState('es');
-    const [navBg, setNavBg] = useState('cream');
+    /* Matches Hero's data-bg ('tint') so there's no flash to the wrong nav
+       color before the scroll-position effect below runs on mount. */
+    const [navBg, setNavBg] = useState('tint');
 
     useEffect(() => {
       document.documentElement.lang = lang;
