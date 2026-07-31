@@ -89,7 +89,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Recibe',
-          body: 'Tus clientes escriben al mismo número de siempre. El bot responde por plantilla — catálogo, precios, disponibilidad, agenda — y en cuanto la pregunta se sale del guion, la pasa a tu equipo sin que el cliente tenga que escribir a otro número.',
+          body: 'Tus clientes escriben al mismo número de siempre. El bot responde por plantilla —catálogo, precios, disponibilidad, agenda— y transfiere a tu equipo en cuanto la pregunta se sale del guion.',
           feats: ['Clasificación de intención', 'Respuestas por plantilla', 'Transferencia a una persona', 'Bandeja de conversaciones compartida'],
           thread_caption: 'Ejemplo: el bot transfiere una pregunta fuera de guion',
           thread: [
@@ -101,7 +101,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Opera',
-          body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas las prendas — cantidades y pesos — desde el punto de venta, y cambias de sucursal en un clic.',
+          body: 'Cada orden entra al tablero con cliente, prendas y etapa. En el mostrador capturas cantidades y pesos desde el punto de venta, y cambias de sucursal en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
           /* Product-shaped visual, not a screenshot — see Board's comment
              in landing.jsx for the full source citation. Folio #4821 /
@@ -121,7 +121,7 @@ window.I18N = {
         {
           num: '03',
           name: 'Entrega',
-          body: 'Dibujas tus zonas en el mapa y defines qué cobras: gratis desde $300, por kilómetro o tarifa fija. Tus repartidores ven la ruta del día en su teléfono y tu cliente sigue el pedido desde un link.',
+          body: 'Dibujas tus zonas en el mapa y defines qué cobras: gratis desde $300, por kilómetro o tarifa fija. Tu cliente sigue el pedido desde un link.',
           feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
           /* Product-shaped visual, not a screenshot — see ZoneMap's comment
              in landing.jsx for the full source citation. Numbers match this
@@ -142,7 +142,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retiene',
-          body: 'Cada cliente trae su historial: cuántas veces ha pedido y cuándo fue la última. Desde su ficha le asignas una membresía, para que la próxima vez te elija a ti primero.',
+          body: 'Cada cliente trae su historial —cuántas veces ha pedido, cuándo fue la última— y desde su ficha le asignas una membresía.',
           feats: ['Historial por cliente', 'Clientes frecuentes', 'Membresías', 'Promociones'],
           /* Product-shaped visual, not a screenshot — verified against
              apps/api/src/modules/promotion/promotion-engine.ts (buy_n_get_free,
@@ -442,7 +442,7 @@ window.I18N = {
         {
           num: '01',
           name: 'Receive',
-          body: 'Your customers text the same number they always have. The bot replies from a template — catalog, prices, availability, scheduling — and the moment a question falls outside the script, it hands off to your team, with no need for the customer to write to a different number.',
+          body: 'Your customers text the same number they always have. The bot replies from a template —catalog, prices, availability, scheduling— and hands off to your team the moment the question falls outside the script.',
           feats: ['Intent classification', 'Templated replies', 'Handoff to a person', 'Shared conversation inbox'],
           thread_caption: 'Example: the bot hands off a question outside the script',
           thread: [
@@ -454,7 +454,7 @@ window.I18N = {
         {
           num: '02',
           name: 'Operate',
-          body: 'Every order lands on the board with its customer, garments and stage. Your counter captures the garments — quantities and weights — from the point of sale, and you switch branches in a click.',
+          body: 'Every order lands on the board with its customer, garments and stage. Your counter captures quantities and weights from the point of sale, and you switch branches in a click.',
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           board: {
             label: 'Board · Roma Norte Branch',
@@ -469,7 +469,7 @@ window.I18N = {
         {
           num: '03',
           name: 'Deliver',
-          body: 'You draw your zones on the map and decide what to charge: free above $300, per kilometer, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
+          body: 'You draw your zones on the map and decide what to charge: free above $300, per kilometer, or a flat fee. Your customer tracks the order from a link.',
           feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
           zoneMap: {
             label: 'Delivery zone',
@@ -486,7 +486,7 @@ window.I18N = {
         {
           num: '04',
           name: 'Retain',
-          body: 'Every customer carries their history — how many times they’ve ordered and when they last came in. From their profile you attach a membership, so next time they think of you first.',
+          body: 'Every customer carries their history —how many times they’ve ordered, when they last came in— and from their profile you attach a membership.',
           feats: ['Customer history', 'Repeat customers', 'Memberships', 'Promotions'],
           retention: {
             stamp: {

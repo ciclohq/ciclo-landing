@@ -486,11 +486,14 @@
    the page is landscape (2880×1800). The whole point of this section is
    that silhouette contrast, so the image is never stretched to fill a
    wide column: `.driver-media img` is width-capped and lets its own
-   aspect ratio set the height, sitting in a narrower column than the text
-   beside it (text 1.15fr, media 0.85fr) rather than an even split — a
-   portrait image doesn't want as much horizontal room as a landscape one
-   does. Stacked text-then-image at mobile, matching the rest of the
-   page's stacking order (Arc, #personal). */
+   aspect ratio set the height. The media column is `auto`-sized (not a
+   fr share) so it's exactly as wide as the capped image (up to 300px)
+   rather than a fixed fraction of the row that leaves empty space beside
+   a narrow portrait image at desktop (task: mobile scroll length —
+   flagged as dead space even though the fix targets >=760px, not the
+   mobile metric itself); the text column absorbs all the remaining
+   width instead. Stacked text-then-image at mobile, matching the rest of
+   the page's stacking order (Arc, #personal). */
 
 .driver-row {
   margin-top: clamp(28px, 4vw, 40px);
@@ -500,7 +503,7 @@
   align-items: center;
 }
 @media (min-width: 760px) {
-  .driver-row { grid-template-columns: 1.15fr 0.85fr; gap: 40px; }
+  .driver-row { grid-template-columns: 1fr auto; gap: 40px; }
 }
 .driver-media {
   min-width: 0;
@@ -892,20 +895,24 @@
    24 hairline rows in one ~1792px column (task: back-half variety,
    measured) — nearly two phone screens of the identical row shape
    repeated. Same 6 groups, same density, laid out as a grid instead of a
-   stack: 1 column at mobile, 2 at 640px+, 3 at 980px+, so the section
-   reads as a squarish reference index rather than a long scroll. Each
-   group is a real `<h3>` (landing.jsx) at body-text size/weight, not the
-   page's uppercase-mono micro-label — see .spec-group-name below (task:
-   micro-label monopoly). A plain hairline above each group is the only
-   chrome; still no cards. */
+   stack: 2 columns from the smallest width up, 3 at 980px+ — a single
+   mobile column was still ~1.8 screens tall (task: mobile scroll length,
+   measured), a straight stack of 6 groups' worth of items with nothing
+   to shrink; going 2-up at 390px halves the row count (6 groups -> 3
+   rows) for the same content, same density, same item count per group.
+   Item text is short (the longest, the delivery fee-rule row, is the
+   only one that wraps past one line even at a ~165px mobile column), so
+   readability holds. Each group is a real `<h3>` (landing.jsx) at
+   body-text size/weight, not the page's uppercase-mono micro-label — see
+   .spec-group-name below (task: micro-label monopoly). A plain hairline
+   above each group is the only chrome; still no cards. */
 
 .spec-grid {
   margin: 40px 0 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px 48px;
 }
-@media (min-width: 640px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 980px) { .spec-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .spec-group {
@@ -1208,15 +1215,23 @@
    .section on the page (landing.css loads after tokens.css, so this wins
    at matching widths) without editing that shared token file. */
 @media (max-width: 767px) {
-  :root { --section-y: 40px; }
+  /* --section-y governs 7 .section elements (Screens/panel, Arc, Assistant,
+     Included, Attendance's sibling OrderModels, DemoCTA, FAQ) — one more
+     point of tightening here compounds across all seven (task: mobile
+     scroll length). --section--tight (Attendance, DriverApp) gets its own
+     explicit override just below for the same reason: it isn't tied to
+     this token on purpose (see .section--tight's comment), so it doesn't
+     move with this value. */
+  :root { --section-y: 32px; }
+  .section--tight { padding-top: 24px; padding-bottom: 24px; }
 
   .lede { margin-top: 16px; }
 
   /* Hero — six thread messages plus an order card is the tallest single
      block on the page; its content can't shrink (the thread text is a
      literal template transcript), so only whitespace comes out. */
-  .hero { padding-top: 28px; padding-bottom: 24px; }
-  .hero-convo { margin-top: 20px; gap: 16px; }
+  .hero { padding-top: 24px; padding-bottom: 20px; }
+  .hero-convo { margin-top: 16px; gap: 16px; }
   .hero-actions { margin-top: 20px; }
   .hero-trust { margin-top: 14px; }
   .hero-convo .thread { gap: 9px; }
@@ -1227,58 +1242,66 @@
   .order-card-fields { gap: 10px; }
   .order-card-note { padding-top: 10px; }
 
-  .screens-figure { margin-top: 20px; }
-  .screens-caption { margin-top: 8px; }
+  .screens-figure { margin-top: 16px; }
+  .screens-caption { margin-top: 6px; }
 
   /* Arc — same-background seam with the hero above it (both cream); the
      four parts' own internal padding is the other lever. */
-  .arc-part { padding: 24px 0; gap: 20px; }
-  .arc-feats { margin-top: 18px; }
-  .board { gap: 12px; }
+  .arc-part { padding: 20px 0; gap: 16px; }
+  .arc-body { margin-top: 14px; }
+  .arc-feats { margin-top: 14px; }
+  .board { gap: 10px; }
   .board-unconfirmed { padding: 10px 12px; }
   .board-lane { padding: 10px; }
-  .zonemap-svg { margin-top: 12px; }
-  .zonemap-ladder { margin-top: 14px; }
-  .stampcard-dots { margin-top: 16px; }
-  .stampcard-membership { margin-top: 14px; padding-top: 14px; }
+  .zonemap-svg { margin-top: 10px; }
+  .zonemap-ladder { margin-top: 10px; }
+  .stampcard-dots { margin-top: 12px; }
+  .stampcard-membership { margin-top: 12px; padding-top: 12px; }
 
   /* Driver route — the portrait image already caps its own width
      (.driver-media img, landing.css), so only the row's own gap needs
      tightening here. */
-  .driver-row { margin-top: 20px; gap: 20px; }
+  .driver-row { margin-top: 16px; gap: 16px; }
 
-  .assistant-body { margin-top: 18px; gap: 24px; }
+  .assistant-body { margin-top: 14px; gap: 20px; }
 
   /* #incluye and #personal no longer share a surface (task: page rhythm —
      incluye is .surface-white-bg/off, personal is .surface-tint-bg/tint),
      so the old same-surface seam shortcut that used to live here is gone;
      #personal's own .section--tight (landing.css, near .section) already
      handles its compact padding at every width, mobile included. */
-  .personal-row { margin-top: 20px; gap: 20px; }
+  .personal-row { margin-top: 16px; gap: 16px; }
 
-  .spec-grid { margin-top: 24px; gap: 24px; }
+  /* #incluye is 2-column from the smallest width up (landing.css, near
+     .spec-grid) — column-gap can run tighter than the desktop 48px
+     without crowding the short item text, which buys back more row
+     height than the row-gap alone. */
+  .spec-grid { margin-top: 20px; gap: 20px 16px; }
   .spec-items li { padding: 7px 0; }
 
-  .compare { margin-top: 12px; }
-  .compare-model { padding: 20px 0; }
-  .compare-note { margin-top: 22px; padding-top: 18px; }
+  .compare { margin-top: 10px; }
+  .compare-model { padding: 16px 0; }
+  .compare-note { margin-top: 18px; padding-top: 14px; }
 
-  .demo-block { margin-top: 24px; padding: 20px; }
+  .demo-block { margin-top: 20px; padding: 18px; }
   .price-tag { margin-top: 4px; }
-  .demo-h { margin-top: 16px; }
-  .demo-points-prose { margin-top: 16px; }
+  .demo-h { margin-top: 14px; }
+  .demo-points-prose { margin-top: 14px; }
 
-  .faq-row { margin-top: 24px; gap: 18px; }
-  .faq-list .q { padding: 13px 0; }
-  .faq-list .a { padding-bottom: 14px; }
+  .faq-row { margin-top: 20px; gap: 16px; }
+  /* .q is a 44px+ tap target at every width the constraint applies to:
+     16px text (line-height ~24px) + 12px top/bottom padding = 48px,
+     still clear of the floor. */
+  .faq-list .q { padding: 12px 0; }
+  .faq-list .a { padding-bottom: 12px; }
 
-  .cta-block { padding: 56px 0 40px; }
-  .cta-block .actions { margin-top: 20px; }
+  .cta-block { padding: 48px 0 32px; }
+  .cta-block .actions { margin-top: 16px; }
 
-  .footer { padding-top: 40px; }
-  .footer-tag { margin-bottom: 22px; }
-  .footer-links { gap: 18px; }
-  .footer-base { margin-top: 28px; padding-top: 12px; }
+  .footer { padding-top: 32px; }
+  .footer-tag { margin-bottom: 18px; }
+  .footer-links { gap: 16px; }
+  .footer-base { margin-top: 24px; padding-top: 10px; }
 }
 
 /* ---------- Scroll reveal — JS adds .reveal-ready on <html>, .is-in per element ----------

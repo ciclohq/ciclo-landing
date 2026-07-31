@@ -412,11 +412,15 @@
      instead of the SVG, would break the one rule that keeps the arc's four
      parts reading as one system rather than four random widgets. So this
      gets its own moment immediately after the arc closes instead — still
-     "nearby" the delivery story, not interrupting the 01–04 sequence, and
-     picking up the exact claim part 03's body copy already makes ("Tus
-     repartidores ven la ruta del día en su teléfono"). `data-bg="off"`
-     between the arc's `cream` and #asistente's `navy` — no two adjacent
-     sections share a surface.
+     "nearby" the delivery story, not interrupting the 01–04 sequence.
+     Part 03's body copy used to also state the driver-route claim in
+     prose ("Tus repartidores ven la ruta del día en su teléfono") before
+     this section existed to show it; now that this section makes the
+     claim in full (plus the "App de repartidores" pill), the arc body
+     no longer restates it — same claim, said once instead of twice
+     (task: mobile scroll length). `data-bg="off"` between the arc's
+     `cream` and #asistente's `navy` — no two adjacent sections share a
+     surface.
 
      Copy describes only what's visibly in the crop (verified by viewing
      the file directly): stops numbered 1–8 on a map, green pins for
@@ -522,9 +526,13 @@
      Was a single-column `dl` — 6 rows × up to 5 items = 24 hairline rows
      stacked in one ~1792px column, nearly two phone screens of the same
      shape repeated (task: back-half variety, measured). Same content,
-     grouped into an index instead: a CSS grid of the 6 groups, 3 columns
-     at desktop (980px+), 2 at tablet (640px+), 1 at mobile — so the
-     section reads as a squarish reference block, not a scroll. Density is
+     grouped into an index instead: a CSS grid of the 6 groups, 2 columns
+     from the smallest width up, 3 at desktop (980px+) — no 1-column
+     mobile step, because that step was still ~1.8 phone screens on its
+     own (task: mobile scroll length, measured): 6 groups stacked with
+     nothing left to shrink, just a lot of them. 2-up halves that to 3
+     rows for the identical 6 groups / 24 items, so the section reads as
+     a squarish reference block at every width, not a scroll. Density is
      still the point (every capability from every group is still here,
      still one per line) — only the silhouette changes.
 
