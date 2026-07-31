@@ -31,12 +31,20 @@
          cobalt, 5.79–5.95:1) — used for .nav-links a:hover, .section-jump
          a:hover and .faq-list .q:hover, which previously set --brand
          directly at 3.70–3.93:1
-       --brand-soft as text on --ink = 6.20:1 (passes) — used for
-         .nav-bg-navy .nav-links a:hover, which previously set --brand
-         directly at 3.72:1; --brand-deep/--brand-ink are darker than
-         --brand and so read WORSE on this dark background, hence the
-         lighter --brand-soft instead (already the on-dark accent used by
-         .nav-bg-navy .nav-logo .accent) */
+       .nav-bg-navy .nav-links a:hover previously set --brand directly at
+         3.72:1 against raw --ink — but .nav-bg-navy is a translucent fill
+         (rgba(14,22,40,0.85) + backdrop-filter blur/saturate), so the
+         real rendered background is a lighter composite, measured in
+         Chrome as rgb(53,59,74), not raw --ink. --brand-deep/--brand-ink
+         are darker than --brand and read WORSE there; --brand-soft (the
+         .nav-bg-navy .nav-logo .accent color) computes to ~4.7:1 against
+         that composite in isolation but measured only 4.11:1 rendered
+         (translucency + saturate() shift the actual pixel beyond a flat
+         alpha-composite calc) — fails 4.5:1. Used --accent-soft (#E3EAFB,
+         periwinkle, product --accent — "active states") instead: 9.29:1
+         against the measured composite, enough headroom to hold across
+         however that composite shifts with scroll content, and visually
+         distinct from the surrounding #FFFFFF idle nav-link text. */
   --brand:         #008F92;          /* product --primary — the lead color */
   --brand-deep:    #006B6D;          /* product chart-5 — text-safe variant: idle text-on-brand + text-on-light */
   --brand-ink:     #00595B;          /* text-safe variant: hover/pressed step below --brand-deep */

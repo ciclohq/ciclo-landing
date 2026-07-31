@@ -32,7 +32,7 @@
   transition: color 320ms var(--ease-out);
 }
 .nav-bg-navy .nav-logo .accent { color: var(--brand-soft); }
-.nav-bg-navy .nav-links a:hover { color: var(--brand-soft); }
+.nav-bg-navy .nav-links a:hover { color: var(--accent-soft); }
 .nav-bg-navy .btn-ghost {
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.20);
