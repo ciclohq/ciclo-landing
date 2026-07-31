@@ -410,7 +410,9 @@
 
 .arc-num {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
-  color: var(--brand); font-weight: 500;
+  /* --brand-deep, not --brand: --brand as text on --paper-cream is 3.70:1
+     (fails AA); --brand-deep is 5.95:1. See tokens.css brand comment. */
+  color: var(--brand-deep); font-weight: 500;
 }
 .arc-name {
   font-family: var(--font-display); font-weight: 500;
@@ -524,6 +526,37 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 4px;
+  /* Keyboard scrollability (WCAG 2.1.1): tabindex="0" on the element (set
+     in landing.jsx) makes this auto-overflow strip a focusable scroll
+     container, which every evergreen browser scrolls with arrow/Page keys
+     once focused — no JS needed. tabindex on role="list" is a valid ARIA
+     combination (tabindex is a global attribute; it doesn't change the
+     exposed role), and the element already carries its own aria-label.
+     Visual continuation cue: classic scroll-shadow technique (two solid
+     covers + two shadow gradients, "local" vs "scroll" background
+     attachment) — the edge shadow only renders when there is unscrolled
+     content in that direction and fades on its own as you reach the end,
+     so it never lies about content that isn't actually there. The solid
+     covers match --paper-cream, this strip's only real-world parent
+     surface (the "how" section is .surface-cream-bg) — a static color
+     match, not a change to the section itself. */
+  background-image:
+    linear-gradient(to right, var(--paper-cream) 30%, rgba(248, 248, 248, 0)),
+    linear-gradient(to left, var(--paper-cream) 30%, rgba(248, 248, 248, 0)),
+    linear-gradient(to right, rgba(29, 41, 61, 0.16), rgba(29, 41, 61, 0)),
+    linear-gradient(to left, rgba(29, 41, 61, 0.16), rgba(29, 41, 61, 0));
+  background-position: left, right, left, right;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.board-lanes:focus-visible {
+  /* --brand-deep, not --brand: this is a non-text UI indicator (WCAG
+     1.4.11, >=3:1), but --brand-deep is already the page's text-safe
+     brand variant and reads clearly against the cream section (5.95:1). */
+  outline: 2px solid var(--brand-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 .board-lane {
   flex: 0 0 168px;

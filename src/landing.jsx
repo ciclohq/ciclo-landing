@@ -226,7 +226,7 @@
         <span className="board-unconfirmed-customer">{t.unconfirmed.customer}</span>
         <span className="chip chip--proc">{t.unconfirmed.chip}</span>
       </div>
-      <div className="board-lanes" role="list" aria-label={t.label}>
+      <div className="board-lanes" role="list" aria-label={t.label} tabIndex={0}>
         {t.stages.map((s, i) => (
           <div key={i} className={`board-lane board-lane--${s.key}`} role="listitem">
             <div className="board-lane-head">

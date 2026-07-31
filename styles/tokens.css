@@ -15,10 +15,21 @@
   --ink-soft:      #2A3850;
 
   /* Brand — #008F92 is THE primary (app --primary token, Alex's call).
-     Soft teal #35BABC stays only for app-faithful mock details (org icon, rings). */
+     Soft teal #35BABC stays only for app-faithful mock details (org icon, rings).
+     --brand itself stays untouched (borders, fills, zone polygon, stamp
+     circles, arc numerals) — only its TEXT uses get the darker variants
+     below, so the page's overall teal doesn't shift:
+       white text on --brand      = 3.93:1 (fails 4.5)
+       white text on --brand-deep = 6.32:1 (passes) — used for .btn-brand
+         and the bot's thread bubbles (idle state)
+       white text on --brand-ink  = 8.14:1 (passes, more headroom) — used
+         for .btn-brand's hover/pressed state so it still reads as a step
+         darker than idle
+       --brand-deep as text on --paper-cream = 5.95:1 (passes) — used for
+         .arc-num, which previously set --brand directly at 3.70:1 */
   --brand:         #008F92;          /* product --primary — the lead color */
-  --brand-deep:    #006B6D;          /* product chart-5 — hover/pressed */
-  --brand-ink:     #00595B;
+  --brand-deep:    #006B6D;          /* product chart-5 — text-safe variant: idle text-on-brand + text-on-light */
+  --brand-ink:     #00595B;          /* text-safe variant: hover/pressed step below --brand-deep */
   --brand-soft:    #35BABC;          /* product --ring / --sidebar-primary — mock details, on-dark accents */
   --brand-tint:    #E6F4F4;
   --brand-ring:    #35BABC;
@@ -49,9 +60,14 @@
   --hairline-on-dark:   rgba(255, 255, 255, 0.14);
   --hairline-on-dark-soft: rgba(255, 255, 255, 0.07);
 
-  /* Body — from product foreground/muted-foreground */
+  /* Body — from product foreground/muted-foreground.
+     --body-muted darkened for WCAG AA at 12-16px against the off-white/tint
+     surfaces it actually sits on in this page (was #6C727E, 4.43:1 on
+     #F5F5F5 — fails; #6C727E passes on pure white only). Same value as
+     --chip-new-f (coincidence of the same lightness move, not a shared
+     token — chip backgrounds are untouched). */
   --body:          #45506A;
-  --body-muted:    #6C727E;
+  --body-muted:    #686E7A;          /* was #6C727E — 4.70:1 on #F5F5F5, 4.69:1 on #FEF3EC */
   --body-on-dark:  rgba(255, 255, 255, 0.78);
   --body-on-dark-muted: rgba(255, 255, 255, 0.52);
 

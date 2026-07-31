@@ -52,14 +52,16 @@
 .btn-ghost:hover { border-color: var(--ink); background: var(--bright-white); }
 
 .btn-brand {
-  background: var(--brand);
+  /* --brand-deep, not --brand: white text on --brand is 3.93:1 (fails AA);
+     white on --brand-deep is 6.32:1. See tokens.css brand comment. */
+  background: var(--brand-deep);
   color: #FFFFFF;
-  border-color: var(--brand);
+  border-color: var(--brand-deep);
   box-shadow: 0 1px 2px rgba(29, 41, 61, 0.08), 0 4px 8px -2px rgba(29, 41, 61, 0.08);
 }
 .btn-brand:hover {
-  background: var(--brand-deep);
-  border-color: var(--brand-deep);
+  background: var(--brand-ink);
+  border-color: var(--brand-ink);
   color: #FFFFFF;
   transform: translateY(-1px);
   box-shadow: 0 2px 3px rgba(29, 41, 61, 0.08), 0 8px 14px -4px rgba(29, 41, 61, 0.12);
@@ -135,7 +137,9 @@
 }
 
 .thread-msg--ciclo .thread-bubble {
-  background: var(--brand);
+  /* --brand-deep, not --brand — see tokens.css brand comment; white text
+     on --brand is 3.93:1 (fails AA), on --brand-deep it's 6.32:1. */
+  background: var(--brand-deep);
   color: var(--bright-white);
 }
 
