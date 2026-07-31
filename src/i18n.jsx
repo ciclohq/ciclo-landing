@@ -221,11 +221,11 @@ window.I18N = {
       h: 'Entradas y salidas, sucursal por sucursal.',
       sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
       facts: [
-        'PIN de 4 dígitos por sucursal',
+        'PIN de 4 dígitos, en cualquier sucursal',
         'Tolerancia ajustable, 15 min por defecto',
         'Resumen diario: tardanzas y faltas',
       ],
-      note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si nunca marca entrada.',
+      note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si no tiene ninguna marca en el día.',
     },
 
     /* --- Order models — two pricing units, one per category. Verified
@@ -502,11 +502,11 @@ window.I18N = {
       h: 'Clock-ins and clock-outs, branch by branch.',
       sub: 'Your team clocks in and out with a 4-digit PIN at each branch. You see everyone’s schedule and a daily summary.',
       facts: [
-        '4-digit PIN per branch',
+        '4-digit PIN, valid at any branch',
         '15-minute grace period, adjustable per day',
         'Daily summary: late arrivals and absences',
       ],
-      note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they never clock in.',
+      note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they have no punches at all that day.',
     },
 
     audience: {

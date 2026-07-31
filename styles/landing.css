@@ -32,7 +32,7 @@
   transition: color 320ms var(--ease-out);
 }
 .nav-bg-navy .nav-logo .accent { color: var(--brand-soft); }
-.nav-bg-navy .nav-links a:hover { color: var(--brand); }
+.nav-bg-navy .nav-links a:hover { color: var(--brand-soft); }
 .nav-bg-navy .btn-ghost {
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.20);
@@ -78,7 +78,7 @@
   transform: scaleX(0); transform-origin: left;
   transition: transform 220ms var(--ease-out);
 }
-.nav-links a:hover { color: var(--brand); }
+.nav-links a:hover { color: var(--brand-deep); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; }
@@ -130,7 +130,7 @@
   white-space: nowrap;
 }
 .section-jump a:last-child { margin-right: 0; }
-.section-jump a:hover { color: var(--brand); border-color: var(--brand); }
+.section-jump a:hover { color: var(--brand-deep); border-color: var(--brand); }
 
 /* Anchor-scroll offset — every section the nav links to (or that
    carries its own id) needs to clear the sticky nav, or its heading
@@ -934,7 +934,7 @@
   font-size: 16px; color: var(--ink);
   transition: color 160ms var(--ease-out);
 }
-.faq-list .q:hover { color: var(--brand); }
+.faq-list .q:hover { color: var(--brand-deep); }
 .faq-list .q .q-toggle {
   color: var(--brand);
   font-size: 22px; font-weight: 400;

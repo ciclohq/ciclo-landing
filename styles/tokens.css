@@ -26,7 +26,17 @@
          for .btn-brand's hover/pressed state so it still reads as a step
          darker than idle
        --brand-deep as text on --paper-cream = 5.95:1 (passes) — used for
-         .arc-num, which previously set --brand directly at 3.70:1 */
+         .arc-num, which previously set --brand directly at 3.70:1
+       --brand-deep as text on light surfaces (paper-cream/off-white/pale-
+         cobalt, 5.79–5.95:1) — used for .nav-links a:hover, .section-jump
+         a:hover and .faq-list .q:hover, which previously set --brand
+         directly at 3.70–3.93:1
+       --brand-soft as text on --ink = 6.20:1 (passes) — used for
+         .nav-bg-navy .nav-links a:hover, which previously set --brand
+         directly at 3.72:1; --brand-deep/--brand-ink are darker than
+         --brand and so read WORSE on this dark background, hence the
+         lighter --brand-soft instead (already the on-dark accent used by
+         .nav-bg-navy .nav-logo .accent) */
   --brand:         #008F92;          /* product --primary — the lead color */
   --brand-deep:    #006B6D;          /* product chart-5 — text-safe variant: idle text-on-brand + text-on-light */
   --brand-ink:     #00595B;          /* text-safe variant: hover/pressed step below --brand-deep */
