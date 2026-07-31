@@ -196,7 +196,7 @@ window.I18N = {
          with cinco clientes con nombre, ingresos y número de órdenes, una
          tabla de "Clientes nuevos vs recurrentes", otro resumen en
          negritas, y una oferta de comparar contra la semana pasada. */
-      alt: 'El asistente de Ciclo respondiendo una pregunta sobre las ventas de la semana: una tabla de estado y etapa de las órdenes, un resumen en negritas, una tabla de mejores clientes de la semana con nombre, ingresos y número de órdenes, una tabla de clientes nuevos y recurrentes, y otro resumen en negritas con una oferta de comparar contra la semana pasada.',
+      alt: 'El asistente de Ciclo abierto en el panel: un saludo a la dueña, la invitación «Pregúntame sobre las ventas, el dinero, las órdenes o lo que dicen tus clientes», cuatro preguntas sugeridas —«¿Cómo van las ventas?», «¿Quién me debe?», «Órdenes atrasadas» y «Clientes molestos»—, un campo para escribir y el aviso de que el asistente puede equivocarse.',
       caption: 'Asistente de una organización de demostración — datos de ejemplo.',
     },
 
