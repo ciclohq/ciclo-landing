@@ -6,7 +6,7 @@
 
 (() => {
   const { useState, useEffect } = React;
-  const { Logo, LangToggle, Thread } = window.UI;
+  const { Logo, LangToggle, Thread, Screenshot } = window.UI;
 
   /* ---------- Contact ----------
      Every "Agenda una demo" CTA opens WhatsApp with a prefilled message.
@@ -106,6 +106,54 @@
           <Thread messages={t.hero.thread} caption={t.hero.thread_caption} lang={lang} />
           <OrderCard o={t.hero.order} />
         </div>
+      </div>
+    </section>
+  );
+
+  /* ---------- Screens — the one real screenshot on the page ----------
+     Everywhere else in the arc, a product-shaped visual stands in for a
+     screenshot on purpose (see Board's and ZoneMap's comments: a real
+     1440×900 capture renders at ~0.40× in that ~570px media column,
+     illegible before it ships). This section exists to be the opposite of
+     that — the "here is the whole application" moment the page lost when
+     the original hand-built mocks were pulled. `.container-wide` (1440px,
+     base.css) instead of the page's usual 1200px `.container` so the image
+     gets real width: assets/screens/dashboard.webp is a 2× capture of the
+     dashboard at its own 1440-wide desktop layout (2880×1800 intrinsic),
+     so at a 1440px+ viewport this section displays it at that native 1:1
+     CSS size — full crispness on a retina screen, not a downscaled crop.
+
+     Placed directly after Hero, before SectionJump/Arc: the hero's pitch
+     is a WhatsApp thread and the order it produced; this is where that
+     order lands. `data-bg="off"` (bright white) sits between the hero's
+     `tint` and `#how`'s `cream`, so no two adjacent sections share a
+     surface. Not registered in the nav/SectionJump — both are already at
+     capacity in Spanish under ~900px (~70px of slack), and this section's
+     framing line already tells a scrolling visitor what they're looking
+     at, so a nav entry would be redundant with the copy right above it.
+
+     Real screenshot, demo data: captured from the running dashboard
+     against a synthetic org ("Lavandería Aurora"), not a customer's live
+     numbers — `t.screens.caption` says so explicitly, under the image, so
+     nothing here reads as someone's real operation. */
+
+  const Screens = ({ t }) => (
+    <section id="panel" className="section screens surface-white-bg" data-bg="off">
+      <div className="container-wide">
+        <div className="screens-head">
+          <h2 className="h2">{t.screens.h}</h2>
+          <p className="lede">{t.screens.sub}</p>
+        </div>
+        <figure className="screens-figure">
+          <Screenshot
+            className="screens-img"
+            src="assets/screens/dashboard.webp"
+            width={2880}
+            height={1800}
+            alt={t.screens.alt}
+          />
+          <figcaption className="screens-caption">{t.screens.caption}</figcaption>
+        </figure>
       </div>
     </section>
   );
@@ -743,6 +791,7 @@
         <Nav t={t} navBg={navBg} lang={lang} setLang={setLang} />
         <main>
           <Hero t={t} lang={lang} />
+          <Screens t={t} />
           <SectionJump t={t} lang={lang} />
           <Arc t={t} lang={lang} />
           <Assistant t={t} lang={lang} />
