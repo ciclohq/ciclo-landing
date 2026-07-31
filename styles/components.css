@@ -74,22 +74,6 @@
 }
 .btn-arrow:hover::after { transform: translate(2px, -2px); }
 
-/* ---------- Screen — real product screenshot, framed as evidence ---------- */
-
-.screen { margin: 0; }
-.screen img {
-  display: block; width: 100%; height: auto;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  background: var(--bright-white);
-}
-.screen-cap {
-  margin-top: 12px;
-  font: 400 13px/1.5 var(--font-body);
-  color: var(--body-muted);
-}
-
 /* ---------- sr-only — visually-hidden but screen-reader-legible ---------- */
 
 .sr-only {
@@ -109,7 +93,7 @@
    Own palette only — no WhatsApp green, no bubble tails, no device chrome.
    Type sizes are fixed px (not viewport-relative) so a single component
    reads cleanly whether it sits in a 390px mobile column or the arc's
-   ~570px desktop screenshot slot. */
+   ~570px desktop column. */
 
 .thread-frame {
   background: var(--off-white);
@@ -138,7 +122,7 @@
   padding: 10px 14px;
   border-radius: var(--radius-xl);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.45;
 }
 
@@ -168,7 +152,7 @@
 }
 .thread-divider-text {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: var(--tracking-mono);
   text-transform: uppercase;

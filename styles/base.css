@@ -8,6 +8,13 @@
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 html, body { margin: 0; padding: 0; }
 
+/* Smooth in-page scrolling for nav-anchor clicks — gated behind
+   prefers-reduced-motion so motion-sensitive visitors get an instant
+   jump instead. This is the one motion allowed on this page. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 body {
   font-family: var(--font-body);
   font-size: 16px;

@@ -1,6 +1,6 @@
 /* =============================================================
    Ciclo — Landing-specific styles
-   Section composition: Nav · Hero · Arc · Included · Audience · DemoCTA · FAQ · CTA · Footer.
+   Section composition: Nav · Hero · Arc · Assistant · Included · Personal (attendance) · Audience · DemoCTA · FAQ · CTA · Footer.
    Loaded after tokens.css → base.css → components.css.
    ============================================================= */
 
@@ -85,6 +85,58 @@
 .nav-cta .lang-toggle { display: none; }
 @media (min-width: 768px) { .nav-cta .lang-toggle { display: inline-flex; } }
 
+/* ---------- Section jump — mobile-only in-page section nav ----------
+   Below 880px, .nav-links (the header's link row, above) is `display:
+   none` with nothing standing in for it — small screens had a logo,
+   "Acceder" and the demo CTA and no way to reach any section but the next
+   one down. Deliberately NOT a JS hamburger drawer: that would add open/
+   close state, focus management and an overlay to a page that has none of
+   that machinery today, in a repo with no test framework to catch a
+   regression in it. Instead: a plain, horizontally-scrollable row of real
+   anchor links (no JS at all) that sits in normal document flow right
+   after the hero — never inside the hero itself — so it can't push the
+   hero further down the fold; it only enters the viewport once the
+   visitor scrolls to it. Deliberately NOT sticky/pinned: stacking it under
+   the already-sticky header would double the offset anchor scrolls need
+   to clear, and every section's `scroll-margin-top: 65px` (below) assumes
+   only the header is pinned — a second sticky bar would silently break
+   that math the moment both were onscreen together. A static row avoids
+   the bug outright. overflow-x is scoped to this element alone, so it can
+   scroll horizontally without ever causing the page itself to. */
+.section-jump {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  padding: 10px var(--gutter);
+  background: var(--paper-cream);
+  border-bottom: 1px solid var(--hairline);
+}
+@media (min-width: 880px) { .section-jump { display: none; } }
+.section-jump a {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 16px;
+  margin-right: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--body);
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.section-jump a:last-child { margin-right: 0; }
+.section-jump a:hover { color: var(--brand); border-color: var(--brand); }
+
+/* Anchor-scroll offset — every section the nav links to (or that
+   carries its own id) needs to clear the sticky nav, or its heading
+   lands underneath the bar. Nav row is 64px + its 1px border. */
+.section[id] { scroll-margin-top: 65px; }
+
 /* ---------- Section primitives ---------- */
 
 .section {
@@ -167,7 +219,7 @@
 
 /* ---------- Hero conversation — Thread + the order it produced ----------
    Stacked at mobile (thread first, then the card it caused), side by
-   side from 760px up — matching .audience-grid's breakpoint rather than
+   side from 760px up — matching .compare's breakpoint rather than
    the nav's unrelated 768px, so this branch doesn't add a second, close-
    but-different breakpoint for the same "tablet and up" two-column
    pattern. Both panels are left-aligned regardless of .hero-head's
@@ -213,7 +265,7 @@
 }
 .order-card-chip {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -234,7 +286,7 @@
 }
 .order-card-fields dt {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--body-muted);
@@ -264,45 +316,66 @@
 }
 .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
 
-/* ---------- Audience — dual block ---------- */
+/* ---------- Order models — two pricing units, one per category ----------
+   Two hairline-separated spec lists (the #incluye idiom: mono uppercase
+   dt, 16px dd), not cards — no border, no shadow, no stripe. No shared
+   "same order" label above them: the two columns are two different
+   illustrative orders (per-kilo vs. per-garment), not one order shown
+   twice, so the heading and sub carry the framing instead. Single column
+   and full-width at mobile so a phone reads one model's four rows, then
+   the other's, without a side-by-side squeeze; a vertical hairline
+   divides the pair from 760px up, matching the breakpoint the old two-up
+   block used. */
 
-.audience-grid {
-  display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px;
+.compare {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--hairline-soft);
 }
-@media (min-width: 760px) { .audience-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
-.audience-card {
-  position: relative;
-  padding: 32px;
-  background: var(--bright-white);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(11, 14, 20, 0.04), 0 10px 24px -18px rgba(11, 14, 20, 0.12);
-  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+@media (min-width: 760px) {
+  .compare { grid-template-columns: 1fr 1fr; column-gap: 56px; }
 }
-.audience-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--brand), rgba(0, 143, 146, 0.12));
+.compare-model {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--hairline-soft);
 }
-.audience-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 4px rgba(11, 14, 20, 0.04), 0 20px 40px -20px rgba(0, 107, 109, 0.24);
+.compare-model:last-child { border-bottom: 0; }
+@media (min-width: 760px) {
+  .compare-model { border-bottom: 0; padding: 40px 0; }
+  .compare-model:first-child { border-right: 1px solid var(--hairline-soft); padding-right: 56px; }
+  .compare-model:last-child { padding-left: 56px; }
 }
-.audience-name {
+.compare-model-name {
   font-family: var(--font-display); font-weight: 500;
-  font-size: 26px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 12px;
+  font-size: 24px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin: 0;
 }
-.audience-text { font-size: 16px; line-height: 1.55; color: var(--body); margin: 0; max-width: 42ch; }
-.audience-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.audience-chip {
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+.compare-rows { margin: 20px 0 0; }
+.compare-row {
+  display: grid; grid-template-columns: 1fr; gap: 4px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.compare-row:first-child { border-top: 0; }
+.compare-row dt {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brand-deep);
-  background: var(--brand-tint);
-  border: 1px solid rgba(0, 143, 146, 0.16);
-  border-radius: 999px;
-  padding: 5px 11px;
+  color: var(--body-muted);
+  margin: 0;
+}
+.compare-row dd {
+  font-size: 16px; line-height: 1.5; color: var(--body); margin: 2px 0 0;
+}
+.compare-row--total dd {
+  font-size: 22px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.compare-note {
+  margin: 40px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline-soft);
+  max-width: 56ch;
+  font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
 
 /* ---------- Arc — the four-part narrative (recibe → opera → entrega → retiene) ----------
@@ -355,7 +428,7 @@
   margin: 28px 0 0; padding: 0; list-style: none;
 }
 .arc-feats li {
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--brand-deep);
   background: var(--brand-tint);
@@ -365,6 +438,192 @@
 }
 
 .arc-screen { min-width: 0; }
+
+/* ---------- Retention panel — arc part 04's visual ----------
+   Two stacked panels in the order-card idiom: bright-white surface,
+   hairline border, shadow-md, mono uppercase dt / 16px dd, a chip for
+   status. No new colors — the chip reuses the same --chip-route and
+   --chip-done tokens order-card-chip and the roster below it already use. */
+
+.retain-panel { display: flex; flex-direction: column; gap: 16px; }
+.retain-card {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.retain-card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.retain-card-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.retain-card-chip {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--chip-route-f); background: var(--chip-route-b);
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+.retain-card-chip--done { color: var(--chip-done-f); background: var(--chip-done-b); }
+.retain-stamps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.retain-stamp {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--hairline);
+}
+.retain-stamp.is-filled { background: var(--brand); border-color: var(--brand); }
+.retain-card-note {
+  margin: 16px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 16px; line-height: 1.5; color: var(--body-muted);
+}
+.retain-fields { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0 0; }
+.retain-fields dt {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted); margin: 0;
+}
+.retain-fields dd { font-size: 16px; font-weight: 500; color: var(--ink); margin: 4px 0 0; }
+@media (min-width: 460px) {
+  .retain-fields { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Board panel — arc part 02's visual ----------
+   A single card in the order-card idiom (bright-white surface, hairline
+   border, shadow-md), hairline-separated order rows inside instead of a
+   card grid. No new colors — every chip below reuses an existing
+   --chip-* pair (see BoardPanel's comment in landing.jsx for exactly
+   which one maps to which stage, and why). */
+
+.board-panel {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.board-panel-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.board-panel-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.board-panel-count {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--body-muted); white-space: nowrap;
+}
+.board-rows { margin-top: 4px; }
+.board-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.board-row:first-child { border-top: 0; }
+.board-row-id {
+  min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.board-row-folio {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: var(--tracking-mono);
+  color: var(--body-muted);
+}
+.board-row-customer {
+  font-size: 16px; font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.board-chip {
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+/* pickup = product's slate dot, processing = blue, delivery = emerald,
+   unconfirmed = the "Por confirmar" pill's warning/orange — matched to
+   apps/web's order-status-pill.tsx by color family, since the landing
+   token set has no slate or emerald swatch of its own. */
+.board-chip--pickup      { color: var(--chip-new-f);  background: var(--chip-new-b); }
+.board-chip--processing  { color: var(--chip-pick-f); background: var(--chip-pick-b); }
+.board-chip--delivery    { color: var(--chip-done-f); background: var(--chip-done-b); }
+.board-chip--unconfirmed { color: var(--chip-proc-f); background: var(--chip-proc-b); }
+
+/* ---------- Fee-rules panel — arc part 03's visual ----------
+   Same card shell as the board panel; rules render as a hairline-
+   separated ordered list (priority · condition · charge) rather than a
+   table, so it reads the same at 390px and at the arc's ~570px column.
+   The chip reuses --chip-new (muted/default) — "por prioridad" is a
+   description of the list, not a status, so it gets the neutral token. */
+
+.fee-panel {
+  min-width: 0;
+  background: var(--bright-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.fee-panel-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.fee-panel-label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.fee-panel-chip {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--chip-new-f); background: var(--chip-new-b);
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+.fee-rules { margin-top: 4px; }
+.fee-rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline-soft);
+}
+.fee-rule:first-child { border-top: 0; }
+.fee-rule-cond {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.fee-rule-priority {
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--brand);
+}
+.fee-rule-condition {
+  min-width: 0;
+  font-size: 16px; line-height: 1.5; color: var(--body);
+}
+.fee-rule-charge {
+  flex-shrink: 0;
+  font-size: 16px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fee-panel-note {
+  margin: 16px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 16px; line-height: 1.5; color: var(--body-muted);
+}
 
 /* ---------- Assistant — third Thread appearance, centered "moment" ----------
    A single centered block (heading + framing sentence + Thread), the same
@@ -382,9 +641,13 @@
 .assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
 
 /* ---------- Included — spec table (dl, not a card grid) ----------
-   Two columns at desktop (label / value), stacked at mobile. The `dt` is
-   the only surviving uppercase mono label on the page — kept small and
-   muted so it reads as a spec-sheet field name, not a heading. */
+   Two columns at desktop (label / stacked capability list), stacked at
+   mobile. The `dt` is the only surviving uppercase mono label on the
+   page — kept small and muted so it reads as a spec-sheet field name,
+   not a heading. Each group's `dd` holds a `spec-items` list — one
+   capability per line, hairline-separated — instead of a middot-joined
+   string, so a phone user can scan a single capability at a time rather
+   than parse a run-on paragraph. */
 
 .spec {
   margin: 48px 0 0;
@@ -394,8 +657,8 @@
 .spec-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6px;
-  padding: 22px 0;
+  gap: 4px;
+  padding: 20px 0;
   border-bottom: 1px solid var(--hairline-soft);
 }
 .spec-row dt,
@@ -403,21 +666,78 @@
   margin: 0;
 }
 .spec-row dt {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--body-muted);
   font-weight: 500;
+  padding-bottom: 4px;
 }
-.spec-row dd {
-  font-size: 15.5px; line-height: 1.6;
+.spec-items {
+  display: flex;
+  flex-direction: column;
+}
+.spec-items li {
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--body);
+  padding: 11px 0;
+  border-top: 1px solid var(--hairline-soft);
 }
+.spec-items li:first-child { border-top: 0; }
 @media (min-width: 640px) {
   .spec-row {
     grid-template-columns: 180px 1fr;
     gap: 24px;
-    align-items: baseline;
+    align-items: start;
   }
+  .spec-row dt { padding-top: 2px; }
+}
+
+/* ---------- Roster — attendance's daily-summary rows ----------
+   Three hairline-separated rows (name + branch/schedule, actual times, a
+   status chip), the same idiom as .spec — no cards. Stacked at mobile
+   (name/meta, then times, then the flag on its own line) so nothing
+   truncates at 390px; a three-column row from 640px up. Flag colors reuse
+   the existing status-chip tokens (done/proc/new) — no new colors, and
+   'new' (muted gray) stands in for "absent" since there's no error/red
+   chip token in styles/tokens.css. */
+
+.roster { margin-top: 32px; border-top: 1px solid var(--hairline-soft); }
+.roster-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--hairline-soft);
+  align-items: center;
+}
+.roster-who { display: flex; flex-direction: column; gap: 3px; }
+.roster-name { font-size: 16px; font-weight: 500; color: var(--ink); }
+.roster-meta {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--body-muted);
+}
+.roster-times { font-size: 16px; line-height: 1.5; color: var(--body); }
+.roster-flag {
+  justify-self: start;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+  color: var(--chip-new-f); background: var(--chip-new-b);
+}
+.roster-flag--done { color: var(--chip-done-f); background: var(--chip-done-b); }
+.roster-flag--proc { color: var(--chip-proc-f); background: var(--chip-proc-b); }
+@media (min-width: 640px) {
+  .roster-row {
+    grid-template-columns: 1.3fr 1.3fr auto;
+    gap: 20px;
+  }
+  .roster-flag { justify-self: end; }
+}
+.roster-note {
+  margin: 24px 0 0;
+  max-width: 60ch;
+  font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
 
 /* ---------- Demo / pricing CTA ---------- */
@@ -448,8 +768,38 @@
 .demo-points li::before { content: '✓'; color: var(--brand); font-weight: 600; font-size: 13px; }
 .demo-note {
   margin: 14px 0 0; text-align: center;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--body-muted);
+}
+
+/* ---------- Price block — the one price signal on the page ----------
+   `price-unit` sits directly beside the number at near-equal weight (ink,
+   not body-muted; 16px, the body floor) rather than as a small caption
+   underneath — the per-branch unit has to survive a skim, not just a
+   close read, since the page sells multi-branch as a feature elsewhere
+   and a bare "$499 al mes" would misread as one price for the whole
+   operation. `price-eyebrow` frames it as a starting figure, consistent
+   with the section's "cuéntanos cuántas órdenes manejas" invitation
+   right below. */
+
+.price-block { margin: 20px 0 0; }
+.price-eyebrow {
+  margin: 0;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--body-muted);
+}
+.price-tag {
+  margin: 8px 0 0;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+}
+.price-amount {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.price-unit {
+  font-family: var(--font-body); font-weight: 600;
+  font-size: 16px; color: var(--brand-deep);
 }
 
 /* ---------- FAQ — accordion ---------- */
@@ -495,7 +845,7 @@
   padding: 0 0 22px;
   margin: 0;
   max-width: 64ch;
-  color: var(--body); font-size: 15px; line-height: 1.6;
+  color: var(--body); font-size: 16px; line-height: 1.6;
   animation: faq-fade 240ms var(--ease-out);
 }
 @keyframes faq-fade {
@@ -543,7 +893,7 @@
 }
 @media (min-width: 760px) { .footer-links { grid-template-columns: repeat(4, 1fr); } }
 .footer-col h3 {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
   margin: 0 0 14px;
@@ -560,7 +910,7 @@
   margin-top: 44px; padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.10em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
 }
@@ -604,6 +954,83 @@
   text-transform: uppercase;
   color: var(--ink);
 }
+/* ---------- Mobile rhythm — tightened vertical spacing below 768px ----------
+   Section padding, panel padding and inter-block margins on this page were
+   all tuned reading comfortably at desktop widths; at 390px those same
+   clamp() floors compound across nine stacked sections into hundreds of
+   pixels nothing is using. Nothing here removes content — every row,
+   panel and list item that existed above 768px still exists here, just
+   closer together, which is also the stated design direction ("refined
+   and dense, not decorated"). Scoped to max-width:767px so nothing above
+   the nav's own breakpoint changes.
+
+   `--section-y` is a custom property, not a class — redeclaring it on
+   :root inside this query overrides the clamp() in tokens.css for every
+   .section on the page (landing.css loads after tokens.css, so this wins
+   at matching widths) without editing that shared token file. */
+@media (max-width: 767px) {
+  :root { --section-y: 40px; }
+
+  .lede { margin-top: 16px; }
+
+  /* Hero — six thread messages plus an order card is the tallest single
+     block on the page; its content can't shrink (the thread text is a
+     literal template transcript), so only whitespace comes out. */
+  .hero { padding-top: 28px; padding-bottom: 24px; }
+  .hero-convo { margin-top: 20px; gap: 16px; }
+  .hero-actions { margin-top: 20px; }
+  .hero-trust { margin-top: 14px; }
+  .hero-convo .thread { gap: 9px; }
+  .hero-convo .thread-frame { padding: 12px; }
+  .hero-convo .thread-bubble { padding: 7px 12px; }
+  .order-card { gap: 12px; padding: 14px; }
+  .order-card-head { padding-bottom: 12px; }
+  .order-card-fields { gap: 10px; }
+  .order-card-note { padding-top: 10px; }
+
+  /* Arc — same-background seam with the hero above it (both cream); the
+     four parts' own internal padding is the other lever. */
+  .arc-part { padding: 24px 0; gap: 20px; }
+  .arc-feats { margin-top: 18px; }
+
+  .assistant-thread { margin-top: 18px; }
+
+  /* #incluye and #personal share the same off-white surface with no
+     color change between them — the seam doesn't need two full
+     section-y's worth of empty space to read as a break. */
+  #incluye.section { padding-bottom: 24px; }
+  #personal.section { padding-top: 24px; }
+
+  .spec { margin-top: 24px; }
+  .spec-row { padding: 12px 0; }
+  .spec-items li { padding: 7px 0; }
+
+  .roster { margin-top: 18px; }
+  .roster-row { padding: 10px 0; }
+  .roster-note { margin-top: 14px; }
+
+  .compare { margin-top: 12px; }
+  .compare-model { padding: 20px 0; }
+  .compare-note { margin-top: 22px; padding-top: 18px; }
+
+  .demo-block { margin-top: 24px; padding: 20px; }
+  .price-block { margin-top: 16px; }
+  .demo-points { margin-top: 16px; }
+  .demo-points li { padding: 8px 0; }
+
+  .faq-row { margin-top: 24px; gap: 18px; }
+  .faq-list .q { padding: 13px 0; }
+  .faq-list .a { padding-bottom: 14px; }
+
+  .cta-block { padding: 56px 0 40px; }
+  .cta-block .actions { margin-top: 20px; }
+
+  .footer { padding-top: 40px; }
+  .footer-tag { margin-bottom: 22px; }
+  .footer-links { gap: 18px; }
+  .footer-base { margin-top: 28px; padding-top: 12px; }
+}
+
 /* ---------- Scroll reveal — JS adds .reveal-ready on <html>, .is-in per element ----------
    Animation (not transition) on reveal so card hover transitions stay untouched;
    `backwards` fill so styles return to natural values once the rise completes. */
