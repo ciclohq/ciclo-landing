@@ -278,18 +278,6 @@
   letter-spacing: var(--tracking-mono);
   color: var(--body-muted);
 }
-.order-card-chip {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--chip-pick-f);
-  background: var(--chip-pick-b);
-  border-radius: 999px;
-  padding: 5px 12px;
-  white-space: nowrap;
-}
 .order-card-fields {
   display: grid;
   grid-template-columns: 1fr;
@@ -299,11 +287,16 @@
 @media (min-width: 460px) {
   .order-card-fields { grid-template-columns: 1fr 1fr; }
 }
+/* Sentence case, body font, size-differentiated from the value beneath it
+   — not the page's uppercase-mono micro-label (task: micro-label
+   monopoly). The `dd` already carries the visual weight; the `dt` only
+   needs to read smaller and quieter, which font-size + color do without
+   forcing every field name into the same caps treatment as a dozen
+   unrelated labels elsewhere on the page. */
 .order-card-fields dt {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
   color: var(--body-muted);
   margin: 0;
 }
@@ -400,9 +393,10 @@
   border-top: 1px solid var(--hairline-soft);
 }
 .compare-row:first-child { border-top: 0; }
+/* Sentence case, body font — see order-card-fields dt's comment (task:
+   micro-label monopoly). */
 .compare-row dt {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
   color: var(--body-muted);
   margin: 0;
 }
@@ -472,17 +466,65 @@
   display: flex; flex-wrap: wrap; gap: 8px;
   margin: 28px 0 0; padding: 0; list-style: none;
 }
+/* Sentence case, body font — the pill shape still marks these as small
+   tags, but the type inside them no longer speaks in the page's
+   uppercase-mono voice (task: micro-label monopoly — this was one of the
+   two highest-volume offenders, 19 li across the arc and #personal). */
 .arc-feats li {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-body); font-size: 13.5px; font-weight: 500;
   color: var(--brand-deep);
   background: var(--brand-tint);
   border: 1px solid rgba(0, 143, 146, 0.16);
   border-radius: 999px;
-  padding: 6px 12px;
+  padding: 6px 14px;
 }
 
 .arc-screen { min-width: 0; }
+
+/* ---------- Driver route — the page's one portrait image ----------
+   assets/screens/driver-route.webp is 1170×2532 — every other image on
+   the page is landscape (2880×1800). The whole point of this section is
+   that silhouette contrast, so the image is never stretched to fill a
+   wide column: `.driver-media img` is width-capped and lets its own
+   aspect ratio set the height, sitting in a narrower column than the text
+   beside it (text 1.15fr, media 0.85fr) rather than an even split — a
+   portrait image doesn't want as much horizontal room as a landscape one
+   does. Stacked text-then-image at mobile, matching the rest of the
+   page's stacking order (Arc, #personal). */
+
+.driver-row {
+  margin-top: clamp(28px, 4vw, 40px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .driver-row { grid-template-columns: 1.15fr 0.85fr; gap: 40px; }
+}
+.driver-media {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.driver-media img {
+  width: 100%;
+  max-width: clamp(220px, 42vw, 300px);
+  height: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+  background: var(--off-white);
+}
+.driver-caption {
+  margin: 10px 0 0;
+  max-width: 300px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--body-muted);
+}
 
 /* ---------- Shared arc-media chrome ----------
    The one surviving shell for a bordered, shadowed white card — used now
@@ -532,6 +574,13 @@
 .chip--route { color: var(--chip-route-f); background: var(--chip-route-b); }
 .chip--done  { color: var(--chip-done-f);  background: var(--chip-done-b); }
 .chip--proc  { color: var(--chip-proc-f);  background: var(--chip-proc-b); }
+/* .chip--pick — the hero OrderCard's "Por confirmar" stage chip. Previously
+   its own bespoke `.order-card-chip` rule, byte-identical to `.chip` plus
+   the info-blue token pair; folded into the shared `.chip` family instead
+   (task: micro-label monopoly — one sanctioned chip component, not two
+   near-duplicates) using the same `--chip-pick-*` tokens Board's lane
+   accents already reference. */
+.chip--pick  { color: var(--chip-pick-f);  background: var(--chip-pick-b); }
 
 /* ---------- Board — arc part 02's visual (geometry: columns) ----------
    Parallel stage-lane columns, not a card of hairline rows: the board's
@@ -616,9 +665,12 @@
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   margin-bottom: 10px;
 }
+/* Sentence case, body font, bolder weight — reads as a small column
+   header rather than the page's uppercase-mono micro-label (task:
+   micro-label monopoly). */
 .board-lane-name {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--ink);
+  font-family: var(--font-body); font-size: 13.5px; font-weight: 600;
+  color: var(--ink);
 }
 .board-lane-count {
   display: inline-flex; align-items: center; justify-content: center;
@@ -666,11 +718,13 @@
   stroke-linejoin: round;
 }
 .zonemap-branch { fill: var(--brand); stroke: var(--bright-white); stroke-width: 2; }
+/* Sentence case, body font — small caption weight, not the page's
+   uppercase-mono micro-label (task: micro-label monopoly). */
 .zonemap-caption {
   margin: 10px 0 0;
   text-align: center;
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--body-muted);
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  color: var(--body-muted);
 }
 
 .zonemap-ladder {
@@ -768,9 +822,41 @@
 
 .assistant-head { text-align: center; max-width: 640px; margin: 0 auto; }
 .assistant-head .lede { margin-left: auto; margin-right: auto; }
-.assistant-thread { max-width: 640px; margin: clamp(32px, 5vw, 48px) auto 0; text-align: left; }
+
+/* Thread + the reports screenshot it answers from — two columns at 900px+
+   (wide enough for the report to stay legible without squeezing the
+   thread), stacked thread-then-report at mobile. `.assistant-thread`
+   drops its own centering/max-width here; `.assistant-body` owns the
+   shared width instead. */
+.assistant-body {
+  margin: clamp(32px, 5vw, 48px) auto 0;
+  max-width: 1040px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .assistant-body { grid-template-columns: 0.95fr 1.05fr; gap: 40px; }
+}
+.assistant-thread { text-align: left; }
 .assistant-thread .thread-msg--ciclo .thread-bubble { max-width: 92%; }
 .assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
+
+.assistant-report { min-width: 0; margin: 0; }
+.assistant-report img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline-on-dark);
+  box-shadow: var(--shadow-lg);
+  background: rgba(255, 255, 255, 0.04);
+}
+.assistant-report-caption {
+  margin: 10px 2px 0;
+  font-size: 13px;
+  color: var(--body-on-dark-muted);
+}
 
 /* ---------- Assistant — dark-ground overrides, scoped to #asistente only ----------
    The page's one inverted band. Every value below is an existing on-dark
@@ -802,76 +888,104 @@
   color: var(--body-on-dark);
 }
 
-/* ---------- Included — spec table (dl, not a card grid) ----------
-   Two columns at desktop (label / stacked capability list), stacked at
-   mobile. The `dt` is the only surviving uppercase mono label on the
-   page — kept small and muted so it reads as a spec-sheet field name,
-   not a heading. Each group's `dd` holds a `spec-items` list — one
-   capability per line, hairline-separated — instead of a middot-joined
-   string, so a phone user can scan a single capability at a time rather
-   than parse a run-on paragraph. */
+/* ---------- Included — a multi-column index (was a single-column dl) ----------
+   24 hairline rows in one ~1792px column (task: back-half variety,
+   measured) — nearly two phone screens of the identical row shape
+   repeated. Same 6 groups, same density, laid out as a grid instead of a
+   stack: 1 column at mobile, 2 at 640px+, 3 at 980px+, so the section
+   reads as a squarish reference index rather than a long scroll. Each
+   group is a real `<h3>` (landing.jsx) at body-text size/weight, not the
+   page's uppercase-mono micro-label — see .spec-group-name below (task:
+   micro-label monopoly). A plain hairline above each group is the only
+   chrome; still no cards. */
 
-.spec {
-  margin: 48px 0 0;
-  padding: 0;
-  border-top: 1px solid var(--hairline-soft);
-}
-.spec-row {
+.spec-grid {
+  margin: 40px 0 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--hairline-soft);
+  gap: 32px 48px;
 }
-.spec-row dt,
-.spec-row dd {
-  margin: 0;
+@media (min-width: 640px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .spec-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.spec-group {
+  padding-top: 18px;
+  border-top: 2px solid var(--hairline);
 }
-.spec-row dt {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--body-muted);
-  font-weight: 500;
-  padding-bottom: 4px;
+/* Sentence case, bold body type at real heading weight — the group name
+   IS the grouping now that groups sit side by side, so it needs to read
+   as a heading, not a field-name caption (task: micro-label monopoly). */
+.spec-group-name {
+  margin: 0 0 10px;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 16px; letter-spacing: -0.01em;
+  color: var(--ink);
 }
 .spec-items {
   display: flex;
   flex-direction: column;
 }
 .spec-items li {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--body);
-  padding: 11px 0;
+  padding: 9px 0;
   border-top: 1px solid var(--hairline-soft);
 }
 .spec-items li:first-child { border-top: 0; }
-@media (min-width: 640px) {
-  .spec-row {
-    grid-template-columns: 180px 1fr;
-    gap: 24px;
-    align-items: start;
-  }
-  .spec-row dt { padding-top: 2px; }
-}
 
-/* ---------- Personal (#personal) — demoted from a fabricated roster ----------
+/* ---------- Personal (#personal) — demoted, and now image-led ----------
    Was three hairline rows naming invented employees (Marisol G./Iván R./
-   Paola T.) under a full .h2 — the same visual weight as the delivery
-   engine, for the least differentiating feature on the page. Now a .h3
-   heading + .lede sentence + the arc's own .arc-feats pill list (reused
-   as-is, not redeclared) for the three capability facts, plus this one
-   note carried over unchanged (it was already accurate, not part of what
-   was fabricated — see daily-summary.ts). No roster, no cards, no
-   invented names. */
+   Paola T.) under a full .h2, then three .arc-feats pills asserting PIN
+   clock-in / adjustable tolerance / a daily summary. assets/screens/
+   attendance.webp shows all three of those claims directly (PIN keypad +
+   live clock, each employee's schedule, each employee's En turno/Tarde/
+   Falta state), so the pills are cut — the image carries the claim
+   (task). Text stays a .h3 heading + .lede sentence + the literal
+   late/absent note (unchanged, see daily-summary.ts), beside the image at
+   760px+ (matching .hero-convo/.compare's breakpoint), stacked
+   text-then-image at mobile. No roster, no cards, no invented names. */
 
+.personal-row {
+  margin-top: clamp(28px, 4vw, 40px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .personal-row { grid-template-columns: 1fr 1.05fr; gap: 40px; }
+}
+.personal-media { min-width: 0; margin: 0; }
+.personal-media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
+  background: var(--off-white);
+}
+.personal-caption {
+  margin: 10px 2px 0;
+  font-size: 13px;
+  color: var(--body-muted);
+}
 .personal-note {
   margin: 20px 0 0;
   max-width: 60ch;
   font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
 
-/* ---------- Demo / pricing CTA ---------- */
+/* ---------- Demo / pricing CTA — price-led, not checklist-led ----------
+   The money moment used to look exactly like every other section below
+   the arc: an .h2 headline first, the price a small line beneath it, a
+   three-row ✓-checklist (task: back-half variety, measured — this
+   section alone was 914px). Reordered so `.price-kicker` → `.price-tag`
+   comes FIRST in `.demo-block-text`, ahead of the headline, and
+   `.price-amount` (below) is now sized bigger than `.demo-h`, not
+   smaller — the number is the headline. The checklist is gone;
+   `.demo-points-prose` is one flowing paragraph instead (i18n:
+   `demo.points_prose`, replacing the old `demo.points` array). */
 
 .demo-block {
   margin-top: 48px;
@@ -887,50 +1001,40 @@
   align-items: center;
 }
 @media (min-width: 880px) { .demo-block { grid-template-columns: 1.4fr 1fr; gap: 56px; } }
-.demo-points {
-  margin: 28px 0 0; padding: 0; list-style: none;
-  border-top: 1px solid var(--hairline);
-}
-.demo-points li {
-  padding: 12px 0; border-bottom: 1px solid var(--hairline);
-  font-size: 15px; color: var(--body);
-  display: flex; align-items: baseline; gap: 10px;
-}
-.demo-points li::before { content: '✓'; color: var(--brand); font-weight: 600; font-size: 13px; }
-.demo-note {
-  margin: 14px 0 0; text-align: center;
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--body-muted);
-}
 
-/* ---------- Price block — the one price signal on the page ----------
-   `price-unit` sits directly beside the number at near-equal weight (ink,
-   not body-muted; 16px, the body floor) rather than as a small caption
-   underneath — the per-branch unit has to survive a skim, not just a
-   close read, since the page sells multi-branch as a feature elsewhere
-   and a bare "$499 al mes" would misread as one price for the whole
-   operation. `price-eyebrow` frames it as a starting figure, consistent
-   with the section's "cuéntanos cuántas órdenes manejas" invitation
-   right below. */
-
-.price-block { margin: 20px 0 0; }
-.price-eyebrow {
+/* Sentence case, body font, small — a plain lead-in caption, not the
+   page's uppercase-mono micro-label (task: micro-label monopoly). */
+.price-kicker {
   margin: 0;
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--body-muted);
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  color: var(--body-muted);
 }
 .price-tag {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
 }
+/* The dominant figure on the page's money moment — bigger than the .h3
+   headline beneath it (was the reverse: a 30–42px price under an .h2). */
 .price-amount {
-  font-family: var(--font-display); font-weight: 600;
-  font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.02em;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(46px, 7vw, 76px); letter-spacing: -0.03em;
   color: var(--ink);
 }
 .price-unit {
   font-family: var(--font-body); font-weight: 600;
-  font-size: 16px; color: var(--brand-deep);
+  font-size: 17px; color: var(--brand-deep);
+}
+.demo-h { margin-top: 22px; }
+.demo-points-prose {
+  margin: 20px 0 0;
+  max-width: 48ch;
+  font-size: 16px; line-height: 1.6; color: var(--body);
+}
+/* Sentence case, body font — see .price-kicker's comment. */
+.demo-note {
+  margin: 14px 0 0; text-align: center;
+  font-family: var(--font-body); font-size: 13px;
+  color: var(--body-muted);
 }
 
 /* ---------- FAQ — accordion ---------- */
@@ -1023,12 +1127,14 @@
   gap: 28px;
 }
 @media (min-width: 760px) { .footer-links { grid-template-columns: repeat(4, 1fr); } }
+/* Sentence case, body font, bold — a small column header, not the page's
+   uppercase-mono micro-label (task: micro-label monopoly). Color/opacity
+   unchanged from before, so its contrast against --ink is unaffected. */
 .footer-col h3 {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-body); font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   margin: 0 0 14px;
-  font-weight: 500;
+  font-weight: 700;
 }
 .footer-col a {
   display: block; padding: 4px 0;
@@ -1037,12 +1143,14 @@
   text-decoration: none;
 }
 .footer-col a:hover { color: #6FD3CE; }
+/* Sentence case, body font — see .footer-col h3's comment. i18n content
+   (footer.base_left/base_right) changed from forced ALL CAPS strings to
+   real sentence case to match. */
 .footer-base {
   margin-top: 44px; padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.10em;
-  text-transform: uppercase;
+  font-family: var(--font-body); font-size: 13px;
   color: rgba(255, 255, 255, 0.55);
 }
 
@@ -1134,17 +1242,21 @@
   .stampcard-dots { margin-top: 16px; }
   .stampcard-membership { margin-top: 14px; padding-top: 14px; }
 
-  .assistant-thread { margin-top: 18px; }
+  /* Driver route — the portrait image already caps its own width
+     (.driver-media img, landing.css), so only the row's own gap needs
+     tightening here. */
+  .driver-row { margin-top: 20px; gap: 20px; }
+
+  .assistant-body { margin-top: 18px; gap: 24px; }
 
   /* #incluye and #personal no longer share a surface (task: page rhythm —
      incluye is .surface-white-bg/off, personal is .surface-tint-bg/tint),
      so the old same-surface seam shortcut that used to live here is gone;
      #personal's own .section--tight (landing.css, near .section) already
      handles its compact padding at every width, mobile included. */
-  #personal .arc-feats { margin-top: 20px; }
+  .personal-row { margin-top: 20px; gap: 20px; }
 
-  .spec { margin-top: 24px; }
-  .spec-row { padding: 12px 0; }
+  .spec-grid { margin-top: 24px; gap: 24px; }
   .spec-items li { padding: 7px 0; }
 
   .compare { margin-top: 12px; }
@@ -1152,9 +1264,9 @@
   .compare-note { margin-top: 22px; padding-top: 18px; }
 
   .demo-block { margin-top: 24px; padding: 20px; }
-  .price-block { margin-top: 16px; }
-  .demo-points { margin-top: 16px; }
-  .demo-points li { padding: 8px 0; }
+  .price-tag { margin-top: 4px; }
+  .demo-h { margin-top: 16px; }
+  .demo-points-prose { margin-top: 16px; }
 
   .faq-row { margin-top: 24px; gap: 18px; }
   .faq-list .q { padding: 13px 0; }

@@ -203,6 +203,25 @@ window.I18N = {
         { from: 'customer', text: '¿Cómo van las ventas esta semana?' },
         { from: 'ciclo', text: 'Esta semana llevas $18,430 en 61 pedidos (ticket promedio $302).\n14% más que la semana pasada ($16,180).\nLavado por kilo sigue siendo tu categoría con más ingresos, y tuviste 9 clientes nuevos.' },
       ],
+      /* The reports screenshot beside the thread — same "your own numbers"
+         claim, from the screen the assistant's answer is pulled from.
+         Describes only what the capture shows: revenue/VAT/discounts/order
+         count/avg ticket/cancellation-rate tiles, a daily-revenue chart and
+         an orders-by-stage breakdown. */
+      report_alt: 'Pantalla de reportes de Ciclo: ingresos, IVA, descuentos, número de órdenes, ticket promedio y tasa de cancelación del periodo, con una gráfica de ingresos por día y la distribución de órdenes por etapa.',
+      report_caption: 'Reportes de una organización de demostración — datos de ejemplo.',
+    },
+
+    /* --- Driver route — the portrait screenshot's own moment, right after
+       the arc. Copy describes only what the capture shows (see landing.jsx's
+       DriverApp comment): 8 numbered stops, done vs. pending color, pickup
+       vs. delivery icons, a next-stop card. No tracking-link claim here —
+       that's the arc's own #incluye row, and the capture doesn't show it. */
+    driver: {
+      h: 'Cada repartidor trae su ruta en el bolsillo.',
+      sub: 'Paradas numeradas en el mapa, recolecciones y entregas diferenciadas, y el avance del día a la mano.',
+      alt: 'Ruta de un repartidor en el mapa: paradas numeradas del 1 al 8, en verde las completadas y en azul o morado las pendientes, con íconos distintos para recolección y entrega, y una tarjeta que muestra la próxima recolección con el avance 4 de 8.',
+      caption: 'Ruta de un repartidor en una organización de demostración — datos de ejemplo.',
     },
 
     /* --- Included — the spec table; attendance lives here because it sits
@@ -237,12 +256,9 @@ window.I18N = {
     attendance: {
       h: 'Entradas y salidas, sucursal por sucursal.',
       sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
-      facts: [
-        'PIN de 4 dígitos, en cualquier sucursal',
-        'Tolerancia ajustable, 15 min por defecto',
-        'Resumen diario: tardanzas y faltas',
-      ],
       note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si no tiene ninguna marca en el día.',
+      alt: 'Pantalla de asistencia: un teclado numérico con PIN de 4 dígitos y el reloj en vivo a la izquierda; a la derecha, el equipo de la sucursal con su horario 07:00–16:00 y su estado del día (en turno, tarde o falta).',
+      caption: 'Asistencia de una organización de demostración — datos de ejemplo, no una operación real.',
     },
 
     /* --- Order models — two pricing units, one per category. Verified
@@ -301,11 +317,7 @@ window.I18N = {
       price: '$499 MXN',
       price_unit: 'por sucursal, al mes',
       sub: 'Cuéntanos cuántas órdenes manejas y armamos un plan. Sin instalación y sin contratos largos.',
-      points: [
-        'WhatsApp, tablero, domicilio, membresías y reportes incluidos',
-        'Configuramos tus zonas y tarifas contigo',
-        'Onboarding y soporte en español',
-      ],
+      points_prose: 'Incluye WhatsApp, tablero, domicilio, membresías y reportes — sin módulos aparte. Configuramos tus zonas y tarifas contigo, con onboarding y soporte en español.',
       cta: 'Agenda una demo',
       note: 'Demo de 20 minutos · sin compromiso',
     },
@@ -373,8 +385,8 @@ window.I18N = {
           ],
         },
       ],
-      base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
-      base_right: 'OPERANDO EN MÉXICO',
+      base_left:  '© 2026 Ciclo Laundry OS, S.A.P.I. de C.V.',
+      base_right: 'Operando en México',
     },
   },
 
@@ -507,6 +519,15 @@ window.I18N = {
         { from: 'customer', text: 'How are sales doing this week?' },
         { from: 'ciclo', text: 'This week you’re at $18,430 across 61 orders (avg ticket $302).\nUp 14% from last week ($16,180).\nWash-by-the-kilo is still your top category, and you had 9 new customers.' },
       ],
+      report_alt: 'Ciclo’s reports screen: revenue, VAT, discounts, order count, average ticket and cancellation rate for the period, with a daily revenue chart and orders broken down by stage.',
+      report_caption: 'Reports for a demo organization — sample data.',
+    },
+
+    driver: {
+      h: 'Every driver carries their route in their pocket.',
+      sub: 'Numbered stops on the map, pickups and deliveries told apart, and the day’s progress at a glance.',
+      alt: 'A driver’s route on the map: stops numbered 1 through 8, completed ones in green and pending ones in blue or purple, with different icons for pickup and delivery, and a card showing the next pickup with progress 4 of 8.',
+      caption: 'A driver’s route for a demo organization — sample data.',
     },
 
     included: {
@@ -525,12 +546,9 @@ window.I18N = {
     attendance: {
       h: 'Clock-ins and clock-outs, branch by branch.',
       sub: 'Your team clocks in and out with a 4-digit PIN at each branch. You see everyone’s schedule and a daily summary.',
-      facts: [
-        '4-digit PIN, valid at any branch',
-        '15-minute grace period, adjustable per day',
-        'Daily summary: late arrivals and absences',
-      ],
       note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they have no punches at all that day.',
+      alt: 'Attendance screen: a 4-digit PIN keypad and the live clock on the left; on the right, the branch’s team with their 07:00–16:00 schedule and today’s status (clocked in, late, or absent).',
+      caption: 'Attendance for a demo organization — sample data, not a real operation.',
     },
 
     audience: {
@@ -567,11 +585,7 @@ window.I18N = {
       price: '$499 MXN',
       price_unit: 'per branch, per month',
       sub: 'Tell us how many orders you handle and we’ll build a plan. No install, no long contracts.',
-      points: [
-        'WhatsApp, board, delivery, memberships and reports included',
-        'We set up your zones and fees with you',
-        'Onboarding and support in Spanish',
-      ],
+      points_prose: 'Includes WhatsApp, board, delivery, memberships and reports — no separate add-ons. We set up your zones and fees with you, with onboarding and support in Spanish.',
       cta: 'Book a demo',
       note: '20-minute demo · no commitment',
     },
@@ -615,8 +629,8 @@ window.I18N = {
           { label: 'Privacy', href: '/legal/privacidad.html' },
         ] },
       ],
-      base_left:  '© 2026 CICLO LAUNDRY OS, S.A.P.I. DE C.V.',
-      base_right: 'OPERATING IN MEXICO',
+      base_left:  '© 2026 Ciclo Laundry OS, S.A.P.I. de C.V.',
+      base_right: 'Operating in Mexico',
     },
   },
 };
