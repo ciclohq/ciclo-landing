@@ -65,7 +65,7 @@
     <div className="order-card">
       <div className="order-card-head">
         <span className="order-card-folio">{o.folio}</span>
-        <span className="order-card-chip">{o.stage}</span>
+        <span className="chip chip--pick">{o.stage}</span>
       </div>
       <dl className="order-card-fields">
         <div>
@@ -395,6 +395,63 @@
     </section>
   );
 
+  /* ---------- Driver route — the portrait screenshot's own moment ----------
+     assets/screens/driver-route.webp is 1170×2532 — portrait, the only
+     portrait image on the page; every other capture (dashboard, reports,
+     attendance) is a 2880×1800 desktop screen. Every other visual on the
+     page, real or product-shaped, reads landscape-or-wider; a phone screen
+     is the one silhouette that can't and shouldn't be forced into that
+     mold — sizing it into a wide slot would shrink it into illegibility
+     for no reason, since a portrait image doesn't need width, it needs
+     height, which this page has plenty of.
+
+     Placement: arc part 03 ("Entrega") already carries this section's
+     visual — the inline SVG zone map + fee ladder — and the arc's own
+     framing is deliberate: "None of them is a screenshot" (see Arc's
+     comment above). Dropping a real capture into that slot, beside or
+     instead of the SVG, would break the one rule that keeps the arc's four
+     parts reading as one system rather than four random widgets. So this
+     gets its own moment immediately after the arc closes instead — still
+     "nearby" the delivery story, not interrupting the 01–04 sequence.
+     Part 03's body copy used to also state the driver-route claim in
+     prose ("Tus repartidores ven la ruta del día en su teléfono") before
+     this section existed to show it; now that this section makes the
+     claim in full (plus the "App de repartidores" pill), the arc body
+     no longer restates it — same claim, said once instead of twice
+     (task: mobile scroll length). `data-bg="off"` between the arc's
+     `cream` and #asistente's `navy` — no two adjacent sections share a
+     surface.
+
+     Copy describes only what's visibly in the crop (verified by viewing
+     the file directly): stops numbered 1–8 on a map, green pins for
+     completed stops, blue/purple for pending, a small package icon on
+     pickup pins and a house icon on delivery pins, and a bottom card
+     reading "PRÓXIMA RECOLECCIÓN" / "4/8". No tracking-link claim here —
+     that's a different feature (#incluye's "Seguimiento por link" row) and
+     isn't what this crop shows. */
+
+  const DriverApp = ({ t }) => (
+    <section id="ruta" className="section section--tight surface-white-bg" data-bg="off">
+      <div className="container">
+        <div className="driver-row">
+          <div className="driver-text">
+            <h2 className="h3">{t.driver.h}</h2>
+            <p className="lede">{t.driver.sub}</p>
+          </div>
+          <figure className="driver-media">
+            <Screenshot
+              src="assets/screens/driver-route.webp"
+              width={1170}
+              height={2532}
+              alt={t.driver.alt}
+            />
+            <figcaption className="driver-caption">{t.driver.caption}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  );
+
   /* ---------- Assistant — its own section ----------
      Third and last appearance of Thread (hero, arc part 01, here) — three
      is what makes it a motif instead of three similar-looking one-offs.
@@ -422,7 +479,23 @@
      arc part 01 exactly as before. The ciclo/bot bubble itself
      (`.thread-msg--ciclo .thread-bubble`) is NOT touched here — it's
      already an opaque brand-deep fill with white text (6.32:1) regardless
-     of what section it sits in, so it needs no dark-specific variant. */
+     of what section it sits in, so it needs no dark-specific variant.
+
+     assets/screens/reports.webp joins the thread here rather than opening
+     a new section: it's the screen get_sales_report's answer is drawn
+     from — same "already knows your business" claim, one step closer to
+     the underlying product. Verified by viewing the file directly, so
+     `report_alt`/`report_caption` describe only what's in the crop: tiles
+     for revenue, VAT, discounts, order count, average ticket and
+     cancellation rate for a date range, a daily-revenue line chart and an
+     orders-by-stage breakdown — not the "top clientes"/"ingresos por
+     sucursal" panels further down the real screen, which the crop doesn't
+     foreground. Two-column with the thread at 900px+ (this section's own
+     breakpoint — wide enough for both panels to read at once without
+     squeezing the report illegible), stacked thread-then-report at
+     mobile. The image's border/shadow reuse the existing on-dark hairline
+     token (`--hairline-on-dark`), already established by the scoped rules
+     directly above — no new colors. */
 
   const Assistant = ({ t, lang }) => (
     <section id="asistente" className="section surface-ink-bg" data-bg="navy">
@@ -431,46 +504,66 @@
           <h2 className="h2">{t.assistant.h}</h2>
           <p className="lede">{t.assistant.sub}</p>
         </div>
-        <div className="assistant-thread">
-          <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} speakerLabels={t.assistant.speakers} />
+        <div className="assistant-body">
+          <div className="assistant-thread">
+            <Thread messages={t.assistant.thread} caption={t.assistant.thread_caption} lang={lang} speakerLabels={t.assistant.speakers} />
+          </div>
+          <figure className="assistant-report">
+            <Screenshot
+              src="assets/screens/reports.webp"
+              width={2880}
+              height={1800}
+              alt={t.assistant.report_alt}
+            />
+            <figcaption className="assistant-report-caption">{t.assistant.report_caption}</figcaption>
+          </figure>
         </div>
       </div>
     </section>
   );
 
-  /* ---------- Included — the spec table ----------
-     A definition list, not a card grid: the point is density. This is the
-     one place the uppercase mono label survives (in the `dt`s) — every
-     section eyebrow was removed elsewhere because it read as templated.
+  /* ---------- Included — the spec table, now a multi-column index ----------
+     Was a single-column `dl` — 6 rows × up to 5 items = 24 hairline rows
+     stacked in one ~1792px column, nearly two phone screens of the same
+     shape repeated (task: back-half variety, measured). Same content,
+     grouped into an index instead: a CSS grid of the 6 groups, 2 columns
+     from the smallest width up, 3 at desktop (980px+) — no 1-column
+     mobile step, because that step was still ~1.8 phone screens on its
+     own (task: mobile scroll length, measured): 6 groups stacked with
+     nothing left to shrink, just a lot of them. 2-up halves that to 3
+     rows for the identical 6 groups / 24 items, so the section reads as
+     a squarish reference block at every width, not a scroll. Density is
+     still the point (every capability from every group is still here,
+     still one per line) — only the silhouette changes.
 
-     Each group's capabilities render as their own line items (`spec-items`
-     li), not a middot-joined string in a single `dd` — the old shape wrapped
-     into an unscannable run-on paragraph at 390px. Structurally this stays
-     a two-column spec sheet at desktop (label | stacked list) and a single
-     stacked column on mobile — never cards, density is the point. */
+     No `dl`/`dt` here anymore: each group is a real `<h3>` (heading
+     semantics a `dt` never carried) at body-text size/weight rather than
+     the page's uppercase-mono micro-label — the group name IS the
+     grouping, so it earns hierarchy through size and weight, not a caps
+     treatment identical to a dozen other unrelated labels on the page
+     (task: micro-label monopoly). No cards — a plain hairline rule above
+     each group is the only chrome, same restraint as before. */
 
   const Included = ({ t }) => (
     <section id="incluye" className="section surface-white-bg" data-bg="off">
       <div className="container">
         <h2 className="h2">{t.included.h}</h2>
         <p className="lede">{t.included.sub}</p>
-        <dl className="spec">
+        <div className="spec-grid">
           {t.included.rows.map((r, i) => (
-            <div key={i} className="spec-row">
-              <dt>{r.k}</dt>
-              <dd>
-                <ul className="spec-items">
-                  {r.items.map((it, j) => <li key={j}>{it}</li>)}
-                </ul>
-              </dd>
+            <div key={i} className="spec-group">
+              <h3 className="spec-group-name">{r.k}</h3>
+              <ul className="spec-items">
+                {r.items.map((it, j) => <li key={j}>{it}</li>)}
+              </ul>
             </div>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );
 
-  /* ---------- Attendance — staff clock-in, demoted to a compact aside ----------
+  /* ---------- Attendance — staff clock-in, now carried by a real screenshot ----------
      Sits outside the recibe/opera/entrega/retiene arc on purpose (staff
      attendance isn't part of the customer-facing delivery story), so it
      doesn't interrupt the arc's flow — placed right after #incluye instead,
@@ -478,16 +571,18 @@
      OrderModels elaborates on the pricing-unit row directly below it.
 
      Previously a fabricated three-employee roster (Marisol G./Iván R./
-     Paola T.) under a full `.h2` — the same visual weight as the delivery
-     engine, for the least differentiating feature on the page, and an
-     invented staff list a real prospect could notice isn't theirs. Demoted
-     to a `.h3`-weight heading, `.section--tight` padding (roughly half of
-     `--section-y`) and three capability facts in the arc's own
-     `.arc-feats` pill idiom — no cards, no invented names, no roster.
-     Attendance itself stays represented (it was moved out of the FAQ on
-     purpose, per the plan) via those three facts plus the existing
-     late/absent note, both still literal product behavior, not a
-     restatement of copy elsewhere on the page:
+     Paola T.) under a full `.h2`, then three `.arc-feats` pills asserting
+     PIN clock-in / adjustable tolerance / a daily summary. assets/screens/
+     attendance.webp (captured against the synthetic "Lavandería Aurora"
+     org, PII-verified) now shows all three of those claims directly — the
+     PIN keypad and live clock, each employee's 07:00–16:00 schedule, and
+     the per-employee "En turno"/"Tarde"/"Falta" state — so the pills are
+     cut rather than restyled: the image carries what they used to assert.
+     `.h3`-weight heading, `.section--tight` padding (roughly half of
+     `--section-y`), text beside the image at 760px+ (matching the
+     hero-convo/compare breakpoint), stacked text-then-image at mobile.
+     Still no cards, no invented names, no roster. Every claim in `sub`/
+     `note` remains literal product behavior, unchanged from before:
        - pin.util.ts: hashPin/verifyPin — the 4-digit PIN is scrypt-hashed
          and timing-safe compared, never stored or checked as plaintext.
        - dto/punch.dto.ts: PunchDto requires branchId + a pin matching
@@ -496,23 +591,34 @@
        - schedule-resolution.ts: DEFAULT_TOLERANCE_MINUTES = 15;
          resolveSchedule reads a per-branch, per-day-of-week schedule
          first, then an optional per-employee, per-day override (including
-         its own toleranceMinutes) — the fact's "ajustable" / "adjustable"
-         describes that override chain, not a single fixed global setting.
+         its own toleranceMinutes) — the screenshot's uniform 07:00–16:00
+         is one branch's resolved schedule, not a claim that every branch
+         shares it.
        - daily-summary.ts: buildDailySummaries flags 'late' when firstIn is
          after scheduledStart + tolerance and 'absent' when there are no
-         punches by then — exactly the two flags the note beneath the
-         facts explains (hours = lastOut − firstIn is also computed there,
-         but isn't claimed in the compact copy above). */
+         punches by then — exactly the states visible in the roster and
+         explained by `note` (hours = lastOut − firstIn is also computed
+         there, but isn't claimed here or shown in the crop). */
 
   const Attendance = ({ t }) => (
     <section id="personal" className="section section--tight surface-tint-bg" data-bg="tint">
       <div className="container">
-        <h2 className="h3">{t.attendance.h}</h2>
-        <p className="lede">{t.attendance.sub}</p>
-        <ul className="arc-feats">
-          {t.attendance.facts.map((f, i) => <li key={i}>{f}</li>)}
-        </ul>
-        <p className="personal-note">{t.attendance.note}</p>
+        <div className="personal-row">
+          <div className="personal-text">
+            <h2 className="h3">{t.attendance.h}</h2>
+            <p className="lede">{t.attendance.sub}</p>
+            <p className="personal-note">{t.attendance.note}</p>
+          </div>
+          <figure className="personal-media">
+            <Screenshot
+              src="assets/screens/attendance.webp"
+              width={2880}
+              height={1800}
+              alt={t.attendance.alt}
+            />
+            <figcaption className="personal-caption">{t.attendance.caption}</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   );
@@ -532,10 +638,12 @@
      any category whose pricing_unit isn't per_item — a laundromat's
      per-kilo loads can't run that promotion, a dry cleaner's per-garment
      lines can. Same section slot as the old cards (id="audience"); no
-     cards, no stripes, no pill cloud — two hairline-separated spec lists in
-     the #incluye idiom (mono dt, 16px dd), stacked at mobile so one model
-     reads fully before the other. Deliberately NOT framed as "the same
-     order, two ways" — a 5.4kg per-kilo load and a 2-shirts-plus-a-pair-of-
+     cards, no stripes, no pill cloud — two hairline-separated spec lists
+     (sentence-case dt, 16px dd — see .compare-row dt's comment in
+     landing.css for why the dt dropped its uppercase-mono treatment),
+     stacked at mobile so one model reads fully before the other.
+     Deliberately NOT framed as "the same order, two ways" — a 5.4kg
+     per-kilo load and a 2-shirts-plus-a-pair-of-
      pants per-item order are two different illustrative orders, and
      claiming they're the same one doesn't survive a reader doing the
      arithmetic. Each column's total is independently checkable from the
@@ -577,30 +685,34 @@
     </section>
   );
 
-  /* ---------- Demo / pricing CTA ----------
+  /* ---------- Demo / pricing CTA — now price-led ----------
      `price` + `price_unit` are the only price signal on the page — see
-     i18n.jsx's comment on `demo`. `price_unit` renders at the same visual
-     weight as the number, right beside it (not a muted caption), because
-     the product sells multi-branch as a feature and a bare "$499 al mes"
-     would misread as covering the whole operation. */
+     i18n.jsx's comment on `demo`. This is the page's money moment, and it
+     used to look exactly like every other hairline-row section below the
+     arc: an `.h2` headline first, the price a small line beneath it, then
+     a three-item checklist (task: back-half variety, measured at 914px of
+     checklist-shaped everything). Reordered so the price is the first and
+     largest thing in the block — `.price-amount` now reads bigger than
+     the `.h3` headline beneath it, not the other way around — and the
+     checklist is gone, folded into `points_prose`, one flowing paragraph
+     instead of three ✓-prefixed rows. `price_unit` still sits right beside
+     the number at strong weight (not a muted caption), because the
+     product sells multi-branch as a feature and a bare "$499" would
+     misread as covering the whole operation. */
 
   const DemoCTA = ({ t }) => (
     <section id="pricing" className="section surface-tint-bg" data-bg="tint">
       <div className="container">
         <div className="demo-block" data-reveal="">
           <div className="demo-block-text">
-            <h2 className="h2">{t.demo.h}</h2>
-            <div className="price-block">
-              <p className="price-eyebrow">{t.demo.price_eyebrow}</p>
-              <p className="price-tag">
-                <span className="price-amount">{t.demo.price}</span>
-                <span className="price-unit">{t.demo.price_unit}</span>
-              </p>
-            </div>
+            <p className="price-kicker">{t.demo.price_eyebrow}</p>
+            <p className="price-tag">
+              <span className="price-amount">{t.demo.price}</span>
+              <span className="price-unit">{t.demo.price_unit}</span>
+            </p>
+            <h2 className="h3 demo-h">{t.demo.h}</h2>
             <p className="lede">{t.demo.sub}</p>
-            <ul className="demo-points">
-              {t.demo.points.map((p, i) => <li key={i}>{p}</li>)}
-            </ul>
+            <p className="demo-points-prose">{t.demo.points_prose}</p>
           </div>
           <div className="demo-block-cta">
             <a
@@ -794,6 +906,7 @@
           <Screens t={t} />
           <SectionJump t={t} lang={lang} />
           <Arc t={t} lang={lang} />
+          <DriverApp t={t} />
           <Assistant t={t} lang={lang} />
           <Included t={t} />
           <Attendance t={t} />
