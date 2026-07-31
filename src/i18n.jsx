@@ -86,18 +86,18 @@ window.I18N = {
           name: 'Opera',
           body: 'Cada orden entra al tablero con su cliente, sus prendas y su etapa. En el mostrador capturas las prendas — cantidades y pesos — desde el punto de venta, y cambias de sucursal en un clic.',
           feats: ['Tablero por etapas', 'Punto de venta', 'Multi-sucursal', 'Catálogo y precios'],
-          /* Product-shaped visual, not a screenshot — see BoardPanel's
-             comment in landing.jsx for the full source citation. Folio
-             #4821 / Renata Vidal is the same order the hero's OrderCard
-             shows, on purpose. */
+          /* Product-shaped visual, not a screenshot — see Board's comment
+             in landing.jsx for the full source citation. Folio #4821 /
+             Renata Vidal is the same order the hero's OrderCard shows, on
+             purpose, and sits under `unconfirmed`, outside every stage —
+             `stages` holds only the three real lifecycle stages. */
           board: {
             label: 'Tablero · Sucursal Roma Norte',
-            count: '4 órdenes',
-            rows: [
-              { folio: '#4821', customer: 'Renata Vidal', stage: 'Por confirmar', stage_kind: 'unconfirmed' },
-              { folio: '#4818', customer: 'Diego Salas', stage: 'Recolección', stage_kind: 'pickup' },
-              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Procesamiento', stage_kind: 'processing' },
-              { folio: '#4809', customer: 'Luis Fernández', stage: 'Entrega', stage_kind: 'delivery' },
+            unconfirmed: { chip: 'Por confirmar', folio: '#4821', customer: 'Renata Vidal' },
+            stages: [
+              { key: 'pickup', label: 'Recolección', orders: [{ folio: '#4818', customer: 'Diego Salas' }] },
+              { key: 'processing', label: 'Procesamiento', orders: [{ folio: '#4815', customer: 'Camila Ortiz' }] },
+              { key: 'delivery', label: 'Entrega', orders: [{ folio: '#4809', customer: 'Luis Fernández' }] },
             ],
           },
         },
@@ -106,16 +106,18 @@ window.I18N = {
           name: 'Entrega',
           body: 'Dibujas tus zonas en el mapa y defines qué cobras: gratis desde $300, por kilómetro o tarifa fija. Tus repartidores ven la ruta del día en su teléfono y tu cliente sigue el pedido desde un link.',
           feats: ['Zonas en el mapa', 'Reglas de tarifa', 'App de repartidores', 'Seguimiento para el cliente'],
-          /* Product-shaped visual, not a screenshot — see FeeRulesPanel's
-             comment in landing.jsx for the full source citation. Numbers
-             match this part's own body copy exactly (gratis desde $300,
-             $12 por kilómetro) — nothing new is claimed here. */
-          feeRules: {
-            label: 'Reglas de tarifa',
-            chip: 'Por prioridad',
+          /* Product-shaped visual, not a screenshot — see ZoneMap's comment
+             in landing.jsx for the full source citation. Numbers match this
+             part's own body copy exactly (gratis desde $300, $12 por
+             kilómetro) — nothing new is claimed here. */
+          zoneMap: {
+            label: 'Zona de reparto',
+            map_alt: 'Mapa con la zona de reparto dibujada alrededor de la sucursal',
+            branch_label: 'Sucursal Roma Norte',
+            ladder_label: 'Reglas de tarifa',
             rules: [
-              { priority: '1', condition: 'Pedido de $300 o más', charge: 'Gratis' },
-              { priority: '2', condition: 'Cualquier otro pedido', charge: '$12.00 / km' },
+              { step: '1', condition: 'Pedido de $300 o más', charge: 'Gratis' },
+              { step: '2', condition: 'Cualquier otro pedido', charge: '$12.00 / km' },
             ],
             note: 'Se aplica la primera regla que cumple su condición, evaluada en orden de prioridad.',
           },
@@ -151,9 +153,7 @@ window.I18N = {
             membership: {
               label: 'Membresía',
               status: 'Activa',
-              plan_label: 'Plan',
               plan: 'Plan Frecuente',
-              benefit_label: 'Beneficio',
               benefit: '15% de descuento + entrega gratis',
               renews_label: 'Vigente hasta',
               renews: '18 de agosto',
@@ -421,12 +421,11 @@ window.I18N = {
           feats: ['Board by stage', 'Point of sale', 'Multi-branch', 'Catalog and pricing'],
           board: {
             label: 'Board · Roma Norte Branch',
-            count: '4 orders',
-            rows: [
-              { folio: '#4821', customer: 'Renata Vidal', stage: 'To confirm', stage_kind: 'unconfirmed' },
-              { folio: '#4818', customer: 'Diego Salas', stage: 'Pickup', stage_kind: 'pickup' },
-              { folio: '#4815', customer: 'Camila Ortiz', stage: 'Processing', stage_kind: 'processing' },
-              { folio: '#4809', customer: 'Luis Fernández', stage: 'Delivery', stage_kind: 'delivery' },
+            unconfirmed: { chip: 'To confirm', folio: '#4821', customer: 'Renata Vidal' },
+            stages: [
+              { key: 'pickup', label: 'Pickup', orders: [{ folio: '#4818', customer: 'Diego Salas' }] },
+              { key: 'processing', label: 'Processing', orders: [{ folio: '#4815', customer: 'Camila Ortiz' }] },
+              { key: 'delivery', label: 'Delivery', orders: [{ folio: '#4809', customer: 'Luis Fernández' }] },
             ],
           },
         },
@@ -435,12 +434,14 @@ window.I18N = {
           name: 'Deliver',
           body: 'You draw your zones on the map and decide what to charge: free above $300, per kilometer, or a flat fee. Your drivers see the day’s route on their phone, and your customer tracks the order from a link.',
           feats: ['Zones on the map', 'Fee rules', 'Driver app', 'Customer tracking'],
-          feeRules: {
-            label: 'Fee rules',
-            chip: 'By priority',
+          zoneMap: {
+            label: 'Delivery zone',
+            map_alt: 'Map with the delivery zone drawn around the branch',
+            branch_label: 'Roma Norte Branch',
+            ladder_label: 'Fee rules',
             rules: [
-              { priority: '1', condition: 'Order of $300 or more', charge: 'Free' },
-              { priority: '2', condition: 'Any other order', charge: '$12.00 / km' },
+              { step: '1', condition: 'Order of $300 or more', charge: 'Free' },
+              { step: '2', condition: 'Any other order', charge: '$12.00 / km' },
             ],
             note: 'The first rule whose condition is met is the one applied, evaluated in priority order.',
           },
@@ -462,9 +463,7 @@ window.I18N = {
             membership: {
               label: 'Membership',
               status: 'Active',
-              plan_label: 'Plan',
               plan: 'Frequent Plan',
-              benefit_label: 'Benefit',
               benefit: '15% off + free delivery',
               renews_label: 'Active through',
               renews: 'August 18',

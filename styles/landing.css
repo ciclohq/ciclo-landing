@@ -439,191 +439,247 @@
 
 .arc-screen { min-width: 0; }
 
-/* ---------- Retention panel — arc part 04's visual ----------
-   Two stacked panels in the order-card idiom: bright-white surface,
-   hairline border, shadow-md, mono uppercase dt / 16px dd, a chip for
-   status. No new colors — the chip reuses the same --chip-route and
-   --chip-done tokens order-card-chip and the roster below it already use. */
+/* ---------- Shared arc-media chrome ----------
+   The one surviving shell for a bordered, shadowed white card — used now
+   only by .panel (ZoneMap). .panel-head/.panel-label are lighter-weight
+   and reused across containers that AREN'T .panel too (.board's own
+   title row, .stampcard's head), because the head/label typography is
+   genuinely identical chrome even where the surrounding card shell is
+   not — Board and StampCard deliberately do NOT use the bordered/shadowed
+   .panel shell, so the arc's four media blocks stop sharing one
+   silhouette. .chip is the same consolidation for the small status pills
+   that used to be redeclared per panel (retain-card-chip, board-chip,
+   fee-panel-chip) — one shape, colored by modifier, using only existing
+   --chip-* token pairs (see Board's and StampCard's comments in
+   landing.jsx for which modifier maps to which real product state). */
 
-.retain-panel { display: flex; flex-direction: column; gap: 16px; }
-.retain-card {
+.panel {
   min-width: 0;
   background: var(--bright-white);
   border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   padding: clamp(18px, 3.6vw, 24px);
 }
-.retain-card-head {
+.panel-head {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--hairline-soft);
 }
-.retain-card-label {
+.panel-label {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--body-muted);
 }
-.retain-card-chip {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--chip-route-f); background: var(--chip-route-b);
-  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
-}
-.retain-card-chip--done { color: var(--chip-done-f); background: var(--chip-done-b); }
-.retain-stamps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.retain-stamp {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 1px solid var(--hairline);
-}
-.retain-stamp.is-filled { background: var(--brand); border-color: var(--brand); }
-.retain-card-note {
+.panel-note {
   margin: 16px 0 0; padding-top: 14px;
   border-top: 1px solid var(--hairline-soft);
   font-size: 16px; line-height: 1.5; color: var(--body-muted);
 }
-.retain-fields { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0 0; }
-.retain-fields dt {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--body-muted); margin: 0;
-}
-.retain-fields dd { font-size: 16px; font-weight: 500; color: var(--ink); margin: 4px 0 0; }
-@media (min-width: 460px) {
-  .retain-fields { grid-template-columns: 1fr 1fr; }
-}
 
-/* ---------- Board panel — arc part 02's visual ----------
-   A single card in the order-card idiom (bright-white surface, hairline
-   border, shadow-md), hairline-separated order rows inside instead of a
-   card grid. No new colors — every chip below reuses an existing
-   --chip-* pair (see BoardPanel's comment in landing.jsx for exactly
-   which one maps to which stage, and why). */
+.chip {
+  display: inline-block;
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+}
+.chip--route { color: var(--chip-route-f); background: var(--chip-route-b); }
+.chip--done  { color: var(--chip-done-f);  background: var(--chip-done-b); }
+.chip--proc  { color: var(--chip-proc-f);  background: var(--chip-proc-b); }
 
-.board-panel {
-  min-width: 0;
-  background: var(--bright-white);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  padding: clamp(18px, 3.6vw, 24px);
+/* ---------- Board — arc part 02's visual (geometry: columns) ----------
+   Parallel stage-lane columns, not a card of hairline rows: the board's
+   real metaphor. .board-lanes scrolls horizontally WITHIN ITSELF at
+   390px (three ~168px lanes don't fit a 350px content column) — the page
+   itself never scrolls, only this strip does. No enclosing bordered
+   .panel shell here on purpose — each lane carries its own light
+   background instead of one big white card, so this part doesn't fall
+   back into the same silhouette as ZoneMap's .panel. */
+
+.board { display: flex; flex-direction: column; gap: 14px; }
+
+.board-unconfirmed {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius);
+  background: var(--chip-proc-b);
 }
-.board-panel-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--hairline-soft);
-}
-.board-panel-label {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--body-muted);
-}
-.board-panel-count {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
-  color: var(--body-muted); white-space: nowrap;
-}
-.board-rows { margin-top: 4px; }
-.board-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 14px 0;
-  border-top: 1px solid var(--hairline-soft);
-}
-.board-row:first-child { border-top: 0; }
-.board-row-id {
-  min-width: 0;
-  display: flex; flex-direction: column; gap: 2px;
-}
-.board-row-folio {
+.board-unconfirmed-folio {
   font-family: var(--font-mono); font-size: 12px;
   letter-spacing: var(--tracking-mono);
   color: var(--body-muted);
 }
-.board-row-customer {
+.board-unconfirmed-customer {
+  min-width: 0; flex: 1;
   font-size: 16px; font-weight: 500; color: var(--ink);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.board-chip {
-  flex-shrink: 0;
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+.board-unconfirmed .chip { margin-left: auto; }
+
+.board-lanes {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
 }
-/* pickup = product's slate dot, processing = blue, delivery = emerald,
-   unconfirmed = the "Por confirmar" pill's warning/orange — matched to
-   apps/web's order-status-pill.tsx by color family, since the landing
-   token set has no slate or emerald swatch of its own. */
-.board-chip--pickup      { color: var(--chip-new-f);  background: var(--chip-new-b); }
-.board-chip--processing  { color: var(--chip-pick-f); background: var(--chip-pick-b); }
-.board-chip--delivery    { color: var(--chip-done-f); background: var(--chip-done-b); }
-.board-chip--unconfirmed { color: var(--chip-proc-f); background: var(--chip-proc-b); }
-
-/* ---------- Fee-rules panel — arc part 03's visual ----------
-   Same card shell as the board panel; rules render as a hairline-
-   separated ordered list (priority · condition · charge) rather than a
-   table, so it reads the same at 390px and at the arc's ~570px column.
-   The chip reuses --chip-new (muted/default) — "por prioridad" is a
-   description of the list, not a status, so it gets the neutral token. */
-
-.fee-panel {
-  min-width: 0;
+.board-lane {
+  flex: 0 0 168px;
+  min-width: 168px;
+  background: var(--off-white);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--hairline);
+  padding: 12px;
+}
+.board-lane--pickup     { border-top-color: var(--chip-new-f); }
+.board-lane--processing { border-top-color: var(--chip-pick-f); }
+.board-lane--delivery   { border-top-color: var(--chip-done-f); }
+.board-lane-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-bottom: 10px;
+}
+.board-lane-name {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink);
+}
+.board-lane-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 20px; height: 20px; padding: 0 6px;
+  border-radius: 999px;
   background: var(--bright-white);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  padding: clamp(18px, 3.6vw, 24px);
-}
-.fee-panel-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--hairline-soft);
-}
-.fee-panel-label {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
   color: var(--body-muted);
 }
-.fee-panel-chip {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--chip-new-f); background: var(--chip-new-b);
-  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+.board-lane-orders { display: flex; flex-direction: column; gap: 8px; }
+.board-order {
+  background: var(--bright-white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex; flex-direction: column; gap: 2px;
 }
-.fee-rules { margin-top: 4px; }
-.fee-rule {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-  border-top: 1px solid var(--hairline-soft);
+.board-order-folio {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: var(--tracking-mono);
+  color: var(--body-muted);
 }
-.fee-rule:first-child { border-top: 0; }
-.fee-rule-cond {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  min-width: 0;
+.board-order-customer { font-size: 16px; font-weight: 500; color: var(--ink); }
+
+/* ---------- Zone map — arc part 03's visual (geometry: map) ----------
+   Inline SVG only — no image file, no map tiles, no request. The fee
+   ladder below it renders as two numbered steps joined by a connecting
+   line (a ladder, literally) instead of a bare list. Uses the shared
+   .panel/.panel-head/.panel-label/.panel-note shell, its only remaining
+   consumer. */
+
+.zonemap-svg {
+  display: block;
+  width: 100%; height: auto;
+  max-width: 220px;
+  margin: 16px auto 0;
+  border-radius: var(--radius);
 }
-.fee-rule-priority {
+.zonemap-bg { fill: var(--pale-cobalt); }
+.zonemap-grid line { stroke: var(--hairline-soft); stroke-width: 1; }
+.zonemap-zone {
+  fill: var(--brand-tint);
+  stroke: var(--brand-deep);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.zonemap-branch { fill: var(--brand); stroke: var(--bright-white); stroke-width: 2; }
+.zonemap-caption {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--body-muted);
+}
+
+.zonemap-ladder {
+  position: relative;
+  margin: 18px 0 0;
+  display: flex; flex-direction: column;
+}
+.zonemap-ladder::before {
+  content: '';
+  position: absolute; left: 11px; top: 21px; bottom: 21px;
+  width: 1px; background: var(--hairline);
+}
+.zonemap-rule {
+  position: relative;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0;
+}
+.zonemap-rule-step {
   flex-shrink: 0;
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  color: var(--brand);
+  width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  background: var(--brand-tint); color: var(--brand-deep);
 }
-.fee-rule-condition {
-  min-width: 0;
-  font-size: 16px; line-height: 1.5; color: var(--body);
+.zonemap-rule-condition {
+  flex: 1; min-width: 0;
+  font-size: 16px; line-height: 1.4; color: var(--body);
 }
-.fee-rule-charge {
+.zonemap-rule-charge {
   flex-shrink: 0;
   font-size: 16px; font-weight: 600; color: var(--ink);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.fee-panel-note {
-  margin: 16px 0 0; padding-top: 14px;
-  border-top: 1px solid var(--hairline-soft);
+
+/* ---------- Stamp card — arc part 04's visual (geometry: dots) ----------
+   A grid of filled/empty stamp circles so the count reads as counting,
+   not as rows. No enclosing bordered/shadowed .panel here — a plain
+   off-white surface, the same family .board-lane uses but at a
+   different radius, so this doesn't reproduce ZoneMap's card shell
+   either. The membership state folds into one sentence beneath a single
+   divider instead of a second stacked dt/dd block, so it doesn't quietly
+   reintroduce the hairline-row shape this part exists to replace. */
+
+.stampcard {
+  background: var(--off-white);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3.6vw, 24px);
+}
+.stampcard-dots {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  max-width: 260px;
+}
+.stampcard-dot {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1.5px solid var(--hairline);
+  background: var(--bright-white);
+}
+.stampcard-dot.is-filled { background: var(--brand); border-color: var(--brand); }
+.stampcard-count {
+  margin: 16px 0 0;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 28px; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stampcard-count-target { font-size: 16px; font-weight: 500; color: var(--body-muted); }
+.stampcard-note {
+  margin: 8px 0 0;
+  max-width: 42ch;
   font-size: 16px; line-height: 1.5; color: var(--body-muted);
 }
+.stampcard-membership {
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--hairline-soft);
+}
+.stampcard-membership-head { display: flex; align-items: center; gap: 10px; }
+.stampcard-membership-text {
+  margin: 8px 0 0;
+  font-size: 16px; line-height: 1.5; color: var(--body);
+}
+.stampcard-membership-text strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- Assistant — third Thread appearance, centered "moment" ----------
    A single centered block (heading + framing sentence + Thread), the same
@@ -992,6 +1048,13 @@
      four parts' own internal padding is the other lever. */
   .arc-part { padding: 24px 0; gap: 20px; }
   .arc-feats { margin-top: 18px; }
+  .board { gap: 12px; }
+  .board-unconfirmed { padding: 10px 12px; }
+  .board-lane { padding: 10px; }
+  .zonemap-svg { margin-top: 12px; }
+  .zonemap-ladder { margin-top: 14px; }
+  .stampcard-dots { margin-top: 16px; }
+  .stampcard-membership { margin-top: 14px; padding-top: 14px; }
 
   .assistant-thread { margin-top: 18px; }
 
