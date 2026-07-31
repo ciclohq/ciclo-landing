@@ -331,6 +331,34 @@
 }
 .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
 
+/* ---------- Screens — the one real screenshot on the page ----------
+   `.container-wide` (base.css, 1440px max) instead of the page's usual
+   1200px `.container` — the whole point of this section is that the arc's
+   ~570px media columns render a 1440-wide capture at ~0.40×, illegible;
+   this section exists not to repeat that. The image itself is plain CSS
+   (width:100%, height:auto) inside that wider box, so it scales down
+   smoothly below 1440px and reaches its native 1:1 size at 1440px+
+   viewports — the `width`/`height` attributes on the <img> (2880×1800,
+   the file's real intrinsic size) only reserve the aspect ratio; they
+   don't set the display size. */
+.screens-head { max-width: 640px; }
+.screens-figure {
+  margin: clamp(32px, 5vw, 48px) 0 0;
+}
+.screens-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+  background: var(--off-white); /* visible while the lazy image loads in */
+}
+.screens-caption {
+  margin: 12px 2px 0;
+  font-size: 13px;
+  color: var(--body-muted);
+}
+
 /* ---------- Order models — two pricing units, one per category ----------
    Two hairline-separated spec lists (the #incluye idiom: mono uppercase
    dt, 16px dd), not cards — no border, no shadow, no stripe. No shared
@@ -1090,6 +1118,9 @@
   .order-card-head { padding-bottom: 12px; }
   .order-card-fields { gap: 10px; }
   .order-card-note { padding-top: 10px; }
+
+  .screens-figure { margin-top: 20px; }
+  .screens-caption { margin-top: 8px; }
 
   /* Arc — same-background seam with the hero above it (both cream); the
      four parts' own internal padding is the other lever. */

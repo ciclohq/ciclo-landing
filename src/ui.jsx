@@ -113,7 +113,31 @@
     );
   };
 
+  /* ---------- Screenshot — a real capture, rendered at real size ----------
+     One image, no mobile crop, no <picture>/<source> fallback machinery —
+     a previous `Screen` component had both (plus an onError that
+     reassigned `src`), and a failing <source> paired with that onError is
+     an infinite request loop: the browser falls back to the onError's new
+     `src`, which still matches the <source>'s media query, so the
+     <source> wins again. There is exactly one image here, so that failure
+     mode can't occur. `width`/`height` are the intrinsic pixel dimensions
+     (not the CSS display size — callers get that from their own layout
+     CSS) so the browser reserves the correct aspect ratio before the
+     image loads and nothing shifts underneath it. */
+
+  const Screenshot = ({ src, width, height, alt, className = '' }) => (
+    <img
+      className={className}
+      src={src}
+      width={width}
+      height={height}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+
   /* ---------- Export to global ---------- */
 
-  window.UI = { Logo, Mono, LangToggle, Thread };
+  window.UI = { Logo, Mono, LangToggle, Thread, Screenshot };
 })();

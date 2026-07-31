@@ -66,6 +66,23 @@ window.I18N = {
       },
     },
 
+    /* --- Screens — the one real screenshot on the page. Sits right after
+       the hero: the WhatsApp thread and the order it produced is the hero's
+       pitch, and this is "here is where that order lands." A real capture
+       of the running dashboard against a synthetic demo org ("Lavandería
+       Aurora") — not a customer's live numbers, hence `caption` says so
+       explicitly. `alt` and `sub` describe only what's visibly in the
+       image: active orders, value in process, staff on shift, orders
+       needing attention, a weekly orders chart, stage distribution, recent
+       orders, today's attendance. Nothing here is invented or extrapolated
+       past what the screenshot itself shows. */
+    screens: {
+      h: 'Así se ve tu operación completa.',
+      sub: 'Pedidos activos, personal en turno y lo que necesita tu atención — todo en un panel.',
+      alt: 'Panel de control de Ciclo: pedidos activos, valor en proceso, personal en turno, pedidos que necesitan atención, una gráfica semanal de pedidos, distribución por etapa, pedidos recientes y asistencia del día.',
+      caption: 'Panel de una organización de demostración — datos de ejemplo, no una operación real.',
+    },
+
     /* --- Arc — the four-part product narrative (recibe → opera → entrega → retiene) --- */
     arc: {
       parts: [
@@ -398,6 +415,13 @@ window.I18N = {
         window: 'July 16 · afternoon',
         note: 'It lands in your inbox as "To confirm": someone on your team reviews and confirms it before it hits the board — no bot order ever schedules itself.',
       },
+    },
+
+    screens: {
+      h: 'This is your whole operation.',
+      sub: 'Active orders, staff on shift and what needs your attention — all in one dashboard.',
+      alt: 'Ciclo dashboard: active orders, value in process, staff on shift, orders needing attention, a weekly orders chart, stage distribution, recent orders and today’s attendance.',
+      caption: 'Dashboard of a demo organization — sample data, not a real operation.',
     },
 
     /* --- Arc — the four-part product narrative (receive → operate → deliver → retain) --- */
