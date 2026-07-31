@@ -814,48 +814,34 @@
 }
 .stampcard-membership-text strong { color: var(--ink); font-weight: 600; }
 
-/* ---------- Assistant — third Thread appearance, centered "moment" ----------
-   A single centered block (heading + framing sentence + Thread), the same
-   recipe as .hero-head, so it reads as a page-level beat rather than a
-   third arc part. Two scoped accommodations for this section's longer,
-   multi-line, figure-heavy answer — neither touches Thread itself, which
-   the hero and arc sections still depend on: a narrower frame so the
-   reply doesn't stretch into overlong lines, and tabular figures so the
-   dollar amounts in the comparison don't jitter against each other. */
+/* ---------- Assistant — a single real screenshot, centered "moment" ----------
+   Used to be a two-column thread-plus-screenshot row: a hand-built Thread
+   asking a sales question beside a screenshot of a different screen
+   (Reportes) answering it with different, invented numbers (task:
+   assistant screenshot defect). Now a single real capture of the
+   assistant itself, so the layout is the same centered recipe as
+   .hero-head (heading + framing sentence) plus one figure — no more
+   two-up grid, no thread-specific type overrides to carry. */
 
 .assistant-head { text-align: center; max-width: 640px; margin: 0 auto; }
 .assistant-head .lede { margin-left: auto; margin-right: auto; }
 
-/* Thread + the reports screenshot it answers from — two columns at 900px+
-   (wide enough for the report to stay legible without squeezing the
-   thread), stacked thread-then-report at mobile. `.assistant-thread`
-   drops its own centering/max-width here; `.assistant-body` owns the
-   shared width instead. */
-.assistant-body {
+/* One centered image, capped at 1040px (the old two-up row's combined
+   width) so the dense in-product tables stay legible rather than
+   stretching edge-to-edge of the 1200px .container. */
+.assistant-figure {
   margin: clamp(32px, 5vw, 48px) auto 0;
   max-width: 1040px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  align-items: start;
 }
-@media (min-width: 900px) {
-  .assistant-body { grid-template-columns: 0.95fr 1.05fr; gap: 40px; }
-}
-.assistant-thread { text-align: left; }
-.assistant-thread .thread-msg--ciclo .thread-bubble { max-width: 92%; }
-.assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
-
-.assistant-report { min-width: 0; margin: 0; }
-.assistant-report img {
+.assistant-img {
   width: 100%;
   height: auto;
   border-radius: var(--radius-xl);
   border: 1px solid var(--hairline-on-dark);
   box-shadow: var(--shadow-lg);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.04); /* visible while the lazy image loads in */
 }
-.assistant-report-caption {
+.assistant-caption {
   margin: 10px 2px 0;
   font-size: 13px;
   color: var(--body-on-dark-muted);
@@ -868,28 +854,16 @@
    the exact hex/rgba pairs in tokens.css (not estimated):
      white(--bright-white) / --ink                          14.62:1
      --body-on-dark (flattened) / --ink                       9.44:1
-     on-dark customer-bubble text / on-dark customer-bubble bg 7.88:1
-   All clear the 4.5:1 floor with room to spare.
-
-   Selectors are ID-scoped (#asistente ...) precisely so none of this
-   leaks into the hero or arc part 01, where the unscoped .thread-frame /
-   .thread-msg--customer .thread-bubble rules (components.css) still
-   apply unchanged. .thread-msg--ciclo .thread-bubble is deliberately NOT
-   touched anywhere here — it's already an opaque --brand-deep fill with
-   white text (6.32:1) regardless of the section behind it. */
+   Both clear the 4.5:1 floor with room to spare. This section no longer
+   renders a Thread (see the comment above), so the former
+   `#asistente .thread-frame` / `#asistente .thread-msg--customer
+   .thread-bubble` overrides are gone too — the unscoped `.thread-frame` /
+   `.thread-msg--customer .thread-bubble` rules (components.css) continue
+   to govern the hero and arc part 01 exactly as before, untouched by
+   this ID-scoped block either way. */
 #asistente.section { color: var(--body-on-dark); }
 #asistente .h2 { color: var(--bright-white); }
 #asistente .lede { color: var(--body-on-dark); }
-#asistente .thread-frame {
-  background: transparent;
-  border-color: var(--hairline-on-dark);
-  box-shadow: none;
-}
-#asistente .thread-msg--customer .thread-bubble {
-  background: var(--hairline-on-dark-soft);
-  border: 1px solid var(--hairline-on-dark);
-  color: var(--body-on-dark);
-}
 
 /* ---------- Included — a multi-column index (was a single-column dl) ----------
    24 hairline rows in one ~1792px column (task: back-half variety,
@@ -1263,7 +1237,7 @@
      tightening here. */
   .driver-row { margin-top: 16px; gap: 16px; }
 
-  .assistant-body { margin-top: 14px; gap: 20px; }
+  .assistant-figure { margin-top: 14px; }
 
   /* #incluye and #personal no longer share a surface (task: page rhythm —
      incluye is .surface-white-bg/off, personal is .surface-tint-bg/tint),

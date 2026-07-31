@@ -180,36 +180,24 @@ window.I18N = {
       ],
     },
 
-    /* --- Assistant — its own section, the third and last appearance of
-       Thread (hero, arc part 01, here), which is what turns it into a
-       motif. The exchange must be answerable from what the assistant's
-       tools actually return (get_sales_report: revenue, order count, avg
-       ticket, category mix, new-vs-returning customers) — the model can
-       call it for two ranges and narrate the comparison, but it never
-       forecasts, advises, or acts on the owner's behalf. */
+    /* --- Assistant — its own section. Used to pair a hand-built Thread
+       (an invented Q&A) with a screenshot of the Reportes screen — wrong
+       screen, invented numbers (task: assistant screenshot defect). Now a
+       single real capture of the assistant itself (assets/screens/assistant.webp),
+       taken by actually asking the product this same question against the
+       synthetic "Lavandería Aurora" org and letting the real LLM answer
+       from the seeded database — no Thread, no invented figures. */
     assistant: {
       h: 'Un asistente que ya conoce tu negocio.',
-      sub: 'Vive en tu panel y contesta con tus propios números — ventas, clientes, categorías — sin que armes un reporte.',
-      thread_caption: 'Ejemplo: una pregunta real al asistente',
-      /* speakers: overrides Thread's default speaker labels for THIS
-         section only (Thread's `from` roles stay 'customer'/'ciclo' — the
-         hero and arc part 01 threads keep depending on the defaults). The
-         'customer' role here is the business owner asking about their own
-         sales, not a WhatsApp customer, so the default "Cliente" label is
-         wrong for a screen reader; same for "Ciclo (bot)" answering with
-         report data instead of ordering. */
-      speakers: { customer: 'Dueño del negocio', ciclo: 'Asistente de Ciclo' },
-      thread: [
-        { from: 'customer', text: '¿Cómo van las ventas esta semana?' },
-        { from: 'ciclo', text: 'Esta semana llevas $18,430 en 61 pedidos (ticket promedio $302).\n14% más que la semana pasada ($16,180).\nLavado por kilo sigue siendo tu categoría con más ingresos, y tuviste 9 clientes nuevos.' },
-      ],
-      /* The reports screenshot beside the thread — same "your own numbers"
-         claim, from the screen the assistant's answer is pulled from.
-         Describes only what the capture shows: revenue/VAT/discounts/order
-         count/avg ticket/cancellation-rate tiles, a daily-revenue chart and
-         an orders-by-stage breakdown. */
-      report_alt: 'Pantalla de reportes de Ciclo: ingresos, IVA, descuentos, número de órdenes, ticket promedio y tasa de cancelación del periodo, con una gráfica de ingresos por día y la distribución de órdenes por etapa.',
-      report_caption: 'Reportes de una organización de demostración — datos de ejemplo.',
+      sub: 'Vive en tu panel y contesta con tus propios números — ventas, clientes y el estado de tus pedidos — sin que armes un reporte.',
+      /* Describes only what the capture shows (verified by viewing the
+         file directly): a table of estado/etapa de órdenes, a bolded
+         "Lectura rápida" summary, a "Mejores clientes de la semana" table
+         with cinco clientes con nombre, ingresos y número de órdenes, una
+         tabla de "Clientes nuevos vs recurrentes", otro resumen en
+         negritas, y una oferta de comparar contra la semana pasada. */
+      alt: 'El asistente de Ciclo respondiendo una pregunta sobre las ventas de la semana: una tabla de estado y etapa de las órdenes, un resumen en negritas, una tabla de mejores clientes de la semana con nombre, ingresos y número de órdenes, una tabla de clientes nuevos y recurrentes, y otro resumen en negritas con una oferta de comparar contra la semana pasada.',
+      caption: 'Asistente de una organización de demostración — datos de ejemplo.',
     },
 
     /* --- Driver route — the portrait screenshot's own moment, right after
@@ -512,15 +500,9 @@ window.I18N = {
 
     assistant: {
       h: 'An assistant that already knows your business.',
-      sub: 'It lives in your dashboard and answers with your own numbers — sales, customers, categories — no report to build.',
-      thread_caption: 'Example: a real question to the assistant',
-      speakers: { customer: 'Business owner', ciclo: 'Ciclo Assistant' },
-      thread: [
-        { from: 'customer', text: 'How are sales doing this week?' },
-        { from: 'ciclo', text: 'This week you’re at $18,430 across 61 orders (avg ticket $302).\nUp 14% from last week ($16,180).\nWash-by-the-kilo is still your top category, and you had 9 new customers.' },
-      ],
-      report_alt: 'Ciclo’s reports screen: revenue, VAT, discounts, order count, average ticket and cancellation rate for the period, with a daily revenue chart and orders broken down by stage.',
-      report_caption: 'Reports for a demo organization — sample data.',
+      sub: 'It lives in your dashboard and answers with your own numbers — sales, customers and order status — no report to build.',
+      alt: 'The Ciclo assistant answering a question about the week’s sales: a table of order status and stage, a bolded summary, a table of the week’s top customers with name, revenue and order count, a new-vs-returning-customers table, and another bolded summary offering to compare against last week.',
+      caption: 'Assistant for a demo organization — sample data.',
     },
 
     driver: {
