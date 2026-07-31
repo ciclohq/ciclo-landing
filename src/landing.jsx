@@ -90,7 +90,7 @@
   );
 
   const Hero = ({ t, lang }) => (
-    <section className="hero" data-bg="cream">
+    <section className="hero surface-tint-bg" data-bg="tint">
       <div className="container">
         <div className="hero-head">
           <span className="badge"><i />{t.hero.badge}</span>
@@ -358,10 +358,26 @@
      is the owner asking about their own sales, not a WhatsApp customer.
      The answer is real report data shaped like a genuine tool response
      (see get_sales_report in apps/api/src/modules/chat/chat-tools.ts) —
-     no forecasting, no advice, no action taken for the owner. */
+     no forecasting, no advice, no action taken for the owner.
+
+     This is the page's one deliberately inverted band (task: page rhythm —
+     nine-plus screens of light surfaces was the core complaint). Short,
+     self-contained, and the ciclo/bot bubble's brand-deep fill genuinely
+     pops on dark, which is why this section carries the inversion instead
+     of any other. `.surface-ink-bg` + the `#asistente`-scoped overrides in
+     landing.css use only the existing on-dark token family the footer
+     already established (--ink, --hairline-on-dark(-soft),
+     --body-on-dark(-muted)) — no new colors. The override is scoped to
+     `#asistente .thread-frame` / `#asistente .thread-msg--customer
+     .thread-bubble` only, so the unscoped `.thread-frame` /
+     `.thread-msg--customer .thread-bubble` rules still govern the hero and
+     arc part 01 exactly as before. The ciclo/bot bubble itself
+     (`.thread-msg--ciclo .thread-bubble`) is NOT touched here — it's
+     already an opaque brand-deep fill with white text (6.32:1) regardless
+     of what section it sits in, so it needs no dark-specific variant. */
 
   const Assistant = ({ t, lang }) => (
-    <section id="asistente" className="section surface-tint-bg" data-bg="tint">
+    <section id="asistente" className="section surface-ink-bg" data-bg="navy">
       <div className="container">
         <div className="assistant-head">
           <h2 className="h2">{t.assistant.h}</h2>
@@ -406,38 +422,49 @@
     </section>
   );
 
-  /* ---------- Attendance — staff clock-in, its own compact home ----------
+  /* ---------- Attendance — staff clock-in, demoted to a compact aside ----------
      Sits outside the recibe/opera/entrega/retiene arc on purpose (staff
      attendance isn't part of the customer-facing delivery story), so it
      doesn't interrupt the arc's flow — placed right after #incluye instead,
      next to the "Personal" spec row it elaborates on, the same way
-     OrderModels elaborates on the pricing-unit row directly below it. Kept
-     to a compact three-row roster (the hairline idiom, no cards) rather
-     than a full-height section: a real daily-summary shape, not a second
-     scroll-length section. Verified against apps/api/src/modules/
-     attendance/pin.util.ts, dto/punch.dto.ts (branchId + 4-digit PIN per
-     punch), schedule-resolution.ts (per-branch/per-employee schedules,
-     DEFAULT_TOLERANCE_MINUTES = 15) and daily-summary.ts (late/absent
-     flags, hours from firstIn/lastOut). */
+     OrderModels elaborates on the pricing-unit row directly below it.
+
+     Previously a fabricated three-employee roster (Marisol G./Iván R./
+     Paola T.) under a full `.h2` — the same visual weight as the delivery
+     engine, for the least differentiating feature on the page, and an
+     invented staff list a real prospect could notice isn't theirs. Demoted
+     to a `.h3`-weight heading, `.section--tight` padding (roughly half of
+     `--section-y`) and three capability facts in the arc's own
+     `.arc-feats` pill idiom — no cards, no invented names, no roster.
+     Attendance itself stays represented (it was moved out of the FAQ on
+     purpose, per the plan) via those three facts plus the existing
+     late/absent note, both still literal product behavior, not a
+     restatement of copy elsewhere on the page:
+       - pin.util.ts: hashPin/verifyPin — the 4-digit PIN is scrypt-hashed
+         and timing-safe compared, never stored or checked as plaintext.
+       - dto/punch.dto.ts: PunchDto requires branchId + a pin matching
+         `/^\d{4}$/` + type ('check_in'|'check_out') on every punch — the
+         clock happens at a branch, not the PIN alone.
+       - schedule-resolution.ts: DEFAULT_TOLERANCE_MINUTES = 15;
+         resolveSchedule reads a per-branch, per-day-of-week schedule
+         first, then an optional per-employee, per-day override (including
+         its own toleranceMinutes) — the fact's "ajustable" / "adjustable"
+         describes that override chain, not a single fixed global setting.
+       - daily-summary.ts: buildDailySummaries flags 'late' when firstIn is
+         after scheduledStart + tolerance and 'absent' when there are no
+         punches by then — exactly the two flags the note beneath the
+         facts explains (hours = lastOut − firstIn is also computed there,
+         but isn't claimed in the compact copy above). */
 
   const Attendance = ({ t }) => (
-    <section id="personal" className="section surface-white-bg" data-bg="off">
+    <section id="personal" className="section section--tight surface-tint-bg" data-bg="tint">
       <div className="container">
-        <h2 className="h2">{t.attendance.h}</h2>
+        <h2 className="h3">{t.attendance.h}</h2>
         <p className="lede">{t.attendance.sub}</p>
-        <div className="roster">
-          {t.attendance.rows.map((r, i) => (
-            <div key={i} className="roster-row">
-              <div className="roster-who">
-                <span className="roster-name">{r.name}</span>
-                <span className="roster-meta">{r.meta}</span>
-              </div>
-              <span className="roster-times">{r.times}</span>
-              <span className={`roster-flag roster-flag--${r.flag_kind}`}>{r.flag}</span>
-            </div>
-          ))}
-        </div>
-        <p className="roster-note">{t.attendance.note}</p>
+        <ul className="arc-feats">
+          {t.attendance.facts.map((f, i) => <li key={i}>{f}</li>)}
+        </ul>
+        <p className="personal-note">{t.attendance.note}</p>
       </div>
     </section>
   );
@@ -642,7 +669,9 @@
 
   const App = () => {
     const [lang, setLang] = useState('es');
-    const [navBg, setNavBg] = useState('cream');
+    /* Matches Hero's data-bg ('tint') so there's no flash to the wrong nav
+       color before the scroll-position effect below runs on mount. */
+    const [navBg, setNavBg] = useState('tint');
 
     useEffect(() => {
       document.documentElement.lang = lang;

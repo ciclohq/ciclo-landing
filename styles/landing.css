@@ -148,6 +148,21 @@
 .surface-cream-bg  { background: var(--paper-cream); }
 .surface-tint-bg   { background: var(--pale-cobalt); }
 .surface-white-bg  { background: var(--bright-white); }
+/* The page's one deliberately inverted mid-page band (#asistente) — same
+   --ink background the footer already uses. Background only, like its
+   light siblings above; the on-dark text-color overrides live scoped to
+   #asistente itself, further down this file. */
+.surface-ink-bg    { background: var(--ink); }
+
+/* Demoted #personal: roughly half of --section-y at every breakpoint, not
+   tied to the --section-y custom property so the <768px query below
+   (which redeclares --section-y: 40px for every other section) doesn't
+   flatten this section back to the same height as its full-weight
+   neighbors. */
+.section--tight {
+  padding-top: clamp(32px, 4vw, 56px);
+  padding-bottom: clamp(32px, 4vw, 56px);
+}
 
 .container {
   max-width: var(--container);
@@ -729,6 +744,36 @@
 .assistant-thread .thread-msg--ciclo .thread-bubble { max-width: 92%; }
 .assistant-thread .thread-text { font-variant-numeric: tabular-nums; }
 
+/* ---------- Assistant — dark-ground overrides, scoped to #asistente only ----------
+   The page's one inverted band. Every value below is an existing on-dark
+   token from tokens.css (the family the footer already uses) — no new
+   colors. Ratios computed via the WCAG relative-luminance formula against
+   the exact hex/rgba pairs in tokens.css (not estimated):
+     white(--bright-white) / --ink                          14.62:1
+     --body-on-dark (flattened) / --ink                       9.44:1
+     on-dark customer-bubble text / on-dark customer-bubble bg 7.88:1
+   All clear the 4.5:1 floor with room to spare.
+
+   Selectors are ID-scoped (#asistente ...) precisely so none of this
+   leaks into the hero or arc part 01, where the unscoped .thread-frame /
+   .thread-msg--customer .thread-bubble rules (components.css) still
+   apply unchanged. .thread-msg--ciclo .thread-bubble is deliberately NOT
+   touched anywhere here — it's already an opaque --brand-deep fill with
+   white text (6.32:1) regardless of the section behind it. */
+#asistente.section { color: var(--body-on-dark); }
+#asistente .h2 { color: var(--bright-white); }
+#asistente .lede { color: var(--body-on-dark); }
+#asistente .thread-frame {
+  background: transparent;
+  border-color: var(--hairline-on-dark);
+  box-shadow: none;
+}
+#asistente .thread-msg--customer .thread-bubble {
+  background: var(--hairline-on-dark-soft);
+  border: 1px solid var(--hairline-on-dark);
+  color: var(--body-on-dark);
+}
+
 /* ---------- Included — spec table (dl, not a card grid) ----------
    Two columns at desktop (label / stacked capability list), stacked at
    mobile. The `dt` is the only surviving uppercase mono label on the
@@ -782,49 +827,18 @@
   .spec-row dt { padding-top: 2px; }
 }
 
-/* ---------- Roster — attendance's daily-summary rows ----------
-   Three hairline-separated rows (name + branch/schedule, actual times, a
-   status chip), the same idiom as .spec — no cards. Stacked at mobile
-   (name/meta, then times, then the flag on its own line) so nothing
-   truncates at 390px; a three-column row from 640px up. Flag colors reuse
-   the existing status-chip tokens (done/proc/new) — no new colors, and
-   'new' (muted gray) stands in for "absent" since there's no error/red
-   chip token in styles/tokens.css. */
+/* ---------- Personal (#personal) — demoted from a fabricated roster ----------
+   Was three hairline rows naming invented employees (Marisol G./Iván R./
+   Paola T.) under a full .h2 — the same visual weight as the delivery
+   engine, for the least differentiating feature on the page. Now a .h3
+   heading + .lede sentence + the arc's own .arc-feats pill list (reused
+   as-is, not redeclared) for the three capability facts, plus this one
+   note carried over unchanged (it was already accurate, not part of what
+   was fabricated — see daily-summary.ts). No roster, no cards, no
+   invented names. */
 
-.roster { margin-top: 32px; border-top: 1px solid var(--hairline-soft); }
-.roster-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--hairline-soft);
-  align-items: center;
-}
-.roster-who { display: flex; flex-direction: column; gap: 3px; }
-.roster-name { font-size: 16px; font-weight: 500; color: var(--ink); }
-.roster-meta {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
-  color: var(--body-muted);
-}
-.roster-times { font-size: 16px; line-height: 1.5; color: var(--body); }
-.roster-flag {
-  justify-self: start;
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border-radius: 999px; padding: 5px 12px; white-space: nowrap;
-  color: var(--chip-new-f); background: var(--chip-new-b);
-}
-.roster-flag--done { color: var(--chip-done-f); background: var(--chip-done-b); }
-.roster-flag--proc { color: var(--chip-proc-f); background: var(--chip-proc-b); }
-@media (min-width: 640px) {
-  .roster-row {
-    grid-template-columns: 1.3fr 1.3fr auto;
-    gap: 20px;
-  }
-  .roster-flag { justify-self: end; }
-}
-.roster-note {
-  margin: 24px 0 0;
+.personal-note {
+  margin: 20px 0 0;
   max-width: 60ch;
   font-size: 16px; line-height: 1.6; color: var(--body-muted);
 }
@@ -1091,19 +1105,16 @@
 
   .assistant-thread { margin-top: 18px; }
 
-  /* #incluye and #personal share the same off-white surface with no
-     color change between them — the seam doesn't need two full
-     section-y's worth of empty space to read as a break. */
-  #incluye.section { padding-bottom: 24px; }
-  #personal.section { padding-top: 24px; }
+  /* #incluye and #personal no longer share a surface (task: page rhythm —
+     incluye is .surface-white-bg/off, personal is .surface-tint-bg/tint),
+     so the old same-surface seam shortcut that used to live here is gone;
+     #personal's own .section--tight (landing.css, near .section) already
+     handles its compact padding at every width, mobile included. */
+  #personal .arc-feats { margin-top: 20px; }
 
   .spec { margin-top: 24px; }
   .spec-row { padding: 12px 0; }
   .spec-items li { padding: 7px 0; }
-
-  .roster { margin-top: 18px; }
-  .roster-row { padding: 10px 0; }
-  .roster-note { margin-top: 14px; }
 
   .compare { margin-top: 12px; }
   .compare-model { padding: 20px 0; }

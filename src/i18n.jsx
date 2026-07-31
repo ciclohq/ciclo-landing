@@ -206,7 +206,7 @@ window.I18N = {
       ],
     },
 
-    /* --- Attendance — its own compact section (not an Included row alone).
+    /* --- Attendance — a compact aside now, not a fabricated roster.
        Verified against apps/api/src/modules/attendance/: pin.util.ts (PIN
        hashing/verification), dto/punch.dto.ts (branchId + 4-digit PIN + type
        required per punch — the clock happens at a branch, not the PIN
@@ -214,15 +214,16 @@ window.I18N = {
        per-employee overrides, DEFAULT_TOLERANCE_MINUTES = 15, overridable per
        day) and daily-summary.ts (buildDailySummaries: 'late' when firstIn is
        after scheduledStart + tolerance, 'absent' when there are no punches by
-       then, hours = lastOut − firstIn). Names and times are an illustrative
-       example roster, like the hero's order card — not real employees. --- */
+       then, hours = lastOut − firstIn). `facts` replaces the old three-name
+       roster (Marisol G./Iván R./Paola T. — invented employees, dropped) —
+       see landing.jsx's Attendance comment for the per-fact source cite. --- */
     attendance: {
       h: 'Entradas y salidas, sucursal por sucursal.',
       sub: 'Tu equipo marca entrada y salida con un PIN de 4 dígitos en cada sucursal. Tú ves el horario de cada quien y un resumen del día.',
-      rows: [
-        { name: 'Marisol G.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 08:57 · Salida 18:04', flag: 'A tiempo', flag_kind: 'done' },
-        { name: 'Iván R.', meta: 'Sucursal Roma Norte · 09:00–18:00', times: 'Entrada 09:22 · Salida 18:10', flag: 'Tarde', flag_kind: 'proc' },
-        { name: 'Paola T.', meta: 'Sucursal Del Valle · 10:00–19:00', times: 'Sin registro', flag: 'Ausente', flag_kind: 'new' },
+      facts: [
+        'PIN de 4 dígitos por sucursal',
+        'Tolerancia ajustable, 15 min por defecto',
+        'Resumen diario: tardanzas y faltas',
       ],
       note: 'Un empleado sale "tarde" si marca después de la tolerancia de su sucursal (15 minutos por defecto, ajustable por día), y "ausente" si nunca marca entrada.',
     },
@@ -500,10 +501,10 @@ window.I18N = {
     attendance: {
       h: 'Clock-ins and clock-outs, branch by branch.',
       sub: 'Your team clocks in and out with a 4-digit PIN at each branch. You see everyone’s schedule and a daily summary.',
-      rows: [
-        { name: 'Marisol G.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 8:57am · Out 6:04pm', flag: 'On time', flag_kind: 'done' },
-        { name: 'Iván R.', meta: 'Roma Norte Branch · 9:00am–6:00pm', times: 'In 9:22am · Out 6:10pm', flag: 'Late', flag_kind: 'proc' },
-        { name: 'Paola T.', meta: 'Del Valle Branch · 10:00am–7:00pm', times: 'No punch', flag: 'Absent', flag_kind: 'new' },
+      facts: [
+        '4-digit PIN per branch',
+        '15-minute grace period, adjustable per day',
+        'Daily summary: late arrivals and absences',
       ],
       note: 'An employee shows "late" if they clock in after their branch’s grace period (15 minutes by default, adjustable per day), and "absent" if they never clock in.',
     },
